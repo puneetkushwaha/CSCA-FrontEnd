@@ -13,60 +13,38 @@ const OAuthSuccess = () => {
 
     const token = searchParams.get("token");
 
-    if (token) {
-      hasProcessed.current = true;
-
-      const fetchProfile = async () => {
-        try {
-          const BASE_URL = import.meta.env.VITE_BASE_URL || 'https://csca.onrender.com';
-          // Using /api/auth/me as the likely endpoint for profile info
-          const res = await fetch(`${BASE_URL}/api/auth/me`, {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-
-          if (res.ok) {
-            const data = await res.json();
-            const userData = data.user || data;
-            login(userData, token);
-            navigate("/", { replace: true });
-          } else {
-            console.warn("Profile fetch failed, using fallback decode");
-            handleFallback(token);
-          }
-        } catch (error) {
-          console.error("Profile fetch error:", error);
-          handleFallback(token);
-        }
-      };
-
-      const handleFallback = (token) => {
-        let userData = {};
-
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-
-    userData = {
-      id: payload.id || payload.sub,
-      email: payload.email || "",
-      firstName: payload.firstName || payload.email || "User",
-      lastName: payload.lastName || "",
-      role: payload.role || "student",
-    };
-  } catch (e) {
-    console.error("Token decode failed", e);
-  }
-
-  login(userData, token);
-  navigate("/", { replace: true });
-};
-
-
-      fetchProfile();
-    } else {
+    if (!token) {
       navigate("/login", { replace: true });
+      return;
     }
+
+    hasProcessed.current = true;
+
+    // ✅ Direct token decode (No API call)
+    let userData = {};
+
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+
+      userData = {
+        id: payload.id || payload.sub,
+        email: payload.email || "",
+        firstName: payload.firstName || payload.email || "User",
+        lastName: payload.lastName || "",
+        role: payload.role || "student",
+      };
+    } catch (e) {
+      console.error("Token decode failed", e);
+      userData = {
+        email: "",
+        firstName: "User",
+        lastName: "",
+        role: "student",
+      };
+    }
+
+    login(userData, token);
+    navigate("/", { replace: true });
   }, [searchParams, login, navigate]);
 
   return (
