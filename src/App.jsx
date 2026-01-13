@@ -31,6 +31,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Signup from './pages/signup';
 import SocialLogin from './pages/SocialLogin';
+import OAuthSuccess from "./pages/OAuthSuccess";
 import Dashboard from './pages/Dashboard';
 import Pricing from './pages/Pricing';
 import FAQ from './pages/FAQ';
@@ -127,6 +128,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/oauth-success" element={<SocialLogin />} />
+            <Route path="/oauth-success" element={<OAuthSuccess />} />
 
             {/* Protected Dashboard Area */}
             <Route element={<ProtectedRoute />}>
