@@ -30,6 +30,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Signup from './pages/signup';
+import SocialLogin from './pages/SocialLogin';
 import Dashboard from './pages/Dashboard';
 import Pricing from './pages/Pricing';
 import FAQ from './pages/FAQ';
@@ -41,6 +42,7 @@ import Instructors from './pages/Instructors';
 import Students from './pages/Students';
 import Enterprise from './pages/Enterprise';
 import Profile from './pages/Profile';
+
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -124,6 +126,7 @@ function App() {
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
+            <Route path="/oauth-success" element={<SocialLogin />} />
 
             {/* Protected Dashboard Area */}
             <Route element={<ProtectedRoute />}>
