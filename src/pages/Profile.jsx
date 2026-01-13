@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../config';
 import {
@@ -22,11 +22,23 @@ const Profile = () => {
   const [isPasswordLoading, setIsPasswordLoading] = useState(false);
 
   const [profile, setProfile] = useState({
-    firstName: user?.firstName || '',
+    firstName: user?.firstName || user?.email || '',
     lastName: user?.lastName || '',
     email: user?.email || '',
     role: user?.role || 'student',
   });
+
+  // ✅ FIX: user update hone ke baad profile state ko sync karo
+  useEffect(() => {
+    if (user) {
+      setProfile({
+        firstName: user?.firstName || user?.email || '',
+        lastName: user?.lastName || '',
+        email: user?.email || '',
+        role: user?.role || 'student',
+      });
+    }
+  }, [user]);
 
   const [passwords, setPasswords] = useState({
     oldPassword: '',
