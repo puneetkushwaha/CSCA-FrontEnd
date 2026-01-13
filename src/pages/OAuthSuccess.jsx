@@ -16,28 +16,51 @@ const OAuthSuccess = () => {
     if (token) {
       hasProcessed.current = true;
 
-      // Try to decode JWT for user data if possible
-      let userData = { firstName: 'User' };
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        userData = {
-          id: payload.id || payload.sub,
-          email: payload.email,
-          firstName: payload.firstName || 'User',
-          lastName: payload.lastName || '',
-          role: payload.role || 'student'
-        };
-      } catch (e) {
-        console.error("Token decode failed", e);
-      }
+      const fetchProfile = async () => {
+        try {
+          const BASE_URL = import.meta.env.VITE_BASE_URL || 'https://csca.onrender.com';
+          // Using /api/auth/me as the likely endpoint for profile info
+          const res = await fetch(`${BASE_URL}/api/auth/me`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
 
-      // ✅ Update AuthContext State so Navbar reflects login immediately
-      login(userData, token);
+          if (res.ok) {
+            const data = await res.json();
+            const userData = data.user || data;
+            login(userData, token);
+            navigate("/", { replace: true });
+          } else {
+            console.warn("Profile fetch failed, using fallback decode");
+            handleFallback(token);
+          }
+        } catch (error) {
+          console.error("Profile fetch error:", error);
+          handleFallback(token);
+        }
+      };
 
-      // ✅ Redirect to "/" (which is inside MainLayout and has the Navbar)
-      navigate("/", { replace: true });
+      const handleFallback = (token) => {
+        let userData = { firstName: 'User' };
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          userData = {
+            id: payload.id || payload.sub,
+            email: payload.email,
+            firstName: payload.firstName || 'User',
+            lastName: payload.lastName || '',
+            role: payload.role || 'student'
+          };
+        } catch (e) {
+          console.error("Token decode failed", e);
+        }
+        login(userData, token);
+        navigate("/", { replace: true });
+      };
+
+      fetchProfile();
     } else {
-      // ✅ Login page redirect
       navigate("/login", { replace: true });
     }
   }, [searchParams, login, navigate]);
