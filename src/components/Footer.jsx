@@ -155,11 +155,18 @@ const Footer = () => {
                     </div>
 
                     <div className="flex gap-4">
-                        {[Twitter, Linkedin, Github, Youtube].map((Icon, i) => (
-                            <a key={i} href="#" className="w-10 h-10 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:border-red-600 hover:bg-red-600 transition-all duration-300 group">
-                                <Icon className="w-4 h-4 group-hover:scale-110" />
-                            </a>
-                        ))}
+                        <a href="#" className="w-10 h-10 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:border-red-600 hover:bg-red-600 transition-all duration-300 group">
+                            <Twitter className="w-4 h-4 group-hover:scale-110" />
+                        </a>
+                        <a href="#" className="w-10 h-10 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:border-red-600 hover:bg-red-600 transition-all duration-300 group">
+                            <Linkedin className="w-4 h-4 group-hover:scale-110" />
+                        </a>
+                        <a href="#" className="w-10 h-10 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:border-red-600 hover:bg-red-600 transition-all duration-300 group">
+                            <Github className="w-4 h-4 group-hover:scale-110" />
+                        </a>
+                        <a href="#" className="w-10 h-10 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:border-red-600 hover:bg-red-600 transition-all duration-300 group">
+                            <Youtube className="w-4 h-4 group-hover:scale-110" />
+                        </a>
                     </div>
                 </div>
             </div>
