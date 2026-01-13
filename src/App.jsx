@@ -129,6 +129,8 @@ function App() {
             <Route path="/register" element={<Signup />} />
             <Route path="/oauth-success" element={<SocialLogin />} />
             <Route path="/oauth-success" element={<OAuthSuccess />} />
+            <Route path="/Home" element={<Home />} />
+
 
             {/* Protected Dashboard Area */}
             <Route element={<ProtectedRoute />}>
