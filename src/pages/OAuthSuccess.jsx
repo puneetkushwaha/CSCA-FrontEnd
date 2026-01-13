@@ -42,7 +42,7 @@ const OAuthSuccess = () => {
       };
 
       const handleFallback = (token) => {
-  let userData = { firstName: "User" };
+        let userData = {};
 
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
