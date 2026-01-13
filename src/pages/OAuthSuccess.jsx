@@ -42,22 +42,26 @@ const OAuthSuccess = () => {
       };
 
       const handleFallback = (token) => {
-        let userData = { firstName: 'User' };
-        try {
-          const payload = JSON.parse(atob(token.split('.')[1]));
-          userData = {
-            id: payload.id || payload.sub,
-            email: payload.email,
-            firstName: payload.firstName || 'User',
-            lastName: payload.lastName || '',
-            role: payload.role || 'student'
-          };
-        } catch (e) {
-          console.error("Token decode failed", e);
-        }
-        login(userData, token);
-        navigate("/", { replace: true });
-      };
+  let userData = { firstName: "User" };
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+
+    userData = {
+      id: payload.id || payload.sub,
+      email: payload.email || "",
+      firstName: payload.firstName || payload.email || "User",
+      lastName: payload.lastName || "",
+      role: payload.role || "student",
+    };
+  } catch (e) {
+    console.error("Token decode failed", e);
+  }
+
+  login(userData, token);
+  navigate("/", { replace: true });
+};
+
 
       fetchProfile();
     } else {
