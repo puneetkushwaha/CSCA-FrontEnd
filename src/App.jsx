@@ -134,7 +134,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />}>
                 <Route index element={<DashboardHome />} />
                 <Route path="courses" element={<DashboardHome />} />
-                <Route path="certifications" element={<DashboardHome />} />
+                <Route path="certifications" element={<Certifications />} />
                 <Route path="settings" element={<DashboardHome />} />
                 <Route path="exam" element={<Exam />} />
                 <Route path="profile" element={<Profile />} />
