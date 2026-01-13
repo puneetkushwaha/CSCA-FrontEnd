@@ -12,7 +12,7 @@ const OAuthSuccess = () => {
       localStorage.setItem("token", token);
 
       // ✅ Home (Hero) page redirect
-      navigate("/home", { replace: true });
+      navigate("/profile", { replace: true });
     } else {
       // ✅ Login page redirect
       navigate("/Login", { replace: true });
