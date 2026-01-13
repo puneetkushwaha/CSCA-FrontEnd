@@ -307,10 +307,14 @@ const Navbar = () => {
                                 <button className="flex items-center gap-2 text-[10px] font-bold uppercase text-gray-400 hover:text-white transition-colors border border-white/10 px-3 py-1.5 rounded-lg hover:bg-white/5 hover:border-white/20">
                                     <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-red-600 to-red-400 flex items-center justify-center border border-white/10 shadow-lg shadow-red-900/20">
                                         <span className="text-[9px] text-white font-black">
-                                            {user.firstName ? user.firstName[0] : (user.displayName ? user.displayName[0] : 'U')}
-                                        </span>
+  {(user.firstName?.[0] || user.displayName?.[0] || user.email?.[0] || "U").toUpperCase()}
+</span>
+
                                     </div>
-                                    <span className="max-w-[100px] truncate">{user.firstName || user.displayName || 'Authorized'}</span>
+                                    <span className="max-w-[100px] truncate">
+  {user.firstName || user.displayName || user.email || "Authorized"}
+</span>
+
                                     <ChevronDown className="w-3 h-3 opacity-50 group-hover/profile:rotate-180 transition-transform" />
                                 </button>
 
