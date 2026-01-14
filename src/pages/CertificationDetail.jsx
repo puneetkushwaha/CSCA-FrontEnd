@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import {
     Clock, Shield, ShieldCheck, BookOpen, CheckCircle, ExternalLink,
     Download, PlayCircle, Users, Award, Briefcase,
@@ -9,6 +10,7 @@ import RedGeometricBackground from '../components/RedGeometricBackground';
 
 const CertificationDetail = () => {
     const { id } = useParams();
+    const { addToCart } = useCart();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -360,7 +362,18 @@ const CertificationDetail = () => {
                                     </div>
                                     <div className="text-[10px] text-red-500 font-bold uppercase tracking-wider mb-8">One-time payment • Lifetime access</div>
 
-                                    <button className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] text-xs hover:bg-red-600 hover:text-white transition-all duration-300 rounded-lg shadow-lg hover:shadow-red-900/50 mb-4 flex items-center justify-center gap-2 group/btn">
+                                    <button
+                                        onClick={() => addToCart({
+                                            id: id,
+                                            title: cert.title,
+                                            code: cert.id,
+                                            price: parseFloat(cert.price.replace(/[^0-9.]/g, '')),
+                                            category: cert.level,
+                                            icon: <ShieldCheck className="w-6 h-6" />,
+                                            color: 'from-red-500 to-orange-600'
+                                        })}
+                                        className="w-full py-4 bg-white text-black font-black uppercase tracking-[0.2em] text-xs hover:bg-red-600 hover:text-white transition-all duration-300 rounded-lg shadow-lg hover:shadow-red-900/50 mb-4 flex items-center justify-center gap-2 group/btn"
+                                    >
                                         {cert.examDetails ? 'Buy Bundle' : 'Enroll Now'}
                                         <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                                     </button>

@@ -143,10 +143,15 @@ const CartDrawer = () => {
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest text-sm rounded-xl transition-all shadow-[0_0_20px_rgba(220,38,38,0.3)] hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] flex items-center justify-center gap-2 group">
+
+                            <Link
+                                to="/checkout"
+                                onClick={() => setIsCartOpen(false)}
+                                className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest text-sm rounded-xl transition-all shadow-[0_0_20px_rgba(220,38,38,0.3)] hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] flex items-center justify-center gap-2 group"
+                            >
                                 Checkout Now
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </button>
+                            </Link>
 
                             <button
                                 onClick={clearCart}

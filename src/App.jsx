@@ -42,6 +42,7 @@ import Instructors from './pages/Instructors';
 import Students from './pages/Students';
 import Enterprise from './pages/Enterprise';
 import Profile from './pages/Profile';
+import Checkout from './pages/Checkout';
 
 
 // Scroll to top on route change
@@ -121,6 +122,7 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Route>
 
             {/* Auth Routes */}
