@@ -43,6 +43,8 @@ import Students from './pages/Students';
 import Enterprise from './pages/Enterprise';
 import Profile from './pages/Profile';
 import Checkout from './pages/Checkout';
+import SuccessStories from './pages/SuccessStories';
+import AboutUs from './pages/AboutUs';
 
 
 // Scroll to top on route change
@@ -123,6 +125,8 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/success-stories" element={<SuccessStories />} />
+              <Route path="/about-us" element={<AboutUs />} />
             </Route>
 
             {/* Auth Routes */}

@@ -6,6 +6,7 @@ import {
   Map,
   Briefcase,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import RedGeometricBackground from "../components/RedGeometricBackground";
 
 const SecondaryEducation = () => {
@@ -52,8 +53,8 @@ const SecondaryEducation = () => {
                 key={tab.name}
                 onClick={() => setActiveTab(tab.name)}
                 className={`flex items-center gap-2 px-8 py-5 text-sm font-bold uppercase tracking-wider transition-all duration-300 relative overflow-hidden group ${activeTab === tab.name
-                    ? "text-white bg-white/5"
-                    : "text-gray-500 hover:text-white hover:bg-white/5"
+                  ? "text-white bg-white/5"
+                  : "text-gray-500 hover:text-white hover:bg-white/5"
                   }`}
               >
                 {tab.icon} {tab.name}
@@ -108,23 +109,25 @@ const SecondaryEducation = () => {
 
             {/* Let's Connect CTA */}
             <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden mb-24"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">Let's Connect</h2>
-    <p className="text-lg mb-8 text-white/90">
-      Ready to take the next step? Prepare your students for their next step
-      with job-ready and market-aligned tech skills.
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Connect with us
-    </button>
-  </div>
-</section>
+              className="relative py-20 text-center text-white rounded-2xl overflow-hidden mb-24"
+              style={{
+                background:
+                  "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+              }}
+            >
+              <div className="max-w-3xl mx-auto px-6">
+                <h2 className="text-4xl font-bold mb-4">Let's Connect</h2>
+                <p className="text-lg mb-8 text-white/90">
+                  Ready to take the next step? Prepare your students for their next step
+                  with job-ready and market-aligned tech skills.
+                </p>
+                <Link to="/contact">
+                  <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                    Connect with us
+                  </button>
+                </Link>
+              </div>
+            </section>
 
 
 
@@ -144,9 +147,11 @@ const SecondaryEducation = () => {
                   and convenient solution for delivering select CSCA certification
                   exams.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  Learn more
-                </button>
+                <Link to="/certification-pathway">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    Learn more
+                  </button>
+                </Link>
               </div>
             </section>
 
@@ -159,9 +164,11 @@ const SecondaryEducation = () => {
                   skills in Core, Infrastructure, Cybersecurity, Data & Analytics, and
                   Professional fields, preparing them for successful tech careers.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  View pathways
-                </button>
+                <Link to="/certification-pathway">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    View pathways
+                  </button>
+                </Link>
               </div>
               <div>
                 <img
@@ -217,22 +224,22 @@ const SecondaryEducation = () => {
 
             {/* Expand Program CTA */}
             <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
-    <p className="text-lg mb-8 text-white/90">
-      Ready to see how CSCA can help grow your tech-focused CTE program?
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Learn more
-    </button>
-  </div>
-</section>
+              className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+              }}
+            >
+              <div className="max-w-3xl mx-auto px-6">
+                <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
+                <p className="text-lg mb-8 text-white/90">
+                  Ready to see how CSCA can help grow your tech-focused CTE program?
+                </p>
+                <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                  Learn more
+                </button>
+              </div>
+            </section>
 
           </div>
         )}
@@ -274,12 +281,16 @@ const SecondaryEducation = () => {
                 potential.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  Get started with an expert
-                </button>
-                <button className="bg-white/10 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all">
-                  Connect with an expert
-                </button>
+                <Link to="/contact">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    Get started with an expert
+                  </button>
+                </Link>
+                <Link to="/contact">
+                  <button className="bg-white/10 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all">
+                    Connect with an expert
+                  </button>
+                </Link>
               </div>
             </section>
 
@@ -300,12 +311,16 @@ const SecondaryEducation = () => {
                   best align with your tech program goals.
                 </p>
                 <div className="flex gap-4 flex-wrap">
-                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                    Try a CertMaster lab
-                  </button>
-                  <button className="bg-white/10 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all">
-                    Buy today
-                  </button>
+                  <Link to="/certifications">
+                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                      Try a CertMaster lab
+                    </button>
+                  </Link>
+                  <Link to="/certifications">
+                    <button className="bg-white/10 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all">
+                      Buy today
+                    </button>
+                  </Link>
                 </div>
               </div>
             </section>
@@ -320,9 +335,11 @@ const SecondaryEducation = () => {
                   CSCA's certifications validate students' expertise, paving the way for
                   professional growth in essential technology career pathways.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  View certifications
-                </button>
+                <Link to="/certifications">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    View certifications
+                  </button>
+                </Link>
               </div>
               <div>
                 <img
@@ -354,34 +371,38 @@ const SecondaryEducation = () => {
                   Linux+, and Data+.
                 </p>
                 <div className="flex gap-4 flex-wrap">
-                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                    Watch demo video
-                  </button>
-                  <button className="bg-white/10 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all">
-                    Try a walk through
-                  </button>
+                  <Link to="/certifications">
+                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                      Watch demo video
+                    </button>
+                  </Link>
+                  <Link to="/certifications">
+                    <button className="bg-white/10 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all">
+                      Try a walk through
+                    </button>
+                  </Link>
                 </div>
               </div>
             </section>
 
             {/* Expand Your Tech Program CTA */}
             <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
-    <p className="text-lg mb-8 text-white/90">
-      Ready to see how CSCA can help grow your tech-focused CTE program?
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Learn more
-    </button>
-  </div>
-</section>
+              className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+              }}
+            >
+              <div className="max-w-3xl mx-auto px-6">
+                <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
+                <p className="text-lg mb-8 text-white/90">
+                  Ready to see how CSCA can help grow your tech-focused CTE program?
+                </p>
+                <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                  Learn more
+                </button>
+              </div>
+            </section>
 
           </div>
         )}
@@ -407,9 +428,11 @@ const SecondaryEducation = () => {
                   ever-evolving tech landscape. Discover opportunities to collaborate,
                   share insights, and drive innovation within the tech community.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  Join CIN
-                </button>
+                <Link to="/resources">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    Join CIN
+                  </button>
+                </Link>
               </div>
               <div>
                 <img
@@ -439,9 +462,11 @@ const SecondaryEducation = () => {
                   Kickstart program to provide students with the tools and knowledge
                   they need to succeed in technology careers.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  Learn more
-                </button>
+                <Link to="/resources">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    Learn more
+                  </button>
+                </Link>
               </div>
             </section>
 
@@ -457,9 +482,11 @@ const SecondaryEducation = () => {
                   Learn how CSCA can help you access grants, scholarships, and resources
                   to fuel your mission and empower future tech talent.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  Connect with an expert
-                </button>
+                <Link to="/contact">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    Connect with an expert
+                  </button>
+                </Link>
               </div>
               <div>
                 <img
@@ -487,9 +514,11 @@ const SecondaryEducation = () => {
                   Access exclusive resources designed to support and empower your
                   partnership with CSCA.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  View resources
-                </button>
+                <Link to="/resources">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    View resources
+                  </button>
+                </Link>
               </div>
             </section>
 
@@ -538,22 +567,22 @@ const SecondaryEducation = () => {
 
             {/* Expand Program CTA */}
             <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
-    <p className="text-lg mb-8 text-white/90">
-      Ready to see how CSCA can help grow your tech-focused CTE program?
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Learn more
-    </button>
-  </div>
-</section>
+              className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+              }}
+            >
+              <div className="max-w-3xl mx-auto px-6">
+                <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
+                <p className="text-lg mb-8 text-white/90">
+                  Ready to see how CSCA can help grow your tech-focused CTE program?
+                </p>
+                <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                  Learn more
+                </button>
+              </div>
+            </section>
 
           </div>
         )}
@@ -648,9 +677,11 @@ const SecondaryEducation = () => {
                     <p className="text-gray-400 text-sm mb-6 leading-relaxed">
                       {path.description}
                     </p>
-                    <button className="bg-[#d71f28] text-white text-sm font-semibold px-5 py-2 rounded-full hover:scale-105 transition-transform">
-                      Explore products
-                    </button>
+                    <Link to="/certifications">
+                      <button className="bg-[#d71f28] text-white text-sm font-semibold px-5 py-2 rounded-full hover:scale-105 transition-transform">
+                        Explore products
+                      </button>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -658,22 +689,22 @@ const SecondaryEducation = () => {
 
             {/* Expand Program CTA */}
             <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
-    <p className="text-lg mb-8 text-white/90">
-      Ready to see how CSCA can help grow your tech-focused CTE program?
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Learn more
-    </button>
-  </div>
-</section>
+              className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+              }}
+            >
+              <div className="max-w-3xl mx-auto px-6">
+                <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
+                <p className="text-lg mb-8 text-white/90">
+                  Ready to see how CSCA can help grow your tech-focused CTE program?
+                </p>
+                <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                  Learn more
+                </button>
+              </div>
+            </section>
 
           </div>
         )}
@@ -700,9 +731,11 @@ const SecondaryEducation = () => {
                   the technical skills and certifications needed to thrive in a
                   tech-driven world.
                 </p>
-                <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                  Read case study
-                </button>
+                <Link to="/resources/case-studies">
+                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                    Read case study
+                  </button>
+                </Link>
               </div>
               <div>
                 <img
@@ -847,22 +880,22 @@ const SecondaryEducation = () => {
 
             {/* Expand Program CTA */}
             <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
-    <p className="text-lg mb-8 text-white/90">
-      Ready to see how CSCA can help grow your tech-focused CTE program?
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Learn more
-    </button>
-  </div>
-</section>
+              className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+              }}
+            >
+              <div className="max-w-3xl mx-auto px-6">
+                <h2 className="text-4xl font-bold mb-4">Expand your tech program</h2>
+                <p className="text-lg mb-8 text-white/90">
+                  Ready to see how CSCA can help grow your tech-focused CTE program?
+                </p>
+                <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                  Learn more
+                </button>
+              </div>
+            </section>
           </div>
         )}
 

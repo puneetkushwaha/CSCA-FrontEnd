@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BookOpen, Wrench, FolderOpen, Map, Briefcase, BarChart } from "lucide-react";
+import { Link } from "react-router-dom";
 import RedGeometricBackground from "../components/RedGeometricBackground";
 
 const Enterprise = () => {
@@ -37,7 +38,7 @@ const Enterprise = () => {
 
                     <h1 className="text-6xl md:text-7xl font-black uppercase tracking-tight mb-6">
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">
-                        Cyber Capability Building for Enterprises & Governments.
+                            Cyber Capability Building for Enterprises & Governments.
                         </span>
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mb-10 leading-relaxed">
@@ -103,9 +104,11 @@ const Enterprise = () => {
                                 <br />
                                 Let's discuss your goals and how we can work together to upskill and empower your team.
                             </p>
-                            <button className="bg-[#d71f28] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_4px_20px_rgba(215,31,40,0.4)]">
-                                Connect with us
-                            </button>
+                            <Link to="/contact">
+                                <button className="bg-[#d71f28] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_4px_20px_rgba(215,31,40,0.4)]">
+                                    Connect with us
+                                </button>
+                            </Link>
                         </section>
 
                         {/* Employee Career Pathways */}
@@ -208,9 +211,11 @@ const Enterprise = () => {
                                 <p className="text-xl md:text-2xl mb-10 text-white/90 font-light">
                                     Ready to partner with our team to find the right upskilling solution for your tech staff?
                                 </p>
-                                <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
-                                    Contact us
-                                </button>
+                                <Link to="/contact">
+                                    <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
+                                        Contact us
+                                    </button>
+                                </Link>
                             </div>
                             {/* Decorative background circle */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/20 rounded-full blur-[100px] pointer-events-none"></div>
@@ -251,9 +256,11 @@ const Enterprise = () => {
                             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
                                 Learn more about our solutions designed to empower, educate and unlock potential
                             </p>
-                            <button className="bg-[#d71f28] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_4px_20px_rgba(215,31,40,0.4)]">
-                                Connect with an expert
-                            </button>
+                            <Link to="/contact">
+                                <button className="bg-[#d71f28] text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-[0_4px_20px_rgba(215,31,40,0.4)]">
+                                    Connect with an expert
+                                </button>
+                            </Link>
                         </section>
 
                         {/* OnDemand Learning */}
@@ -316,9 +323,11 @@ const Enterprise = () => {
                                 <p className="text-xl md:text-2xl mb-10 text-white/90 font-light">
                                     Ready to partner with our team to find the right upskilling solution for your tech staff?
                                 </p>
-                                <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
-                                    Contact us
-                                </button>
+                                <Link to="/contact">
+                                    <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
+                                        Contact us
+                                    </button>
+                                </Link>
                             </div>
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/20 rounded-full blur-[100px] pointer-events-none"></div>
                         </section>
@@ -476,9 +485,11 @@ const Enterprise = () => {
                                 <p className="text-xl md:text-2xl mb-10 text-white/90 font-light">
                                     Ready to partner with our team to find the right upskilling solution for your tech staff?
                                 </p>
-                                <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
-                                    Contact us
-                                </button>
+                                <Link to="/contact">
+                                    <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
+                                        Contact us
+                                    </button>
+                                </Link>
                             </div>
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/20 rounded-full blur-[100px] pointer-events-none"></div>
                         </section>
@@ -547,9 +558,11 @@ const Enterprise = () => {
                                 <p className="text-xl md:text-2xl mb-10 text-white/90 font-light">
                                     Ready to partner with our team to find the right upskilling solution for your tech staff?
                                 </p>
-                                <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
-                                    Contact us
-                                </button>
+                                <Link to="/contact">
+                                    <button className="bg-white text-red-600 font-bold text-lg px-10 py-4 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-105 transition-transform hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]">
+                                        Contact us
+                                    </button>
+                                </Link>
                             </div>
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/20 rounded-full blur-[100px] pointer-events-none"></div>
                         </section>

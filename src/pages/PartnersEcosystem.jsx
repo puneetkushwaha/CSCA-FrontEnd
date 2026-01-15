@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import RedGeometricBackground from "../components/RedGeometricBackground";
 
 const PartnersEcosystem = () => {
@@ -78,11 +79,11 @@ const PartnersEcosystem = () => {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-white mb-8">
-          Partner With CSCA
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">
-                    Build the Cyber Nation Together</span>
-          </h1>
+            <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-white mb-8">
+              Partner With CSCA
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">
+                Build the Cyber Nation Together</span>
+            </h1>
             <p className="text-gray-400 max-w-2xl mx-auto text-lg">
               Collaborating with industry leaders to define the future of cyber
               defense and IT education.
@@ -96,8 +97,8 @@ const PartnersEcosystem = () => {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-8 py-4 text-sm font-bold uppercase tracking-wider transition-all duration-300 relative overflow-hidden group ${activeTab === tab
-                    ? "text-white bg-white/5"
-                    : "text-gray-500 hover:text-white hover:bg-white/5"
+                  ? "text-white bg-white/5"
+                  : "text-gray-500 hover:text-white hover:bg-white/5"
                   }`}
               >
                 <span className="relative z-10">{tab}</span>
@@ -156,9 +157,11 @@ const PartnersEcosystem = () => {
                         Let’s partner together to elevate your portfolio and
                         prepare your learners for roles in tech.
                       </p>
-                      <button className="bg-[#d71f28] text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                        Connect with us
-                      </button>
+                      <Link to="/contact">
+                        <button className="bg-[#d71f28] text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                          Connect with us
+                        </button>
+                      </Link>
                     </div>
 
                     <div className="bg-white/5 p-8 rounded-xl border border-white/10">
@@ -173,9 +176,11 @@ const PartnersEcosystem = () => {
                         a streamlined and convenient solution for delivering
                         select CSCA certification exams.
                       </p>
-                      <button className="bg-[#d71f28] text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                        Learn more
-                      </button>
+                      <Link to="/certification-pathway">
+                        <button className="bg-[#d71f28] text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                          Learn more
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -194,9 +199,11 @@ const PartnersEcosystem = () => {
                       Analytics, and Professional—equip learners with the skills
                       needed to excel in various technology fields.
                     </p>
-                    <button className="bg-[#d71f28] text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                      Learn more
-                    </button>
+                    <Link to="/certification-pathway">
+                      <button className="bg-[#d71f28] text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                        Learn more
+                      </button>
+                    </Link>
                   </div>
                   <div>
                     <img
@@ -263,27 +270,29 @@ const PartnersEcosystem = () => {
                   </div>
                 </div>
                 <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">
-      Partner with CSCA—let’s build IT futures together
-    </h2>
-    <p className="text-lg mb-8 text-white/90">
-      Interested in becoming a CSCA Training Delivery Partner? Connect with our
-      experienced team to learn how CSCA certifications and solutions can
-      enhance your training portfolio and help your learners succeed in IT
-      careers.
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Contact us
-    </button>
-  </div>
-</section>
+                  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+                  }}
+                >
+                  <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-4xl font-bold mb-4">
+                      Partner with CSCA—let’s build IT futures together
+                    </h2>
+                    <p className="text-lg mb-8 text-white/90">
+                      Interested in becoming a CSCA Training Delivery Partner? Connect with our
+                      experienced team to learn how CSCA certifications and solutions can
+                      enhance your training portfolio and help your learners succeed in IT
+                      careers.
+                    </p>
+                    <Link to="/contact">
+                      <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                        Contact us
+                      </button>
+                    </Link>
+                  </div>
+                </section>
 
               </section>
 
@@ -314,9 +323,11 @@ const PartnersEcosystem = () => {
                         <p className="text-gray-400 text-sm mb-6 leading-relaxed">
                           {path.description}
                         </p>
-                        <button className="bg-[#d71f28] text-white text-sm font-semibold px-5 py-2 rounded-full hover:scale-105 transition-transform">
-                          Explore products
-                        </button>
+                        <Link to="/certifications">
+                          <button className="bg-[#d71f28] text-white text-sm font-semibold px-5 py-2 rounded-full hover:scale-105 transition-transform">
+                            Explore products
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   ))}
@@ -324,27 +335,29 @@ const PartnersEcosystem = () => {
 
                 {/* CTA Section */}
                 <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">
-      Partner with CSCA—let’s build IT futures together
-    </h2>
-    <p className="text-lg mb-8 text-white/90">
-      Interested in becoming a CSCA Training Delivery Partner? Connect with our
-      experienced team to learn how CSCA certifications and solutions can
-      enhance your training portfolio and help your learners succeed in IT
-      careers.
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Contact us
-    </button>
-  </div>
-</section>
+                  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+                  }}
+                >
+                  <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-4xl font-bold mb-4">
+                      Partner with CSCA—let’s build IT futures together
+                    </h2>
+                    <p className="text-lg mb-8 text-white/90">
+                      Interested in becoming a CSCA Training Delivery Partner? Connect with our
+                      experienced team to learn how CSCA certifications and solutions can
+                      enhance your training portfolio and help your learners succeed in IT
+                      careers.
+                    </p>
+                    <Link to="/contact">
+                      <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                        Contact us
+                      </button>
+                    </Link>
+                  </div>
+                </section>
 
               </section>
             )}
@@ -365,9 +378,11 @@ const PartnersEcosystem = () => {
                       Flexible training solutions, including instructor resources,
                       student guides, and interactive labs.
                     </p>
-                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                      Get started with an expert
-                    </button>
+                    <Link to="/contact">
+                      <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                        Get started with an expert
+                      </button>
+                    </Link>
                   </div>
                   <div>
                     <img
@@ -387,9 +402,11 @@ const PartnersEcosystem = () => {
                     Learn more about our solutions designed to empower, educate
                     and unlock potential.
                   </p>
-                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                    Connect with an expert
-                  </button>
+                  <Link to="/contact">
+                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                      Connect with an expert
+                    </button>
+                  </Link>
                 </section>
 
                 {/* Industry-recognized IT certifications */}
@@ -412,9 +429,11 @@ const PartnersEcosystem = () => {
                       infrastructure, and data, each certification builds on the
                       last, deepening expertise and validating skills.
                     </p>
-                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                      Learn more
-                    </button>
+                    <Link to="/certifications">
+                      <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                        Learn more
+                      </button>
+                    </Link>
                   </div>
                 </section>
 
@@ -432,9 +451,11 @@ const PartnersEcosystem = () => {
                       OnDemand products available include CSCA Tech+, A+, Network+,
                       Security+, Linux+, CySA+, PenTest+ and Data+.
                     </p>
-                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                      Try a walk through
-                    </button>
+                    <Link to="/certifications">
+                      <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                        Try a walk through
+                      </button>
+                    </Link>
                   </div>
                   <div className="order-1 md:order-2">
                     <img
@@ -447,27 +468,29 @@ const PartnersEcosystem = () => {
 
                 {/* CTA Section */}
                 <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">
-      Partner with CSCA—let’s build IT futures together
-    </h2>
-    <p className="text-lg mb-8 text-white/90">
-      Interested in becoming a CSCA Training Delivery Partner? Connect with our
-      experienced team to learn how CSCA certifications and solutions can
-      enhance your training portfolio and help your learners succeed in IT
-      careers.
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Contact us
-    </button>
-  </div>
-</section>
+                  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+                  }}
+                >
+                  <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-4xl font-bold mb-4">
+                      Partner with CSCA—let’s build IT futures together
+                    </h2>
+                    <p className="text-lg mb-8 text-white/90">
+                      Interested in becoming a CSCA Training Delivery Partner? Connect with our
+                      experienced team to learn how CSCA certifications and solutions can
+                      enhance your training portfolio and help your learners succeed in IT
+                      careers.
+                    </p>
+                    <Link to="/contact">
+                      <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                        Contact us
+                      </button>
+                    </Link>
+                  </div>
+                </section>
 
               </section>
             )}
@@ -497,9 +520,11 @@ const PartnersEcosystem = () => {
                     <p className="text-gray-400 mb-6">
                       Access exclusive resources designed to support and empower your partnership with CSCA.
                     </p>
-                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                      View resources
-                    </button>
+                    <Link to="/resources">
+                      <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                        View resources
+                      </button>
+                    </Link>
                   </div>
                   <img
                     src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1000"
@@ -524,9 +549,11 @@ const PartnersEcosystem = () => {
                     <p className="text-gray-400 mb-6">
                       Learn how New Horizons leverages CSCA as a platinum partner to make a difference and help IT pros achieve career success.
                     </p>
-                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                      Learn more
-                    </button>
+                    <Link to="/resources/case-studies">
+                      <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                        Learn more
+                      </button>
+                    </Link>
                   </div>
                 </section>
 
@@ -543,9 +570,11 @@ const PartnersEcosystem = () => {
                   <p className="text-gray-400 max-w-3xl mx-auto mb-6">
                     The CSCA Instructor Network (CIN) is a worldwide community for instructors who provide CSCA certification training. Join hundreds of other instructors to collaborate, share best practices and receive valuable resources from CSCA.
                   </p>
-                  <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                    Learn more
-                  </button>
+                  <Link to="/resources">
+                    <button className="bg-[#d71f28] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
+                      Learn more
+                    </button>
+                  </Link>
                 </section>
 
                 {/* Certifications & Learning Pathways Section */}
@@ -595,32 +624,34 @@ const PartnersEcosystem = () => {
 
                 {/* CTA Section */}
                 <section
-  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
-  style={{
-    background:
-      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
-  }}
->
-  <div className="max-w-3xl mx-auto px-6">
-    <h2 className="text-4xl font-bold mb-4">
-      Partner with CSCA—let’s build IT futures together
-    </h2>
-    <p className="text-lg mb-8 text-white/90">
-      Interested in becoming a CSCA Training Delivery Partner? Connect with our
-      experienced team to learn how CSCA certifications and solutions can
-      enhance your training portfolio and help your learners succeed in IT
-      careers.
-    </p>
-    <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
-      Contact us
-    </button>
-  </div>
-</section>
+                  className="relative py-20 text-center text-white rounded-2xl overflow-hidden"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #000000 0%, #000000 15%, #ff0000 50%, #000000 85%, #000000 100%)",
+                  }}
+                >
+                  <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-4xl font-bold mb-4">
+                      Partner with CSCA—let’s build IT futures together
+                    </h2>
+                    <p className="text-lg mb-8 text-white/90">
+                      Interested in becoming a CSCA Training Delivery Partner? Connect with our
+                      experienced team to learn how CSCA certifications and solutions can
+                      enhance your training portfolio and help your learners succeed in IT
+                      careers.
+                    </p>
+                    <Link to="/contact">
+                      <button className="bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:scale-105 transition-transform">
+                        Contact us
+                      </button>
+                    </Link>
+                  </div>
+                </section>
 
               </section>
             )}
 
-             
+
           </div>
         </div>
       </div>

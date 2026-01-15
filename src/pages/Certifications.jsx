@@ -45,7 +45,7 @@ const Certifications = () => {
                     </div>
 
                     <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-white mb-8">
-                    Certifications Designed for <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800"> the Real Cyber Battlefield</span>
+                        Certifications Designed for <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800"> the Real Cyber Battlefield</span>
                     </h1>
                     {activeCategory === 'Overview' ? null : (
                         <p className="text-lg text-gray-400 max-w-3xl mx-auto font-medium leading-relaxed animate-in fade-in slide-in-from-bottom-2">
@@ -261,9 +261,12 @@ const Certifications = () => {
                                 <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tighter mb-4">Training a Team?</h3>
                                 <p className="text-base text-gray-400 max-w-lg">Get enterprise-grade reporting, bulk discounts, and dedicated support for your SOC or IT team.</p>
                             </div>
-                            <button className="px-10 py-4 bg-white text-black font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-red-600 hover:text-white transition-all duration-300 shadow-xl hover:shadow-red-900/30">
-                                See Enterprise Solutions
-                            </button>
+                            <Link to="/enterprise">
+                                <button className="px-10 py-4 bg-white text-black font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-red-600 hover:text-white transition-all duration-300 shadow-xl hover:shadow-red-900/30 flex items-center gap-3 group">
+                                    See Enterprise Solutions
+                                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
