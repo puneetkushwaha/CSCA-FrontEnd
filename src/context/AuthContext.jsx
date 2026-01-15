@@ -1,31 +1,55 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    localStorage.getItem('user')
-      ? JSON.parse(localStorage.getItem('user'))
-      : null
-  );
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
+  const [token, setToken] = useState(() => {
+    return localStorage.getItem("token") || null;
+  });
+
+  // ✅ LOGIN (LOCAL + GOOGLE)
   const login = (userData, userToken) => {
-    localStorage.setItem('token', userToken);
-    localStorage.setItem('user', JSON.stringify(userData));
+    if (!userData || !userToken) return;
+
+    localStorage.setItem("token", userToken);
+    localStorage.setItem("user", JSON.stringify(userData));
+
     setUser(userData);
     setToken(userToken);
   };
 
+  // ✅ LOGOUT
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
     setUser(null);
     setToken(null);
   };
 
+  // ✅ AUTO LOGOUT IF TOKEN REMOVED
+  useEffect(() => {
+    if (!token) {
+      localStorage.removeItem("user");
+      setUser(null);
+    }
+  }, [token]);
+
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        login,
+        logout,
+        isAuthenticated: !!token,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
