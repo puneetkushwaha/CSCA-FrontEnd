@@ -20,7 +20,7 @@ export default function Register() {
     });
 
     const socialLogin = (provider) => {
-        window.location.href = `https://csca.onrender.com/api/auth/${provider}`;
+        window.location.href = `${BASE_URL}/api/auth/${provider}`;
     };
 
     const handleSubmit = async (e) => {

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { API_URL } from '../config';
 import {
   Eye,
   EyeOff,
@@ -13,6 +12,8 @@ import {
   Camera,
 } from 'lucide-react';
 import RedGeometricBackground from '../components/RedGeometricBackground';
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Profile = () => {
   const { user, token } = useAuth();
@@ -55,7 +56,7 @@ const Profile = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/users/update`, {
+      const res = await fetch(`${BASE_URL}/users/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ const Profile = () => {
     setIsPasswordLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/users/change-password`, {
+      const res = await fetch(`${BASE_URL}/users/change-password`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +134,7 @@ const Profile = () => {
     formData.append('image', file);
 
     try {
-      const res = await fetch(`${API_URL}/users/upload-image`, {
+      const res = await fetch(`${BASE_URL}/users/upload-image`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
