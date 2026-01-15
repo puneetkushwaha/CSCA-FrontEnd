@@ -32,6 +32,19 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
   };
 
+  // ✅ UPDATE USER - Profile update ke baad context sync karo
+  const updateUser = (updatedData) => {
+    if (!user) return;
+
+    const newUserData = {
+      ...user,
+      ...updatedData
+    };
+
+    setUser(newUserData);
+    localStorage.setItem("user", JSON.stringify(newUserData));
+  };
+
   // ✅ AUTO LOGOUT IF TOKEN REMOVED
   useEffect(() => {
     if (!token) {
@@ -47,6 +60,7 @@ export const AuthProvider = ({ children }) => {
         token,
         login,
         logout,
+        updateUser, // ✅ Export updateUser
         isAuthenticated: !!token,
       }}
     >

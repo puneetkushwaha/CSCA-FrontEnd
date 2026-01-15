@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
-const BASE_URL= import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 import {
   Eye,
@@ -17,7 +17,7 @@ import {
 import RedGeometricBackground from '../components/RedGeometricBackground';
 
 const Profile = () => {
-  const { user, token } = useAuth();
+  const { user, token, updateUser } = useAuth(); // ✅ updateUser add kiya
   const fileInputRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -75,6 +75,12 @@ const Profile = () => {
         alert(data.message || 'Unauthorized');
         return;
       }
+
+      // ✅ Context ko update karo taaki UI immediately update ho jaye
+      updateUser({
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+      });
 
       alert('Profile updated successfully');
     } catch (err) {
@@ -179,7 +185,7 @@ const Profile = () => {
               <div className="relative inline-block mb-4">
                 <div className="w-24 h-24 rounded-full bg-red-600/20 border-2 border-red-600/50 flex items-center justify-center mx-auto overflow-hidden">
                   {user?.profileImage ? (
-                    <img src={`${API_URL}${user.profileImage}`} alt="" className="w-full h-full object-cover" />
+                    <img src={`${BASE_URL}${user.profileImage}`} alt="" className="w-full h-full object-cover" />
                   ) : (
                     <User className="w-12 h-12 text-red-500" />
                   )}
