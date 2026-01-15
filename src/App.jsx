@@ -45,7 +45,12 @@ import Profile from './pages/Profile';
 import Checkout from './pages/Checkout';
 import SuccessStories from './pages/SuccessStories';
 import AboutUs from './pages/AboutUs';
-
+import Blog from './pages/Blog';
+import Research from './pages/Research';
+import CaseStudies from './pages/CaseStudies';
+import DashboardHome from './pages/DashboardHome';
+import CursorFollower from './components/CursorFollower';
+import CartDrawer from './components/CartDrawer';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -55,9 +60,6 @@ const ScrollToTop = () => {
   }, [pathname]);
   return null;
 };
-
-import CursorFollower from './components/CursorFollower';
-import CartDrawer from './components/CartDrawer';
 
 const MainLayout = () => {
   return (
@@ -73,11 +75,6 @@ const MainLayout = () => {
     </div>
   );
 };
-
-import Blog from './pages/Blog';
-import Research from './pages/Research';
-import CaseStudies from './pages/CaseStudies';
-import DashboardHome from './pages/DashboardHome';
 
 function App() {
   return (
@@ -106,6 +103,7 @@ function App() {
               <Route path="/explore-tech-careers/:careerId" element={<TechCareerDetail />} />
               <Route path="/partners-ecosystem" element={<PartnersEcosystem />} />
               <Route path="/accreditation" element={<Accreditation />} />
+
               {/* Academic Routes */}
               <Route path="/academic/higher-education" element={<HigherEducation />} />
               <Route path="/academic/secondary-education" element={<SecondaryEducation />} />
@@ -119,21 +117,30 @@ function App() {
               <Route path="/resources/research" element={<Research />} />
               <Route path="/resources/case-studies" element={<CaseStudies />} />
               <Route path="/about" element={<About />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/success-stories" element={<SuccessStories />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pricing" element={<Pricing />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/success-stories" element={<SuccessStories />} />
-              <Route path="/about-us" element={<AboutUs />} />
+
+              {/* Profile - Protected but with Navbar/Footer */}
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/oauth-success" element={<OAuthSuccess />} />
-
 
             {/* Protected Dashboard Area */}
             <Route element={<ProtectedRoute />}>
@@ -143,10 +150,8 @@ function App() {
                 <Route path="certifications" element={<Certifications />} />
                 <Route path="settings" element={<DashboardHome />} />
                 <Route path="exam" element={<Exam />} />
-                <Route path="profile" element={<Profile />} />
               </Route>
               <Route path="/exam" element={<Exam />} />
-              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </CartProvider>
