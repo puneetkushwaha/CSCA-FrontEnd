@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const OAuthSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -20,31 +22,31 @@ const OAuthSuccess = () => {
 
     hasProcessed.current = true;
 
-    // ✅ Direct token decode (No API call)
-    let userData = {};
+    const fetchUser = async () => {
+      try {
+        // ✅ REAL USER DATA FROM BACKEND
+        const res = await fetch(`${BASE_URL}/api/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
+        if (!res.ok) throw new Error("Unauthorized");
 
-      userData = {
-        id: payload.id || payload.sub,
-        email: payload.email || "",
-        firstName: payload.firstName || payload.email || "User",
-        lastName: payload.lastName || "",
-        role: payload.role || "student",
-      };
-    } catch (e) {
-      console.error("Token decode failed", e);
-      userData = {
-        email: "",
-        firstName: "User",
-        lastName: "",
-        role: "student",
-      };
-    }
+        const user = await res.json();
 
-    login(userData, token);
-    navigate("/", { replace: true });
+        // ✅ Save user + token in AuthContext
+        login(user, token);
+
+        // ✅ Redirect to profile / home
+        navigate("/", { replace: true });
+      } catch (err) {
+        console.error("OAuth login failed", err);
+        navigate("/login", { replace: true });
+      }
+    };
+
+    fetchUser();
   }, [searchParams, login, navigate]);
 
   return (
