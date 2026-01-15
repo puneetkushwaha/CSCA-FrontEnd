@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+
+const BASE_URL= import.meta.env.VITE_BASE_URL;
+
 import {
   Eye,
   EyeOff,
@@ -12,8 +15,6 @@ import {
   Camera,
 } from 'lucide-react';
 import RedGeometricBackground from '../components/RedGeometricBackground';
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Profile = () => {
   const { user, token } = useAuth();
