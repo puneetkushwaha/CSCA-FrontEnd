@@ -20,40 +20,44 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+ if (!identifier || !formData.password) {
+    alert("All fields are required");
+    setIsLoading(false);
+    return;
+  }
 
-    const isEmail = identifier.includes('@');
-    const payload = {
-      ...formData,
-      email: isEmail ? identifier : '',
-      phone: !isEmail ? identifier : '',
-    };
+  // ✅ BACKEND EXPECTS: identifier + password
+  const payload = {
+    identifier: identifier.trim(),
+    password: formData.password,
+  };
 
-    try {
-      const res = await fetch(`${BASE_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+  try {
+    const res = await fetch(`${BASE_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (!res.ok) {
-        alert(data.message || 'Invalid credentials');
-        setIsLoading(false);
-        return;
-      }
-
-      // ✅ SAVE REAL JWT + USER using AuthContext
-      login(data.user, data.token || data.access_token);
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-      alert('Server error');
-    } finally {
-      setIsLoading(false);
+    if (!res.ok) {
+      alert(data.message || 'Invalid credentials');
+      return;
     }
+
+    // ✅ SAVE JWT + USER
+    login(data.user, data.token);
+    navigate('/');
+
+  } catch (error) {
+    console.error(error);
+    alert('Server error');
+  } finally {
+    setIsLoading(false);
+  }
   };
 
   const socialLogin = (provider) => {

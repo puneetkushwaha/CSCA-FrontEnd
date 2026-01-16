@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Shield, Eye, EyeOff, Mail, Loader2, Phone } from 'lucide-react';
 import RedGeometricBackground from '../components/RedGeometricBackground';
 
+import { auth } from "../firebase";
+import { signInWithPhoneNumber } from "firebase/auth";
+
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -17,6 +20,11 @@ export default function Register() {
         password: '',
     });
 
+    const [showOtp, setShowOtp] = useState(false);
+    const [otp, setOtp] = useState("");
+    const [userId, setUserId] = useState(null);
+    const [confirmationResult, setConfirmationResult] = useState(null);
+
     const socialLogin = (provider) => {
         window.location.href = `${BASE_URL}/api/auth/${provider}`;
     };
@@ -25,34 +33,85 @@ export default function Register() {
         e.preventDefault();
         setIsLoading(true);
 
-        // Determine if identifier is email or phone
-        const isEmail = identifier.includes('@');
-        const updatedFormData = {
-            ...formData,
-            email: isEmail ? identifier : '',
-            phone: !isEmail ? identifier : '',
-        };
+          const isEmail = identifier.includes("@");
 
-        try {
-            const res = await fetch(`${BASE_URL}/api/auth/register`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedFormData),
-            });
+  // IMPORTANT FIX: no empty string
+  const updatedFormData = {
+    ...formData,
+    ...(isEmail ? { email: identifier } : { phone: identifier }),
+  };
 
-            const data = await res.json();
+  try {
+    const res = await fetch(`${BASE_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedFormData),
+    });
 
-            if (res.ok) {
-                navigate('/login');
-            } else {
-                alert(data.message);
-            }
-        } catch (error) {
-            alert('Server error');
-        } finally {
-            setIsLoading(false);
-        }
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Registration failed");
+      return;
+    }
+
+    // OTP section show
+    setUserId(data.userId);
+     // 🔹 Firebase Phone OTP (TEST MODE – no reCAPTCHA)
+      if (!isEmail) {
+        const phoneNumber = "+91" + identifier;
+
+        const result = await signInWithPhoneNumber(
+          auth,
+          phoneNumber,
+          window.recaptchaVerifier // undefined is OK in test mode
+        );
+
+        setConfirmationResult(result);
+      }
+    setShowOtp(true);
+
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  } finally {
+    setIsLoading(false);
+  }
+
     };
+
+    const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId,
+        otp
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "OTP verification failed");
+      return;
+    }
+
+    // ✅ OTP verified → login page
+    navigate("/login");
+
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
     return (
         // Fixed Viewport Wrapper
@@ -181,6 +240,38 @@ export default function Register() {
                                     {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Initiate Profile"}
                                 </button>
                             </form>
+
+                            {showOtp && (
+  <form onSubmit={handleVerifyOtp} className="space-y-5 mt-6 animate-in fade-in duration-300">
+
+    <div className="space-y-1.5">
+      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">
+        Enter OTP
+      </label>
+
+      <div className="relative group">
+        <input
+          type="text"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 font-bold tracking-widest text-center"
+          placeholder="••••••"
+          maxLength={6}
+        />
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      disabled={isLoading}
+      className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-lg uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-red-900/40 hover:shadow-red-600/20 hover:-translate-y-0.5"
+    >
+      {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verify OTP"}
+    </button>
+
+  </form>
+)}
+
 
                             <div className="relative my-8">
                                 <div className="absolute inset-0 flex items-center">
