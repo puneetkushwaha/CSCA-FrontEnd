@@ -51,6 +51,7 @@ import CaseStudies from './pages/CaseStudies';
 import DashboardHome from './pages/DashboardHome';
 import CursorFollower from './components/CursorFollower';
 import CartDrawer from './components/CartDrawer';
+import ForgotPassword from './pages/ForgotPassword';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -140,6 +141,7 @@ function App() {
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/oauth-success" element={<OAuthSuccess />} />
 
             {/* Protected Dashboard Area */}
