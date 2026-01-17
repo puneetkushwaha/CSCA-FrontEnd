@@ -145,98 +145,101 @@ export default function Register() {
 
               {/* Heading */}
               <div className="text-center mb-8">
-                <h1 className="text-2xl font-black text-white mb-2 uppercase tracking-wider">Create Account</h1>
-                <p className="text-sm text-gray-400 font-medium tracking-wide">Join the elite cybersecurity network.</p>
+                <h1 className="text-2xl font-black text-white mb-2 uppercase tracking-wider">
+                  {!showOtp ? "Create Account" : "Verify Identity"}
+                </h1>
+                <p className="text-sm text-gray-400 font-medium tracking-wide">
+                  {!showOtp ? "Join the elite cybersecurity network." : "Please enter the authentication code."}
+                </p>
               </div>
 
-              {/* Main Form */}
-              <form onSubmit={handleSubmit} className="space-y-5">
+              {!showOtp ? (
+                /* Main Form */
+                <form onSubmit={handleSubmit} className="space-y-5">
 
-                {/* Name Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">First Name</label>
+                  {/* Name Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">First Name</label>
+                      <div className="relative group">
+                        <input
+                          type="text"
+                          value={formData.firstName}
+                          onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 font-bold"
+                          placeholder="First Name"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Last Name</label>
+                      <div className="relative group">
+                        <input
+                          type="text"
+                          value={formData.lastName}
+                          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 font-bold"
+                          placeholder="Last Name"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5 animate-in fade-in duration-300">
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Email or Mobile Number</label>
                     <div className="relative group">
                       <input
                         type="text"
-                        value={formData.firstName}
-                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                        value={identifier}
+                        onChange={(e) => setIdentifier(e.target.value)}
                         className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 font-bold"
-                        placeholder="First Name"
+                        placeholder="Phone number or email"
                       />
+                      <Mail className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 group-focus-within:text-red-500 transition-colors" />
                     </div>
                   </div>
+
+                  {/* Password */}
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Last Name</label>
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Password</label>
                     <div className="relative group">
                       <input
-                        type="text"
-                        value={formData.lastName}
-                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 font-bold"
-                        placeholder="Last Name"
+                        type={showPassword ? "text" : "password"}
+                        value={formData.password}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 pr-12 font-bold"
+                        placeholder="••••••••"
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-white transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
                     </div>
                   </div>
-                </div>
 
-                <div className="space-y-1.5 animate-in fade-in duration-300">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Email or Mobile Number</label>
-                  <div className="relative group">
-                    <input
-                      type="text"
-                      value={identifier}
-                      onChange={(e) => setIdentifier(e.target.value)}
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 font-bold"
-                      placeholder="Phone number or email"
-                    />
-                    <Mail className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600 group-focus-within:text-red-500 transition-colors" />
+                  {/* Terms */}
+                  <div className="flex items-start gap-3 pt-1">
+                    <div className="relative flex items-center h-5">
+                      <input type="checkbox" className="w-4 h-4 rounded bg-white/[0.05] border-white/10 checked:bg-red-600 checked:border-red-600 transition-all focus:ring-0 focus:ring-offset-0 cursor-pointer" />
+                    </div>
+                    <p className="text-[10px] text-gray-400 font-medium leading-relaxed uppercase tracking-wide">
+                      I agree to the <Link to="/terms" className="text-white hover:text-red-500 transition-colors underline decoration-white/30 decoration-1 underline-offset-4 hover:decoration-red-500">Terms</Link> & <Link to="/privacy" className="text-white hover:text-red-500 transition-colors underline decoration-white/30 decoration-1 underline-offset-4 hover:decoration-red-500">Privacy Policy</Link>.
+                    </p>
                   </div>
-                </div>
 
-                {/* Password */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Password</label>
-                  <div className="relative group">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-500 focus:bg-black transition-all placeholder:text-gray-700 pr-12 font-bold"
-                      placeholder="••••••••"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-white transition-colors"
-                    >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Terms */}
-                <div className="flex items-start gap-3 pt-1">
-                  <div className="relative flex items-center h-5">
-                    <input type="checkbox" className="w-4 h-4 rounded bg-white/[0.05] border-white/10 checked:bg-red-600 checked:border-red-600 transition-all focus:ring-0 focus:ring-offset-0 cursor-pointer" />
-                  </div>
-                  <p className="text-[10px] text-gray-400 font-medium leading-relaxed uppercase tracking-wide">
-                    I agree to the <Link to="/terms" className="text-white hover:text-red-500 transition-colors underline decoration-white/30 decoration-1 underline-offset-4 hover:decoration-red-500">Terms</Link> & <Link to="/privacy" className="text-white hover:text-red-500 transition-colors underline decoration-white/30 decoration-1 underline-offset-4 hover:decoration-red-500">Privacy Policy</Link>.
-                  </p>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-lg uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-red-900/40 hover:shadow-red-600/20 hover:-translate-y-0.5"
-                >
-                  {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Initiate Profile"}
-                </button>
-              </form>
-
-              {showOtp && (
-                <form onSubmit={handleVerifyOtp} className="space-y-5 mt-6 animate-in fade-in duration-300">
-
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-lg uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-red-900/40 hover:shadow-red-600/20 hover:-translate-y-0.5"
+                  >
+                    {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Initiate Profile"}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleVerifyOtp} className="space-y-6 animate-in fade-in duration-300">
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">
                       Enter OTP
@@ -254,14 +257,23 @@ export default function Register() {
                     </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-lg uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-red-900/40 hover:shadow-red-600/20 hover:-translate-y-0.5"
-                  >
-                    {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verify OTP"}
-                  </button>
+                  <div className="space-y-3">
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-lg uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-red-900/40 hover:shadow-red-600/20 hover:-translate-y-0.5"
+                    >
+                      {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verify Identity"}
+                    </button>
 
+                    <button
+                      type="button"
+                      onClick={() => setShowOtp(false)}
+                      className="w-full text-gray-500 hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors py-2"
+                    >
+                      Back to Registration
+                    </button>
+                  </div>
                 </form>
               )}
 
