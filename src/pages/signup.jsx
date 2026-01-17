@@ -43,9 +43,8 @@ export default function Register() {
       firstName: formData.firstName.trim(),
       lastName: formData.lastName.trim(),
       password: formData.password,
-      email: isEmail ? identifier.trim() : "",
-      phone: isEmail ? "" : identifier.trim(),
-      identifier: identifier.trim()
+      identifier: identifier.trim(),
+      ...(isEmail ? { email: identifier.trim() } : { phone: identifier.trim() })
     };
 
     try {
