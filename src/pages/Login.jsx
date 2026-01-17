@@ -20,44 +20,44 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
- if (!identifier || !formData.password) {
-    alert("All fields are required");
-    setIsLoading(false);
-    return;
-  }
-
-  // ✅ BACKEND EXPECTS: identifier + password
-  const payload = {
-    identifier: identifier.trim(),
-    password: formData.password,
-  };
-
-  try {
-    const res = await fetch(`${BASE_URL}/api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      alert(data.message || 'Invalid credentials');
+    if (!identifier || !formData.password) {
+      alert("All fields are required");
+      setIsLoading(false);
       return;
     }
 
-    // ✅ SAVE JWT + USER
-    login(data.user, data.token);
-    navigate('/');
+    // ✅ BACKEND EXPECTS: identifier + password
+    const payload = {
+      identifier: identifier.trim(),
+      password: formData.password,
+    };
 
-  } catch (error) {
-    console.error(error);
-    alert('Server error');
-  } finally {
-    setIsLoading(false);
-  }
+    try {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || 'Invalid credentials');
+        return;
+      }
+
+      // ✅ SAVE JWT + USER
+      login(data.user, data.token);
+      navigate('/');
+
+    } catch (error) {
+      console.error(error);
+      alert('Server error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const socialLogin = (provider) => {
@@ -196,7 +196,7 @@ export default function Login() {
 
               <div className="pt-6 text-center">
                 <p className="text-sm text-gray-400">
-                  Don't have an account? <Link to="/register" className="text-red-500 font-bold hover:text-white transition-colors transition-all pl-1">Create one</Link>
+                  Don't have an account? <Link to="/register" className="text-red-500 font-bold hover:text-white transition-colors pl-1">Create one</Link>
                 </p>
               </div>
 
