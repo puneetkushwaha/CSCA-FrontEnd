@@ -55,14 +55,25 @@ export default function Register() {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const responseText = await res.text();
+      let data = {};
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.warn("Server response was not JSON:", responseText);
+      }
 
       if (!res.ok) {
         alert(data.message || "Registration failed");
         return;
       }
 
-      setUserId(data.userId);
+      // Success! Move to OTP screen.
+      // Try to find a user ID in the response for OTP verification
+      const extractedUserId = data.userId || data.id || (data.user && data.user._id) || data._id;
+      setUserId(extractedUserId);
+
+      console.log("Registration successful, moving to OTP screen. UserId:", extractedUserId);
       setShowOtp(true);
 
     } catch (error) {
