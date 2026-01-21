@@ -369,7 +369,11 @@ const Checkout = () => {
                                     <div key={item.id} className="flex gap-3 p-3 bg-black/50 rounded-xl border border-white/5">
                                         <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${item.color} p-0.5 shrink-0`}>
                                             <div className="w-full h-full bg-black rounded-lg flex items-center justify-center">
-                                                {React.cloneElement(item.icon, { className: "w-5 h-5 text-white" })}
+                                                {React.isValidElement(item.icon) ? (
+                                                    React.cloneElement(item.icon, { className: "w-5 h-5 text-white" })
+                                                ) : (
+                                                    <ShoppingBag className="w-5 h-5 text-white" />
+                                                )}
                                             </div>
                                         </div>
                                         <div className="flex-1 min-w-0">
