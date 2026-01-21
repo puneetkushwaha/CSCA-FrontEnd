@@ -70,7 +70,7 @@ const Footer = () => {
                                 <span className="w-1.5 h-1.5 bg-red-600 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity"></span>
                             </h4>
                             <ul className="space-y-3">
-                                {['Blue Team Level 1', 'Blue Team Level 2', 'SecOps Manager', 'Detection Engineer'].map((item, i) => (
+                                {['Foundational Certification', 'Intermediate Certification', 'SecOps Manager', 'Detection Engineer'].map((item, i) => (
                                     <li key={i}>
                                         <Link to="#" className="text-xs font-bold text-gray-500 hover:text-red-500 hover:pl-2 transition-all duration-300 uppercase tracking-wide flex items-center gap-2">
                                             {item}

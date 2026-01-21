@@ -20,7 +20,7 @@ export default function Register() {
     password: '',
   });
 
-  const [showOtp, setShowOtp] = useState(false);
+  const [showOtp, setShowOtp] = useState(fa-+lse);
   const [otp, setOtp] = useState("");
   const [userId, setUserId] = useState(null);
 
