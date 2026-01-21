@@ -15,7 +15,14 @@ export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState(() => {
         try {
             const storedCart = localStorage.getItem('csca_cart');
-            return storedCart ? JSON.parse(storedCart) : [];
+            if (!storedCart) return [];
+
+            const parsedCart = JSON.parse(storedCart);
+            // Ensure compatibility and remove any restored "icon" objects that might be invalid
+            return Array.isArray(parsedCart) ? parsedCart.map(item => ({
+                ...item,
+                icon: null // Icons cannot be restored from localStorage as they are React elements
+            })) : [];
         } catch (error) {
             console.error('Failed to load cart from local storage:', error);
             return [];
@@ -26,7 +33,9 @@ export const CartProvider = ({ children }) => {
 
     useEffect(() => {
         try {
-            localStorage.setItem('csca_cart', JSON.stringify(cartItems));
+            // Remove icon property before saving as it contains React elements which are not serializable
+            const cartToSave = cartItems.map(({ icon, ...rest }) => rest);
+            localStorage.setItem('csca_cart', JSON.stringify(cartToSave));
         } catch (error) {
             console.error('Failed to save cart to local storage:', error);
         }

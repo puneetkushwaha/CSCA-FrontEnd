@@ -8,9 +8,9 @@ const Hero = () => {
 
     const certifications = [
         {
-            title: "Blue Team Level 1 (BTL1)",
-            level: "Junior",
-            description: "Our Junior Security Operations training and certification covers Phishing Analysis, Digital Forensics, Threat Intelligence, SIEM, and Incident Response.",
+            title: "Foundational Certification",
+            level: "Foundational",
+            description: "Validates foundational defensive cybersecurity knowledge required for entry-level blue team and security operations roles. This certification confirms a candidate’s understanding of core defensive concepts, basic threat awareness, and security monitoring principles within organizational environments.",
             icon: <ShieldCheck className="h-10 w-10 text-red-500" />,
             glow: "from-red-500/20"
         },
@@ -22,16 +22,16 @@ const Hero = () => {
             glow: "from-red-600/30"
         },
         {
-            title: "Blue Team Level 2 (BTL2)",
+            title: "Intermediate Certification",
             level: "Intermediate",
-            description: "Advanced incident response and threat hunting training for established SOC analysts and security professionals.",
+            description: "Validates intermediate-level blue team capabilities focused on security operations, threat analysis, and incident response concepts. This certification demonstrates a candidate’s ability to analyze security events, understand attack patterns, and apply structured defensive reasoning aligned with real-world security operations.",
             icon: <Globe className="h-10 w-10 text-red-600" />,
             glow: "from-red-400/20"
         },
         {
-            title: "Certified Digital Forensics Professional",
+            title: "Professional Certification",
             level: "Professional",
-            description: "Deep-dive into advanced forensic methodologies, memory analysis, and complex investigative techniques.",
+            description: "Validates professional-level knowledge of digital forensics principles, evidence handling, and forensic investigation methodologies. This certification confirms a candidate’s understanding of forensic processes, legal awareness, and analytical techniques required for digital investigations across cyber incidents.",
             icon: <ShieldCheck className="h-10 w-10 text-red-700" />,
             glow: "from-red-800/20"
         }
@@ -79,9 +79,12 @@ const Hero = () => {
                         <div className="w-full h-px bg-red-600/40 mb-6"></div>
 
                         <p className="text-sm md:text-base text-white/70 max-w-xl leading-relaxed">
-                        Trusted certifications for cybersecurity professionals, backed by industry experience & real-world assessment.<br/>
-                        Advance your career — from foundational to advanced security expertise.
-                        </p>
+                        Codevirus Security Certification Authority (CSCA) is an independent cybersecurity certification body governing role-based professional credentials.</p>
+                         <br />
+                         <p className="text-sm md:text-base text-white/70 max-w-xl leading-relaxed">
+                         CSCA certifications validate applied defensive, detection, response, and forensic competencies through real-world assessment frameworks aligned with global security operations.</p>
+                        <br />
+                         
                     </div>
 
                     {/* Right Content - Stacking Certification Cards */}

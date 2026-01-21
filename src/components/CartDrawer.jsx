@@ -79,10 +79,14 @@ const CartDrawer = () => {
                             cartItems.map((item) => (
                                 <div key={item.id} className="bg-white/5 border border-white/5 rounded-2xl p-4 flex gap-4 group hover:border-white/10 transition-all">
                                     {/* Icon Box */}
-                                    <div className={`w-20 h-20 rounded-xl bg-gradient-to-br ${item.color} p-0.5 shrink-0`}>
+                                    <div className={`w-20 h-20 rounded-xl bg-gradient-to-br ${item.color || 'from-gray-700 to-gray-900'} p-0.5 shrink-0`}>
                                         <div className="w-full h-full bg-black rounded-xl flex items-center justify-center">
-                                            {/* Clone icon to enforce size */}
-                                            {React.cloneElement(item.icon, { className: "w-8 h-8 text-white" })}
+                                            {/* Clone icon to enforce size if valid, else fallback */}
+                                            {React.isValidElement(item.icon) ? (
+                                                React.cloneElement(item.icon, { className: "w-8 h-8 text-white" })
+                                            ) : (
+                                                <ShoppingBag className="w-8 h-8 text-white" />
+                                            )}
                                         </div>
                                     </div>
 
