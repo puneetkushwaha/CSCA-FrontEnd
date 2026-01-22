@@ -331,7 +331,7 @@ const PearsonDashboard = () => {
                             </h3>
                             <ul className="space-y-2">
                                 {[
-                                    { label: 'Additional information', path: '/profile' },
+                                    { label: 'Additional information', path: '/additional-info' },
                                     { label: 'Registry Preferences', path: '/dashboard/settings' },
                                     { label: 'Exam Mission History', path: '/dashboard/exam' },
                                     { label: 'View score reports', path: '/dashboard/exam' },
