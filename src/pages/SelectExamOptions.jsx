@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import {
     Shield, ArrowLeft, Monitor, MapPin, ChevronLeft,
-    Menu, User, MessageSquare, LogOut, Info, Clock, CheckCircle2
+    Menu, User, MessageSquare, LogOut, Info, Clock, CheckCircle2,
+    FileText, HelpCircle
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RedGeometricBackground from '../components/RedGeometricBackground';
@@ -171,8 +172,8 @@ const SelectExamOptions = () => {
                                     <button
                                         onClick={() => setSelectedOption('center')}
                                         className={`p-8 rounded-2xl border transition-all duration-500 flex flex-col items-center text-center gap-4 group/opt ${selectedOption === 'center'
-                                                ? 'bg-red-600 border-red-500 shadow-[0_0_40px_rgba(220,38,38,0.3)] scale-[1.02]'
-                                                : 'bg-white/5 border-white/5 hover:border-white/20'
+                                            ? 'bg-red-600 border-red-500 shadow-[0_0_40px_rgba(220,38,38,0.3)] scale-[1.02]'
+                                            : 'bg-white/5 border-white/5 hover:border-white/20'
                                             }`}
                                     >
                                         <div className={`p-4 rounded-full transition-colors ${selectedOption === 'center' ? 'bg-white/20' : 'bg-white/5 group-hover/opt:bg-red-600/20'}`}>
@@ -186,8 +187,8 @@ const SelectExamOptions = () => {
                                     <button
                                         onClick={() => setSelectedOption('online')}
                                         className={`p-8 rounded-2xl border transition-all duration-500 flex flex-col items-center text-center gap-4 group/opt ${selectedOption === 'online'
-                                                ? 'bg-red-600 border-red-500 shadow-[0_0_40px_rgba(220,38,38,0.3)] scale-[1.02]'
-                                                : 'bg-white/5 border-white/5 hover:border-white/20'
+                                            ? 'bg-red-600 border-red-500 shadow-[0_0_40px_rgba(220,38,38,0.3)] scale-[1.02]'
+                                            : 'bg-white/5 border-white/5 hover:border-white/20'
                                             }`}
                                     >
                                         <div className={`p-4 rounded-full transition-colors ${selectedOption === 'online' ? 'bg-white/20' : 'bg-white/5 group-hover/opt:bg-red-600/20'}`}>
@@ -199,16 +200,70 @@ const SelectExamOptions = () => {
                                     </button>
                                 </div>
 
-                                <div className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
-                                    <h6 className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-3 flex items-center gap-2 italic">
-                                        <Info className="w-3 h-3" /> Additional Details
+                                <div className="p-8 bg-white/[0.02] border border-white/5 rounded-3xl space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <h6 className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500 mb-6 flex items-center gap-2 italic border-b border-white/5 pb-4">
+                                        <Info className="w-4 h-4" />
+                                        {selectedOption === 'center' ? 'Prepare for your test center exam' : 'Registration_Intelligence'}
                                     </h6>
-                                    <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest leading-relaxed">
-                                        {selectedOption
-                                            ? `Additional details will be updated for ${selectedOption === 'center' ? 'Test Center' : 'OnVUE'} session based on your current registry bandwidth.`
-                                            : "Additional details will be updated here when you select an option above."
-                                        }
-                                    </p>
+
+                                    {selectedOption === 'center' ? (
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                            <div className="space-y-3">
+                                                <h7 className="text-[10px] font-black uppercase text-white tracking-widest flex items-center gap-3">
+                                                    <Shield className="w-4 h-4 text-red-600" /> Your photo ID
+                                                </h7>
+                                                <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest pl-7">
+                                                    We'll verify your government-issued identification (ID) when you arrive for your exam.
+                                                </p>
+                                                <button className="text-[9px] font-black text-red-600 hover:text-white underline transition-colors uppercase tracking-widest pl-7 text-left">
+                                                    Review admission & ID policies.
+                                                </button>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                <h7 className="text-[10px] font-black uppercase text-white tracking-widest flex items-center gap-3">
+                                                    <Info className="w-4 h-4 text-red-600" /> What to expect
+                                                </h7>
+                                                <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest pl-7">
+                                                    Familiarize yourself with the testing experience so you feel confident on test day.
+                                                </p>
+                                                <button className="text-[9px] font-black text-red-600 hover:text-white underline transition-colors uppercase tracking-widest pl-7 text-left">
+                                                    Watch our short video(opens in new window).
+                                                </button>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                <h7 className="text-[10px] font-black uppercase text-white tracking-widest flex items-center gap-3">
+                                                    <FileText className="w-4 h-4 text-red-600" /> Personal items
+                                                </h7>
+                                                <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest pl-7">
+                                                    Review the items that you can have during testing that do not require prior approval.
+                                                </p>
+                                                <button className="text-[9px] font-black text-red-600 hover:text-white underline transition-colors uppercase tracking-widest pl-7 text-left">
+                                                    View comfort aid list(PDF, opens in new window).
+                                                </button>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                <h7 className="text-[10px] font-black uppercase text-white tracking-widest flex items-center gap-3">
+                                                    <HelpCircle className="w-4 h-4 text-red-600" /> Questions?
+                                                </h7>
+                                                <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest pl-7">
+                                                    Check out the FAQs frequently asked questions (opens in new window).
+                                                </p>
+                                                <button className="text-[9px] font-black text-red-600 hover:text-white underline transition-colors uppercase tracking-widest pl-7 text-left">
+                                                    Access_Support_Node
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest leading-relaxed">
+                                            {selectedOption
+                                                ? `Additional details will be updated for ${selectedOption === 'center' ? 'Test Center' : 'OnVUE'} session based on your current registry bandwidth.`
+                                                : "Additional details will be updated here when you select an option above."
+                                            }
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
@@ -222,8 +277,8 @@ const SelectExamOptions = () => {
                                 <button
                                     disabled={!selectedOption}
                                     className={`px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedOption
-                                            ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105'
-                                            : 'bg-white/5 text-gray-800 cursor-not-allowed'
+                                        ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105'
+                                        : 'bg-white/5 text-gray-800 cursor-not-allowed'
                                         }`}
                                 >
                                     Next Registry Step
