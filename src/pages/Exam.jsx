@@ -36,7 +36,7 @@ const Exam = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/pearson-dashboard');
+    navigate('/additional-info');
   };
 
   return (

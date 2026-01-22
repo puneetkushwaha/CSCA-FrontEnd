@@ -53,6 +53,7 @@ import CursorFollower from './components/CursorFollower';
 import CartDrawer from './components/CartDrawer';
 import ForgotPassword from './pages/ForgotPassword';
 import PearsonDashboard from './pages/PearsonDashboard';
+import AdditionalInfo from './pages/AdditionalInfo';
 
 
 // Scroll to top on route change
@@ -158,6 +159,7 @@ function App() {
               </Route>
               <Route path="/exam" element={<Exam />} />
               <Route path="/pearson-dashboard" element={<PearsonDashboard />} />
+              <Route path="/additional-info" element={<AdditionalInfo />} />
             </Route>
 
           </Routes>
