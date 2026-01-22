@@ -15,10 +15,15 @@ import {
     LogOut,
     Globe,
     ExternalLink,
-    ChevronDown
+    ChevronDown,
+    ShoppingCart,
+    HelpCircle,
+    X,
+    ChevronLeft
 } from 'lucide-react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import RedGeometricBackground from '../components/RedGeometricBackground';
 
 const PrecisionPanel = ({ children, className = "" }) => (
@@ -44,17 +49,20 @@ const SidebarLink = ({ icon: Icon, label, active, onClick, external }) => (
 );
 
 const PearsonDashboard = () => {
-    const { user, logout } = useAuth();
-    const navigate = useNavigate();
+    const { logout, user } = useAuth();
+    const { toggleCart, cartCount } = useCart();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const handleSignOut = () => {
         logout();
         navigate('/login');
     };
 
+    const isActive = (path) => location.pathname === path;
+
     return (
-        <div className="min-h-screen bg-[#050505] text-white font-['Inter'] relative overflow-hidden pb-12">
+        <div className="min-h-screen bg-[#050505] text-white flex flex-col font-['Inter'] relative overflow-hidden">
             {/* Background Layers */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <RedGeometricBackground
@@ -69,30 +77,105 @@ const PearsonDashboard = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:48px_48px]"></div>
             </div>
 
-            <div className="relative z-10 max-w-[1540px] mx-auto min-h-screen flex flex-col">
+            {/* Hero Pill Navbar - Centered/Glassmorphic (as requested) */}
+            <header className="fixed top-8 left-0 right-0 z-50 px-8 flex justify-center">
+                <div className={`flex items-center gap-8 h-16 px-8 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] transition-all duration-500 w-fit`}>
 
-                {/* Top Header Section */}
-                <header className="px-8 py-8 flex items-center justify-between">
-                    <Link to="/" className="flex items-center gap-2 group/logo">
+                    {/* Logo Section */}
+                    <Link to="/" className="flex items-center gap-2 group/logo relative">
                         <div className="relative">
                             <div className="absolute inset-0 bg-red-600 blur-md opacity-20 group-hover/logo:opacity-50 transition-opacity animate-pulse"></div>
-                            <Shield className="h-8 w-8 text-red-600 relative z-10 fill-red-600/10" />
+                            <Shield className="h-6 w-6 text-red-600 relative z-10 fill-red-600/10" />
                         </div>
-                        <div className="flex flex-col">
-                            <span className="font-black text-2xl tracking-tighter text-white leading-none italic uppercase">CompTIA</span>
-                            <span className="text-[8px] font-black text-red-600 uppercase tracking-[0.3em]">PEARSON_VUE_PROTOCOL</span>
-                        </div>
+                        <span className="font-black text-xl tracking-tighter text-white leading-none">CSCA</span>
                     </Link>
 
-                    <h2 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white/90">
-                        Dashboard
-                    </h2>
+                    {/* Conditional Return Button */}
+                    <Link
+                        to="/dashboard"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white transition-all hover:bg-white/5"
+                    >
+                        <ChevronLeft className="w-4 h-4" />
+                        Return
+                    </Link>
 
-                    <div className="w-32"></div> {/* Spacer for symmetry */}
-                </header>
+                    {/* Navigation Container */}
+                    <nav className="hidden lg:flex items-center h-full">
+                        <Link
+                            to="/dashboard"
+                            className={`px-4 text-[11px] font-bold uppercase tracking-widest transition-all duration-300 hover:text-red-500 ${isActive('/dashboard') ? 'text-red-500' : 'text-gray-300'}`}
+                        >
+                            Home
+                        </Link>
 
-                {/* 3-Column Layout from CompTIA Dashboard */}
-                <div className="flex-1 flex gap-8 p-8 pt-0 items-start overflow-y-auto">
+                        <div className="relative group/cert h-full flex items-center">
+                            <button className={`px-4 text-[11px] font-bold uppercase tracking-widest transition-all duration-300 hover:text-red-500 flex items-center gap-1 ${location.pathname.includes('/pearson') || location.pathname.includes('/dashboard/certifications') ? 'text-red-500' : 'text-gray-300'}`}>
+                                Certification
+                                <ChevronRight className="w-3 h-3 rotate-90 opacity-40 group-hover/cert:text-red-500 transition-colors" />
+                            </button>
+                            {/* Dropdown with website design */}
+                            <div className="absolute top-[calc(100%+10px)] left-0 w-56 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,1)] overflow-hidden opacity-0 invisible group-hover/cert:opacity-100 group-hover/cert:visible transition-all duration-300 translate-y-2 group-hover/cert:translate-y-0 z-50">
+                                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-red-600/50 to-transparent"></div>
+                                <div className="p-2">
+                                    <Link to="/exam" className="block px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">My Exams</Link>
+                                    <Link to="/certifications" className="block px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Certifications</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div className="flex items-center gap-6 pl-6 border-l border-white/10">
+                        {/* Functional Cart */}
+                        <button
+                            onClick={toggleCart}
+                            className="relative group text-gray-400 hover:text-white transition-colors"
+                        >
+                            <ShoppingCart className="w-4 h-4" />
+                            {cartCount > 0 && (
+                                <span className="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[9px] font-black w-3.5 h-3.5 flex items-center justify-center rounded-full border border-black group-hover:scale-110 transition-transform">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </button>
+
+                        <button className="p-1 text-gray-400 hover:text-white transition-colors">
+                            <HelpCircle className="w-4 h-4" />
+                        </button>
+
+                        {/* Auth / Profile with Hero style */}
+                        <div className="relative group/user">
+                            <button className="flex items-center gap-2 text-[10px] font-bold uppercase text-gray-400 hover:text-white transition-colors border border-white/10 px-3 py-1.5 rounded-lg hover:bg-white/5 hover:border-white/20">
+                                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-red-600 to-red-400 flex items-center justify-center border border-white/10 shadow-lg shadow-red-900/20">
+                                    <span className="text-[9px] text-white font-black">
+                                        {user?.firstName ? user.firstName[0] : 'U'}
+                                    </span>
+                                </div>
+                                <span className="max-w-[100px] truncate">{user?.firstName || 'Operator'}</span>
+                            </button>
+
+                            <div className="absolute right-0 top-[calc(100%+8px)] w-56 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] opacity-0 invisible group-hover/user:opacity-100 group-hover/user:visible transition-all duration-300 z-[100] translate-y-2 group-hover/user:translate-y-0">
+                                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-red-600/50 to-transparent"></div>
+                                <div className="p-4 border-b border-white/5">
+                                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Signed in as</p>
+                                    <p className="text-xs font-bold text-white truncate">{user?.email}</p>
+                                </div>
+                                <div className="p-2">
+                                    <Link to="/profile" className="flex items-center gap-3 px-3 py-2 text-[10px] font-bold uppercase text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                                        <User className="w-3.5 h-3.5" /> Identity Settings
+                                    </Link>
+                                    <button onClick={handleSignOut} className="w-full flex items-center gap-3 px-3 py-2 text-[10px] font-bold uppercase text-red-500 hover:text-red-400 hover:bg-red-500/5 rounded-lg transition-colors">
+                                        <X className="w-3.5 h-3.5" /> Terminate Session
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            {/* Main Content Area - Adjusted for fixed header */}
+            <main className="flex-1 relative z-10 w-full pt-32 h-full overflow-y-auto">
+                <div className="max-w-[1540px] mx-auto flex gap-8 p-8 items-start">
 
                     {/* LEFT COLUMN: Navigation Sidebar */}
                     <aside className="w-80 space-y-6 flex-shrink-0">
@@ -148,16 +231,22 @@ const PearsonDashboard = () => {
                                     <button className="text-[10px] font-bold text-gray-600 text-left hover:text-white transition-colors">日本語</button>
                                 </div>
                             </div>
-
-                            {/* Pearson Logo Section */}
-                            <div className="mt-12 text-center opacity-30 group-hover:opacity-60 transition-opacity">
-                                <p className="text-[8px] font-black uppercase tracking-[0.5em] text-white">PEARSON_VUE</p>
-                            </div>
                         </PrecisionPanel>
                     </aside>
 
                     {/* CENTER COLUMN: Core Dashboard Functionality */}
-                    <main className="flex-1 space-y-8">
+                    <div className="flex-1 space-y-8">
+                        {/* Header Text Overlay */}
+                        <div className="mb-4">
+                            <div className="flex items-center gap-3 mb-2 px-2">
+                                <div className="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></div>
+                                <span className="text-[10px] font-black text-red-500 uppercase tracking-[0.4em]">Operational_Registry_v6.0</span>
+                            </div>
+                            <h1 className="text-6xl font-black text-white tracking-tighter uppercase italic px-2">
+                                Command Dashboard
+                            </h1>
+                        </div>
+
                         {/* Schedule an Exam Module */}
                         <PrecisionPanel className="p-10 border-red-600/20">
                             <div className="flex items-center gap-2 mb-8">
@@ -195,7 +284,7 @@ const PearsonDashboard = () => {
                                 </p>
                             </div>
                         </PrecisionPanel>
-                    </main>
+                    </div>
 
                     {/* RIGHT COLUMN: Account Intelligence */}
                     <aside className="w-80 space-y-6 flex-shrink-0">
@@ -212,7 +301,7 @@ const PearsonDashboard = () => {
                                     'Protocol Receipts'
                                 ].map((item, idx) => (
                                     <li key={idx}>
-                                        <button className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-all group/item">
+                                        <button className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-all group/item text-left">
                                             <div className="flex items-center gap-3">
                                                 <ChevronRight className="w-4 h-4 text-red-600 group-hover/item:translate-x-1 transition-transform" />
                                                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover/item:text-white transition-colors">{item}</span>
@@ -249,29 +338,29 @@ const PearsonDashboard = () => {
                         </div>
                     </aside>
                 </div>
+            </main>
 
-                {/* Unified Bottom Bar */}
-                <footer className="px-12 py-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-[8px] font-black uppercase tracking-[0.4em] text-gray-600 mt-auto">
-                    <div className="flex gap-12 mb-4 md:mb-0">
-                        <a href="#" className="hover:text-red-500 transition-colors">Protocol_Terms</a>
-                        <a href="#" className="hover:text-red-500 transition-colors">Privacy_Shield</a>
-                        <a href="#" className="hover:text-red-500 transition-colors">Field_Support</a>
-                    </div>
+            {/* Unified Bottom Bar */}
+            <footer className="relative z-10 px-12 py-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-[8px] font-black uppercase tracking-[0.4em] text-gray-600">
+                <div className="flex gap-12 mb-4 md:mb-0">
+                    <a href="#" className="hover:text-red-500 transition-colors">Protocol_Terms</a>
+                    <a href="#" className="hover:text-red-500 transition-colors">Privacy_Shield</a>
+                    <a href="#" className="hover:text-red-500 transition-colors">Field_Support</a>
+                </div>
 
-                    <div className="flex items-center gap-10">
-                        <button className="flex items-center gap-2 hover:text-white transition-colors">
-                            <div className="w-1.5 h-1.5 rounded-full border border-red-600/50 flex items-center justify-center p-0.5">
-                                <div className="w-full h-full bg-red-600 rounded-full blur-[2px]"></div>
-                            </div>
-                            Privacy_Settings
-                        </button>
-                        <div className="flex items-center gap-2 italic">
-                            <span className="opacity-40 font-normal mr-1 not-italic">PEARSON</span>
-                            <span className="text-red-500">VUE</span>
+                <div className="flex items-center gap-10">
+                    <button className="flex items-center gap-2 hover:text-white transition-colors">
+                        <div className="w-1.5 h-1.5 rounded-full border border-red-600/50 flex items-center justify-center p-0.5">
+                            <div className="w-full h-full bg-red-600 rounded-full blur-[2px]"></div>
                         </div>
+                        Privacy_Settings
+                    </button>
+                    <div className="flex items-center gap-2 italic">
+                        <span className="opacity-40 font-normal mr-1 not-italic">PEARSON</span>
+                        <span className="text-red-500">VUE</span>
                     </div>
-                </footer>
-            </div>
+                </div>
+            </footer>
         </div>
     );
 };
