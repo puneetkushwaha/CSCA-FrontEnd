@@ -38,8 +38,8 @@ const SidebarLink = ({ icon: Icon, label, active, onClick, external }) => (
     <button
         onClick={onClick}
         className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${active
-                ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.2)]'
-                : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'
+            ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.2)]'
+            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'
             }`}
     >
         <Icon className={`w-4 h-4 ${active ? 'text-white' : 'text-red-500'}`} />
@@ -53,6 +53,7 @@ const PearsonDashboard = () => {
     const { toggleCart, cartCount } = useCart();
     const location = useLocation();
     const navigate = useNavigate();
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
 
     const handleSignOut = () => {
         logout();
@@ -178,17 +179,20 @@ const PearsonDashboard = () => {
                 <div className="max-w-[1540px] mx-auto flex gap-8 p-8 items-start">
 
                     {/* LEFT COLUMN: Navigation Sidebar */}
-                    <aside className="w-80 space-y-6 flex-shrink-0">
-                        <PrecisionPanel className="p-6">
+                    <aside className={`transition-all duration-500 ease-in-out flex-shrink-0 ${isSidebarCollapsed ? 'w-20' : 'w-80'}`}>
+                        <PrecisionPanel className="p-6 h-full">
                             {/* Search Simulation / Menu Button */}
-                            <div className="flex items-center justify-end mb-8 p-2 border border-red-600/30 rounded-lg bg-black/20">
-                                <button className="p-2 hover:bg-white/5 rounded-md transition-colors text-red-500">
+                            <div className={`flex items-center mb-8 p-2 border border-red-600/30 rounded-lg bg-black/20 transition-all ${isSidebarCollapsed ? 'justify-center' : 'justify-end'}`}>
+                                <button
+                                    onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                                    className="p-2 hover:bg-white/5 rounded-md transition-colors text-red-500"
+                                >
                                     <Menu className="w-5 h-5" />
                                 </button>
                             </div>
 
                             {/* Profile Portal */}
-                            <div className="flex flex-col items-center pb-8 border-b border-white/10 mb-6">
+                            <div className={`flex flex-col items-center pb-8 border-b border-white/10 mb-6 transition-all duration-500 ${isSidebarCollapsed ? 'opacity-0 scale-75 overflow-hidden h-0 mb-0 pb-0' : 'opacity-100 scale-100'}`}>
                                 <div className="relative mb-4">
                                     <div className="absolute inset-0 bg-red-600/20 blur-xl rounded-full"></div>
                                     <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-red-600 to-red-400 p-0.5 relative z-10">
@@ -209,28 +213,58 @@ const PearsonDashboard = () => {
                             </div>
 
                             {/* Navigation Stack */}
-                            <nav className="space-y-2">
-                                <SidebarLink icon={Shield} label="Dashboard" active onClick={() => { }} />
-                                <SidebarLink icon={User} label="Return to Account" external onClick={() => { }} />
-                                <SidebarLink icon={MessageSquare} label="Feedback Survey" onClick={() => { }} />
-                                <div className="pt-4 border-t border-white/5 mt-4">
-                                    <SidebarLink icon={LogOut} label="Terminate Session" onClick={handleSignOut} />
+                            <nav className="space-y-4">
+                                <button
+                                    onClick={() => navigate('/dashboard')}
+                                    className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 ${isActive('/dashboard') ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.2)]' : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10'} ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
+                                >
+                                    <Shield className={`w-5 h-5 shrink-0 transition-transform duration-500 ${isSidebarCollapsed ? 'scale-110' : ''}`} />
+                                    {!isSidebarCollapsed && <span className="text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap animate-in fade-in duration-700">Dashboard</span>}
+                                </button>
+
+                                <button
+                                    onClick={() => navigate('/dashboard')}
+                                    className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
+                                >
+                                    <User className={`w-5 h-5 shrink-0 text-red-500 transition-transform duration-500 ${isSidebarCollapsed ? 'scale-110' : ''}`} />
+                                    {!isSidebarCollapsed && <span className="text-[10px] font-black uppercase tracking-[0.2em] flex-1 text-left whitespace-nowrap animate-in fade-in duration-700">Return to Account</span>}
+                                    {!isSidebarCollapsed && <ExternalLink className="w-3 h-3 opacity-40 ml-auto" />}
+                                </button>
+
+                                <button
+                                    onClick={() => navigate('/dashboard/certifications')}
+                                    className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
+                                >
+                                    <MessageSquare className={`w-5 h-5 shrink-0 text-red-500 transition-transform duration-500 ${isSidebarCollapsed ? 'scale-110' : ''}`} />
+                                    {!isSidebarCollapsed && <span className="text-[10px] font-black uppercase tracking-[0.2em] flex-1 text-left whitespace-nowrap animate-in fade-in duration-700">Feedback Survey</span>}
+                                </button>
+
+                                <div className={`pt-4 border-t border-white/5 mt-4 transition-all duration-500 ${isSidebarCollapsed ? 'border-none' : ''}`}>
+                                    <button
+                                        onClick={handleSignOut}
+                                        className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 text-red-500 hover:bg-red-500/10 ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
+                                    >
+                                        <LogOut className={`w-5 h-5 shrink-0 transition-transform duration-500 ${isSidebarCollapsed ? 'scale-110' : ''}`} />
+                                        {!isSidebarCollapsed && <span className="text-[10px] font-black uppercase tracking-[0.2em] whitespace-nowrap animate-in fade-in duration-700">Terminate Session</span>}
+                                    </button>
                                 </div>
                             </nav>
 
                             {/* Language Protocol */}
-                            <div className="mt-8 pt-6 border-t border-white/10">
-                                <div className="flex items-center gap-3 text-[9px] font-black text-gray-500 uppercase tracking-widest mb-4">
-                                    <Globe className="w-4 h-4 text-red-500" />
-                                    Language Port
+                            {!isSidebarCollapsed && (
+                                <div className="mt-8 pt-6 border-t border-white/10 animate-in fade-in duration-1000">
+                                    <div className="flex items-center gap-3 text-[9px] font-black text-gray-500 uppercase tracking-widest mb-4">
+                                        <Globe className="w-4 h-4 text-red-500" />
+                                        Language Port
+                                    </div>
+                                    <div className="grid grid-cols-1 gap-2 pl-7">
+                                        <button className="flex items-center gap-2 text-[10px] font-bold text-red-500 text-left">
+                                            English <div className="w-1 h-1 bg-red-600 rounded-full animate-pulse shadow-[0_0_5px_rgba(220,38,38,1)]"></div>
+                                        </button>
+                                        <button className="text-[10px] font-bold text-gray-600 text-left hover:text-white transition-colors">日本語</button>
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-1 gap-2 pl-7">
-                                    <button className="flex items-center gap-2 text-[10px] font-bold text-red-500 text-left">
-                                        English <div className="w-1 h-1 bg-red-600 rounded-full animate-pulse shadow-[0_0_5px_rgba(220,38,38,1)]"></div>
-                                    </button>
-                                    <button className="text-[10px] font-bold text-gray-600 text-left hover:text-white transition-colors">日本語</button>
-                                </div>
-                            </div>
+                            )}
                         </PrecisionPanel>
                     </aside>
 
@@ -256,7 +290,10 @@ const PearsonDashboard = () => {
 
                             <div className="mb-10">
                                 <p className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6">Exam Catalog Queue</p>
-                                <button className="px-10 py-5 bg-red-600 hover:bg-red-700 text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full transition-all duration-500 shadow-[0_0_40px_rgba(220,38,38,0.3)] transform hover:scale-105 active:scale-95">
+                                <button
+                                    onClick={() => navigate('/dashboard/certifications')}
+                                    className="px-10 py-5 bg-red-600 hover:bg-red-700 text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full transition-all duration-500 shadow-[0_0_40px_rgba(220,38,38,0.3)] transform hover:scale-105 active:scale-95"
+                                >
                                     View Available Exams
                                 </button>
                             </div>
@@ -294,17 +331,20 @@ const PearsonDashboard = () => {
                             </h3>
                             <ul className="space-y-2">
                                 {[
-                                    'Additional information',
-                                    'Registry Preferences',
-                                    'Exam Mission History',
-                                    'View score reports',
-                                    'Protocol Receipts'
+                                    { label: 'Additional information', path: '/profile' },
+                                    { label: 'Registry Preferences', path: '/dashboard/settings' },
+                                    { label: 'Exam Mission History', path: '/dashboard/exam' },
+                                    { label: 'View score reports', path: '/dashboard/exam' },
+                                    { label: 'Protocol Receipts', path: '/dashboard/settings' }
                                 ].map((item, idx) => (
                                     <li key={idx}>
-                                        <button className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-all group/item text-left">
+                                        <button
+                                            onClick={() => navigate(item.path)}
+                                            className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-all group/item text-left"
+                                        >
                                             <div className="flex items-center gap-3">
                                                 <ChevronRight className="w-4 h-4 text-red-600 group-hover/item:translate-x-1 transition-transform" />
-                                                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover/item:text-white transition-colors">{item}</span>
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover/item:text-white transition-colors">{item.label}</span>
                                             </div>
                                         </button>
                                     </li>
