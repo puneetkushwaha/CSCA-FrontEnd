@@ -291,7 +291,7 @@ const PearsonDashboard = () => {
                             <div className="mb-10">
                                 <p className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6">Exam Catalog Queue</p>
                                 <button
-                                    onClick={() => navigate('/dashboard/certifications')}
+                                    onClick={() => navigate('/find-exam')}
                                     className="px-10 py-5 bg-red-600 hover:bg-red-700 text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full transition-all duration-500 shadow-[0_0_40px_rgba(220,38,38,0.3)] transform hover:scale-105 active:scale-95"
                                 >
                                     View Available Exams
