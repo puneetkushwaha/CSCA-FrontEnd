@@ -125,9 +125,7 @@ const FindExam = () => {
                                             <button
                                                 key={idx}
                                                 onClick={() => {
-                                                    // Optional: handle clicking to auto-select in right panel
-                                                    const originalIdx = exams.indexOf(exam);
-                                                    setActiveGroup(originalIdx);
+                                                    navigate('/select-exam-options', { state: { examName: exam } });
                                                 }}
                                                 className="w-full text-left p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-red-600/30 hover:bg-red-600/5 transition-all group/item"
                                             >
@@ -183,7 +181,7 @@ const FindExam = () => {
                                 {filteredExams.map((exam, idx) => (
                                     <button
                                         key={idx}
-                                        onClick={() => setActiveGroup(activeGroup === idx ? null : idx)}
+                                        onClick={() => navigate('/select-exam-options', { state: { examName: exam } })}
                                         className={`w-full flex items-center justify-between p-6 rounded-2xl transition-all duration-500 border ${activeGroup === idx
                                             ? 'bg-red-600 border-red-500 text-white shadow-[0_0_40px_rgba(220,38,38,0.3)]'
                                             : 'bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10 hover:text-white'

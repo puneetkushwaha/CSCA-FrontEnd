@@ -59,6 +59,7 @@ import ExamHistory from './pages/ExamHistory';
 import ScoreReports from './pages/ScoreReports';
 import MyReceipts from './pages/MyReceipts';
 import FindExam from './pages/FindExam';
+import SelectExamOptions from './pages/SelectExamOptions';
 
 
 // Scroll to top on route change
@@ -170,6 +171,7 @@ function App() {
               <Route path="/score-reports" element={<ScoreReports />} />
               <Route path="/my-receipts" element={<MyReceipts />} />
               <Route path="/find-exam" element={<FindExam />} />
+              <Route path="/select-exam-options" element={<SelectExamOptions />} />
             </Route>
 
           </Routes>
