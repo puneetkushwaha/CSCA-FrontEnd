@@ -52,6 +52,8 @@ import DashboardHome from './pages/DashboardHome';
 import CursorFollower from './components/CursorFollower';
 import CartDrawer from './components/CartDrawer';
 import ForgotPassword from './pages/ForgotPassword';
+import PearsonDashboard from './pages/PearsonDashboard';
+
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -152,9 +154,12 @@ function App() {
                 <Route path="certifications" element={<Certifications />} />
                 <Route path="settings" element={<DashboardHome />} />
                 <Route path="exam" element={<Exam />} />
+                <Route path="pearson" element={<PearsonDashboard />} />
               </Route>
               <Route path="/exam" element={<Exam />} />
+              <Route path="/pearson-dashboard" element={<PearsonDashboard />} />
             </Route>
+
           </Routes>
         </CartProvider>
       </AuthProvider>

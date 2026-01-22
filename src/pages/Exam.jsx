@@ -32,6 +32,13 @@ const SectionHeader = ({ title }) => (
 );
 
 const Exam = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/pearson-dashboard');
+  };
+
   return (
     <div className="min-h-full flex flex-col font-['Inter'] relative pb-20">
       <div className="max-w-[1240px] mx-auto w-full py-12 px-12">
@@ -64,7 +71,7 @@ const Exam = () => {
             </div>
           </div>
 
-          <form className="space-y-20">
+          <form onSubmit={handleSubmit} className="space-y-20">
             {/* LEGAL NAME Sections */}
             <div className="space-y-10">
               <SectionHeader title="LEGAL NAME" />
