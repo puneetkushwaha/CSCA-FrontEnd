@@ -60,8 +60,20 @@ export default function Login() {
     }
   };
 
-  const socialLogin = (provider) => {
-    window.location.href = `${BASE_URL}/api/auth/${provider}`;
+  const socialLogin = async (provider) => {
+    setIsLoading(true);
+    try {
+      // Warm up the server before redirecting (important for Render free tier)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
+      await fetch(BASE_URL, { signal: controller.signal, mode: 'no-cors' }).catch(() => { });
+      clearTimeout(timeoutId);
+
+      window.location.href = `${BASE_URL}/api/auth/${provider}`;
+    } catch (error) {
+      window.location.href = `${BASE_URL}/api/auth/${provider}`; // Fallback to direct redirect
+    }
   };
 
 
