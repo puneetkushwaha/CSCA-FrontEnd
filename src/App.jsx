@@ -55,6 +55,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import PearsonDashboard from './pages/PearsonDashboard';
 import AdditionalInfo from './pages/AdditionalInfo';
 import RegistryPreferences from './pages/RegistryPreferences';
+import ExamHistory from './pages/ExamHistory';
 
 
 // Scroll to top on route change
@@ -162,6 +163,7 @@ function App() {
               <Route path="/pearson-dashboard" element={<PearsonDashboard />} />
               <Route path="/additional-info" element={<AdditionalInfo />} />
               <Route path="/registry-preferences" element={<RegistryPreferences />} />
+              <Route path="/exam-history" element={<ExamHistory />} />
             </Route>
 
           </Routes>

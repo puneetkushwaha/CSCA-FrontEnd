@@ -333,7 +333,7 @@ const PearsonDashboard = () => {
                                 {[
                                     { label: 'Additional information', path: '/additional-info' },
                                     { label: 'Registry Preferences', path: '/registry-preferences' },
-                                    { label: 'Exam Mission History', path: '/dashboard/exam' },
+                                    { label: 'Exam Mission History', path: '/exam-history' },
                                     { label: 'View score reports', path: '/dashboard/exam' },
                                     { label: 'Protocol Receipts', path: '/dashboard/settings' }
                                 ].map((item, idx) => (
