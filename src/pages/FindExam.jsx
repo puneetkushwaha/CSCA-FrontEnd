@@ -116,6 +116,32 @@ const FindExam = () => {
                                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-sm font-black text-white focus:outline-none focus:border-red-600 transition-all placeholder:text-gray-700 uppercase tracking-widest"
                                 />
                                 <Search className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-700 group-focus-within:text-red-600 transition-colors" />
+
+                                {/* Search Suggestions / Results List */}
+                                {searchTerm && (
+                                    <div className="mt-4 space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar animate-in fade-in slide-in-from-top-2 duration-300">
+                                        <p className="text-[8px] font-black text-red-500 uppercase tracking-[0.4em] mb-4 border-b border-white/5 pb-2">Matching_Registry_Entries:</p>
+                                        {filteredExams.map((exam, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => {
+                                                    // Optional: handle clicking to auto-select in right panel
+                                                    const originalIdx = exams.indexOf(exam);
+                                                    setActiveGroup(originalIdx);
+                                                }}
+                                                className="w-full text-left p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-red-600/30 hover:bg-red-600/5 transition-all group/item"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-1.5 h-1.5 bg-red-600 rounded-full group-hover/item:animate-ping"></div>
+                                                    <span className="text-[10px] font-bold text-gray-400 group-hover/item:text-white uppercase tracking-wider">{exam}</span>
+                                                </div>
+                                            </button>
+                                        ))}
+                                        {filteredExams.length === 0 && (
+                                            <p className="text-[9px] text-gray-600 italic px-4">NO_MATCHES_FOUND</p>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </PrecisionPanel>
 
@@ -159,8 +185,8 @@ const FindExam = () => {
                                         key={idx}
                                         onClick={() => setActiveGroup(activeGroup === idx ? null : idx)}
                                         className={`w-full flex items-center justify-between p-6 rounded-2xl transition-all duration-500 border ${activeGroup === idx
-                                                ? 'bg-red-600 border-red-500 text-white shadow-[0_0_40px_rgba(220,38,38,0.3)]'
-                                                : 'bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10 hover:text-white'
+                                            ? 'bg-red-600 border-red-500 text-white shadow-[0_0_40px_rgba(220,38,38,0.3)]'
+                                            : 'bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10 hover:text-white'
                                             }`}
                                     >
                                         <div className="flex items-center gap-4">
