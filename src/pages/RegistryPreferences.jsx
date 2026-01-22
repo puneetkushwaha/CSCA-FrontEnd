@@ -12,6 +12,20 @@ const PrecisionPanel = ({ children, className = "" }) => (
     </div>
 );
 
+const GlobalPageLoader = () => (
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]">
+        <div className="relative mb-8">
+            <div className="absolute inset-0 bg-red-600 blur-2xl opacity-20 animate-pulse"></div>
+            <div className="w-16 h-16 border-t-2 border-r-2 border-red-600 rounded-full animate-spin"></div>
+            <Shield className="absolute inset-0 m-auto w-6 h-6 text-red-600" />
+        </div>
+        <div className="flex flex-col items-center gap-2">
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.5em] animate-pulse">Initializing Portal...</span>
+            <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">Please wait while we sync with the registry</span>
+        </div>
+    </div>
+);
+
 const languages = [
     "English", "Hindi", "Spanish", "French", "German", "Japanese", "Chinese (Simplified)",
     "Chinese (Traditional)", "Portuguese", "Russian", "Arabic", "Korean", "Italian",
@@ -51,12 +65,18 @@ const RegistryPreferences = () => {
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     const [loading, setLoading] = useState(false);
+    const [isPageLoading, setIsPageLoading] = useState(true);
     const [prefs, setPrefs] = useState({
         correspondenceLanguage: user?.correspondenceLanguage || 'English',
         timezone: user?.timezone || '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
         timeDisplay: user?.timeDisplay || '12 hour',
         distanceDisplay: user?.distanceDisplay || 'kilometers'
     });
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => setIsPageLoading(false), 1000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleSave = async () => {
         setLoading(true);
@@ -86,6 +106,8 @@ const RegistryPreferences = () => {
             setLoading(false);
         }
     };
+
+    if (isPageLoading) return <GlobalPageLoader />;
 
     return (
         <div className="min-h-screen bg-[#050505] text-white font-['Inter'] relative overflow-hidden flex flex-col items-center justify-center p-8">
@@ -173,8 +195,8 @@ const RegistryPreferences = () => {
                                                 key={opt}
                                                 onClick={() => setPrefs({ ...prefs, timeDisplay: opt })}
                                                 className={`flex-1 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] border transition-all ${prefs.timeDisplay === opt
-                                                        ? 'bg-red-600 border-red-500 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]'
-                                                        : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'
+                                                    ? 'bg-red-600 border-red-500 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]'
+                                                    : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'
                                                     }`}
                                             >
                                                 {opt}
@@ -193,8 +215,8 @@ const RegistryPreferences = () => {
                                                 key={opt}
                                                 onClick={() => setPrefs({ ...prefs, distanceDisplay: opt })}
                                                 className={`flex-1 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] border transition-all ${prefs.distanceDisplay === opt
-                                                        ? 'bg-red-600 border-red-500 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]'
-                                                        : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'
+                                                    ? 'bg-red-600 border-red-500 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)]'
+                                                    : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'
                                                     }`}
                                             >
                                                 {opt}

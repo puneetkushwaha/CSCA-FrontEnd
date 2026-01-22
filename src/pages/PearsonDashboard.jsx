@@ -335,7 +335,7 @@ const PearsonDashboard = () => {
                                     { label: 'Registry Preferences', path: '/registry-preferences' },
                                     { label: 'Exam Mission History', path: '/exam-history' },
                                     { label: 'View score reports', path: '/score-reports' },
-                                    { label: 'Protocol Receipts', path: '/dashboard/settings' }
+                                    { label: 'Protocol Receipts', path: '/my-receipts' }
                                 ].map((item, idx) => (
                                     <li key={idx}>
                                         <button

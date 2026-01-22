@@ -12,12 +12,32 @@ const PrecisionPanel = ({ children, className = "" }) => (
     </div>
 );
 
+const GlobalPageLoader = () => (
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]">
+        <div className="relative mb-8">
+            <div className="absolute inset-0 bg-red-600 blur-2xl opacity-20 animate-pulse"></div>
+            <div className="w-16 h-16 border-t-2 border-r-2 border-red-600 rounded-full animate-spin"></div>
+            <Shield className="absolute inset-0 m-auto w-6 h-6 text-red-600" />
+        </div>
+        <div className="flex flex-col items-center gap-2">
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.5em] animate-pulse">Initializing Portal...</span>
+            <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">Please wait while we sync with the registry</span>
+        </div>
+    </div>
+);
+
 const AdditionalInfo = () => {
     const { user, token, updateUser } = useAuth();
     const navigate = useNavigate();
     const [isIndian, setIsIndian] = useState(user?.isIndian === true ? 'Yes' : (user?.isIndian === false ? 'No' : null));
     const [loading, setLoading] = useState(false);
+    const [isPageLoading, setIsPageLoading] = useState(true);
     const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsPageLoading(false), 1000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleSave = async () => {
         if (!isIndian) return;
@@ -52,6 +72,8 @@ const AdditionalInfo = () => {
             setLoading(false);
         }
     };
+
+    if (isPageLoading) return <GlobalPageLoader />;
 
     return (
         <div className="min-h-screen bg-[#050505] text-white font-['Inter'] relative overflow-hidden flex flex-col items-center justify-center p-8">

@@ -57,6 +57,7 @@ import AdditionalInfo from './pages/AdditionalInfo';
 import RegistryPreferences from './pages/RegistryPreferences';
 import ExamHistory from './pages/ExamHistory';
 import ScoreReports from './pages/ScoreReports';
+import MyReceipts from './pages/MyReceipts';
 
 
 // Scroll to top on route change
@@ -166,6 +167,7 @@ function App() {
               <Route path="/registry-preferences" element={<RegistryPreferences />} />
               <Route path="/exam-history" element={<ExamHistory />} />
               <Route path="/score-reports" element={<ScoreReports />} />
+              <Route path="/my-receipts" element={<MyReceipts />} />
             </Route>
 
           </Routes>
