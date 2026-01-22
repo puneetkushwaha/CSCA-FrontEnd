@@ -15,12 +15,12 @@ const PrecisionPanel = ({ children, className = "" }) => (
 const AdditionalInfo = () => {
     const { user, token, updateUser } = useAuth();
     const navigate = useNavigate();
-    const [isCitizen, setIsCitizen] = useState(user?.isCitizen === true ? 'Yes' : (user?.isCitizen === false ? 'No' : null));
+    const [isIndian, setIsIndian] = useState(user?.isIndian === true ? 'Yes' : (user?.isIndian === false ? 'No' : null));
     const [loading, setLoading] = useState(false);
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     const handleSave = async () => {
-        if (!isCitizen) return;
+        if (!isIndian) return;
         setLoading(true);
         try {
             const res = await fetch(`${BASE_URL}/users/update`, {
@@ -30,9 +30,7 @@ const AdditionalInfo = () => {
                     Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    isCitizen: isCitizen === 'Yes',
-                    // Preserve other fields if backend requires them, 
-                    // but usually update endpoints only update provided fields
+                    isIndian: isIndian === 'Yes',
                 }),
             });
 
@@ -43,7 +41,7 @@ const AdditionalInfo = () => {
             }
 
             // Update local context
-            updateUser({ isCitizen: isCitizen === 'Yes' });
+            updateUser({ isIndian: isIndian === 'Yes' });
 
             // Navigate to Dashboard or next step
             navigate('/pearson-dashboard');
@@ -101,24 +99,24 @@ const AdditionalInfo = () => {
                             </div>
                             <div className="relative z-10 space-y-8">
                                 <p className="text-xl font-black text-white italic tracking-tight uppercase">
-                                    Are you a U.S. Citizen and at least 18 years of age? <span className="text-red-500">*</span>
+                                    Are you an Indian Citizen and at least 18 years of age? <span className="text-red-500">*</span>
                                 </p>
 
                                 <div className="flex flex-col md:flex-row gap-6">
                                     {['Yes', 'No'].map((option) => (
                                         <button
                                             key={option}
-                                            onClick={() => setIsCitizen(option)}
-                                            className={`flex-1 py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-xs transition-all duration-500 border relative overflow-hidden group/opt ${isCitizen === option
-                                                    ? 'bg-red-600 border-red-500 text-white shadow-[0_0_40px_rgba(220,38,38,0.4)] scale-[1.02]'
-                                                    : 'bg-white/5 border-white/10 text-gray-500 hover:border-red-600/30 hover:text-white'
+                                            onClick={() => setIsIndian(option)}
+                                            className={`flex-1 py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-xs transition-all duration-500 border relative overflow-hidden group/opt ${isIndian === option
+                                                ? 'bg-red-600 border-red-500 text-white shadow-[0_0_40px_rgba(220,38,38,0.4)] scale-[1.02]'
+                                                : 'bg-white/5 border-white/10 text-gray-500 hover:border-red-600/30 hover:text-white'
                                                 }`}
                                         >
                                             <div className="relative z-10 flex items-center justify-center gap-3">
-                                                <div className={`w-3 h-3 rounded-full border-2 transition-all ${isCitizen === option ? 'bg-white border-white' : 'border-gray-600 grupo-hover/opt:border-red-500'}`}></div>
+                                                <div className={`w-3 h-3 rounded-full border-2 transition-all ${isIndian === option ? 'bg-white border-white' : 'border-gray-600 grupo-hover/opt:border-red-500'}`}></div>
                                                 {option}
                                             </div>
-                                            {isCitizen !== option && (
+                                            {isIndian !== option && (
                                                 <div className="absolute inset-0 bg-red-600/10 opacity-0 group-hover/opt:opacity-100 transition-opacity"></div>
                                             )}
                                         </button>
@@ -147,10 +145,10 @@ const AdditionalInfo = () => {
 
                             <button
                                 onClick={handleSave}
-                                disabled={!isCitizen || loading}
-                                className={`px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.3em] transition-all duration-500 flex items-center gap-3 group/save ${isCitizen && !loading
-                                        ? 'bg-red-600 text-white shadow-[0_0_50px_rgba(220,38,38,0.4)] hover:shadow-[0_0_70px_rgba(220,38,38,0.6)] hover:scale-105 active:scale-95'
-                                        : 'bg-white/5 text-gray-700 cursor-not-allowed border border-white/5'
+                                disabled={!isIndian || loading}
+                                className={`px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.3em] transition-all duration-500 flex items-center gap-3 group/save ${isIndian && !loading
+                                    ? 'bg-red-600 text-white shadow-[0_0_50px_rgba(220,38,38,0.4)] hover:shadow-[0_0_70px_rgba(220,38,38,0.6)] hover:scale-105 active:scale-95'
+                                    : 'bg-white/5 text-gray-700 cursor-not-allowed border border-white/5'
                                     }`}
                             >
                                 {loading ? (

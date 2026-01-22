@@ -54,6 +54,7 @@ import CartDrawer from './components/CartDrawer';
 import ForgotPassword from './pages/ForgotPassword';
 import PearsonDashboard from './pages/PearsonDashboard';
 import AdditionalInfo from './pages/AdditionalInfo';
+import RegistryPreferences from './pages/RegistryPreferences';
 
 
 // Scroll to top on route change
@@ -160,6 +161,7 @@ function App() {
               <Route path="/exam" element={<Exam />} />
               <Route path="/pearson-dashboard" element={<PearsonDashboard />} />
               <Route path="/additional-info" element={<AdditionalInfo />} />
+              <Route path="/registry-preferences" element={<RegistryPreferences />} />
             </Route>
 
           </Routes>
