@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import {
     Shield, ArrowLeft, Monitor, MapPin, ChevronLeft,
     Menu, User, MessageSquare, LogOut, Info, Clock, CheckCircle2,
-    FileText, HelpCircle
+    FileText, HelpCircle, Laptop, Home
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RedGeometricBackground from '../components/RedGeometricBackground';
@@ -200,90 +200,162 @@ const SelectExamOptions = () => {
                                     </button>
                                 </div>
 
-                                <div className="p-10 bg-white/[0.02] border border-white/5 rounded-[2.5rem] space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                                    <h6 className="text-xl font-black uppercase italic tracking-tighter text-white mb-10 pb-4 border-b border-white/5">
-                                        Prepare for your test center exam
-                                    </h6>
+                                {selectedOption && (
+                                    <div className="p-10 bg-white/[0.02] border border-white/5 rounded-[2.5rem] space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                        <h6 className="text-xl font-black uppercase italic tracking-tighter text-white mb-10 pb-4 border-b border-white/5">
+                                            {selectedOption === 'center' ? 'Prepare for your test center exam' : 'Prepare to take your exam with OnVUE'}
+                                        </h6>
 
-                                    {selectedOption === 'center' ? (
-                                        <div className="space-y-12">
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                                                {/* Your photo ID */}
-                                                <div className="flex flex-col items-center text-center space-y-6 group/info">
-                                                    <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative">
-                                                        <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent"></div>
-                                                        <Shield className="w-16 h-16 text-red-600 relative z-10" />
+                                        {selectedOption === 'center' ? (
+                                            <div className="space-y-12">
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                                                    {/* Your photo ID */}
+                                                    <div className="flex flex-col items-center text-center space-y-6 group/info">
+                                                        <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative">
+                                                            <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent"></div>
+                                                            <Shield className="w-16 h-16 text-red-600 relative z-10" />
+                                                        </div>
+                                                        <div className="space-y-3">
+                                                            <h7 className="text-sm font-black uppercase tracking-widest text-white">Your photo ID</h7>
+                                                            <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest px-2">
+                                                                We'll verify your government-issued identification (ID) when you arrive for your exam.
+                                                            </p>
+                                                            <button className="text-[9px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
+                                                                Review admission & ID policies
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div className="space-y-3">
-                                                        <h7 className="text-sm font-black uppercase tracking-widest text-white">Your photo ID</h7>
-                                                        <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest px-2">
-                                                            We'll verify your government-issued identification (ID) when you arrive for your exam.
-                                                        </p>
-                                                        <button className="text-[9px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
-                                                            Review admission & ID policies
-                                                        </button>
+
+                                                    {/* What to expect */}
+                                                    <div className="flex flex-col items-center text-center space-y-6 group/info">
+                                                        <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center border border-white/10 group-hover/info:border-red-600/30 transition-all overflow-hidden relative">
+                                                            <div className="absolute inset-0 bg-red-600/5"></div>
+                                                            <Monitor className="w-16 h-16 text-red-600 relative z-10" />
+                                                        </div>
+                                                        <div className="space-y-3">
+                                                            <h7 className="text-sm font-black uppercase tracking-widest text-white">What to expect</h7>
+                                                            <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest px-2">
+                                                                Familiarize yourself with the testing experience so you feel confident on test day.
+                                                            </p>
+                                                            <button className="text-[9px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
+                                                                Watch our short video
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Personal items */}
+                                                    <div className="flex flex-col items-center text-center space-y-6 group/info">
+                                                        <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative">
+                                                            <div className="absolute inset-0 bg-gradient-to-tr from-red-600/10 to-transparent"></div>
+                                                            <FileText className="w-16 h-16 text-red-600 relative z-10" />
+                                                        </div>
+                                                        <div className="space-y-3">
+                                                            <h7 className="text-sm font-black uppercase tracking-widest text-white">Personal items</h7>
+                                                            <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest px-2">
+                                                                Review the items that you can have during testing that do not require prior approval.
+                                                            </p>
+                                                            <button className="text-[9px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
+                                                                View comfort aid list
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                                {/* What to expect */}
-                                                <div className="flex flex-col items-center text-center space-y-6 group/info">
-                                                    <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center border border-white/10 group-hover/info:border-red-600/30 transition-all overflow-hidden relative">
-                                                        <div className="absolute inset-0 bg-red-600/5"></div>
-                                                        <Monitor className="w-16 h-16 text-red-600 relative z-10" />
-                                                    </div>
-                                                    <div className="space-y-3">
-                                                        <h7 className="text-sm font-black uppercase tracking-widest text-white">What to expect</h7>
-                                                        <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest px-2">
-                                                            Familiarize yourself with the testing experience so you feel confident on test day.
+                                                {/* Questions Section */}
+                                                <div className="pt-10 border-t border-white/5">
+                                                    <div className="space-y-2">
+                                                        <h7 className="text-sm font-black uppercase tracking-widest text-white">Questions?</h7>
+                                                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-2">
+                                                            Check out the <button className="text-red-500 hover:text-white underline transition-colors">FAQs</button> frequently asked questions.
                                                         </p>
-                                                        <button className="text-[9px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
-                                                            Watch our short video
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                {/* Personal items */}
-                                                <div className="flex flex-col items-center text-center space-y-6 group/info">
-                                                    <div className="w-full aspect-video bg-white/5 rounded-3xl flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative">
-                                                        <div className="absolute inset-0 bg-gradient-to-tr from-red-600/10 to-transparent"></div>
-                                                        <FileText className="w-16 h-16 text-red-600 relative z-10" />
-                                                    </div>
-                                                    <div className="space-y-3">
-                                                        <h7 className="text-sm font-black uppercase tracking-widest text-white">Personal items</h7>
-                                                        <p className="text-[10px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest px-2">
-                                                            Review the items that you can have during testing that do not require prior approval.
-                                                        </p>
-                                                        <button className="text-[9px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
-                                                            View comfort aid list
-                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
+                                        ) : (
+                                            <div className="space-y-12">
+                                                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                                                    {/* Your computer */}
+                                                    <div className="flex flex-col items-center text-center space-y-6 group/info">
+                                                        <div className="w-full aspect-square bg-white/5 rounded-full flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative max-w-[140px] mx-auto">
+                                                            <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent"></div>
+                                                            <Laptop className="w-10 h-10 text-red-600 relative z-10" />
+                                                        </div>
+                                                        <div className="space-y-3">
+                                                            <h7 className="text-[10px] font-black uppercase tracking-widest text-white">Your computer</h7>
+                                                            <p className="text-[9px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest">
+                                                                Use a personal computer that has a reliable webcam and internet connection.
+                                                            </p>
+                                                            <button className="text-[8px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
+                                                                Run system test
+                                                            </button>
+                                                        </div>
+                                                    </div>
 
-                                            {/* Questions Section */}
-                                            <div className="pt-10 border-t border-white/5">
-                                                <div className="space-y-2">
-                                                    <h7 className="text-sm font-black uppercase tracking-widest text-white">Questions?</h7>
-                                                    <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-2">
-                                                        Check out the <button className="text-red-500 hover:text-white underline transition-colors">FAQs</button> frequently asked questions.
-                                                    </p>
+                                                    {/* Your testing space */}
+                                                    <div className="flex flex-col items-center text-center space-y-6 group/info">
+                                                        <div className="w-full aspect-square bg-white/5 rounded-full flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative max-w-[140px] mx-auto">
+                                                            <div className="absolute inset-0 bg-red-600/5"></div>
+                                                            <Home className="w-10 h-10 text-red-600 relative z-10" />
+                                                        </div>
+                                                        <div className="space-y-3">
+                                                            <h7 className="text-[10px] font-black uppercase tracking-widest text-white">Your testing space</h7>
+                                                            <p className="text-[9px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest">
+                                                                The room should be a distraction-free, private place.
+                                                            </p>
+                                                            <button className="text-[8px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest leading-tight">
+                                                                See acceptable spaces and view permitted comfort aid list
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Your photo ID */}
+                                                    <div className="flex flex-col items-center text-center space-y-6 group/info">
+                                                        <div className="w-full aspect-square bg-white/5 rounded-full flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative max-w-[140px] mx-auto">
+                                                            <div className="absolute inset-0 bg-gradient-to-tr from-red-600/10 to-transparent"></div>
+                                                            <Shield className="w-10 h-10 text-red-600 relative z-10" />
+                                                        </div>
+                                                        <div className="space-y-3">
+                                                            <h7 className="text-[10px] font-black uppercase tracking-widest text-white">Your photo ID</h7>
+                                                            <p className="text-[9px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest">
+                                                                We'll verify your government-issued identification (ID) when you arrive for your exam.
+                                                            </p>
+                                                            <button className="text-[8px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
+                                                                Review admission & ID policies
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* What to expect */}
+                                                    <div className="flex flex-col items-center text-center space-y-6 group/info">
+                                                        <div className="w-full aspect-square bg-white/5 rounded-full flex items-center justify-center border border-white/5 group-hover/info:border-red-600/30 transition-all overflow-hidden relative max-w-[140px] mx-auto">
+                                                            <div className="absolute inset-0 bg-red-600/5"></div>
+                                                            <Clock className="w-10 h-10 text-red-600 relative z-10" />
+                                                        </div>
+                                                        <div className="space-y-3">
+                                                            <h7 className="text-[10px] font-black uppercase tracking-widest text-white">What to expect</h7>
+                                                            <p className="text-[9px] text-gray-500 font-bold leading-relaxed uppercase tracking-widest">
+                                                                Check in for your OnVUE exam 30 minutes before your appointment time.
+                                                            </p>
+                                                            <button className="text-[8px] font-black text-red-500 hover:text-white underline transition-colors uppercase tracking-widest">
+                                                                Watch our short video
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* OnVUE Questions Section */}
+                                                <div className="pt-10 border-t border-white/5">
+                                                    <div className="space-y-2">
+                                                        <h7 className="text-sm font-black uppercase tracking-widest text-white">Questions?</h7>
+                                                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-2">
+                                                            Check out the <button className="text-red-500 hover:text-white underline transition-colors">OnVUE FAQs</button> and <button className="text-red-500 hover:text-white underline transition-colors">minimum technical requirements</button>.
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ) : (
-                                        <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
-                                            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center animate-pulse">
-                                                <Info className="w-8 h-8 text-gray-700" />
-                                            </div>
-                                            <p className="text-[10px] text-gray-600 font-bold uppercase tracking-[0.3em] max-w-sm leading-relaxed">
-                                                {selectedOption
-                                                    ? `Configuring registry intel for ${selectedOption === 'online' ? 'OnVUE' : 'session'} session...`
-                                                    : "Select an operational mode to initialize registration details."
-                                                }
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="mt-12 pt-8 border-t border-white/5 flex gap-4">
