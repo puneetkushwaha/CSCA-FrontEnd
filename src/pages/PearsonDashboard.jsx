@@ -1,43 +1,56 @@
 import React from 'react';
 import {
-    Menu,
-    User,
-    LayoutDashboard,
-    MessageSquare,
-    LogOut,
-    Globe,
-    ChevronRight,
-    ChevronDown,
-    ExternalLink,
     Shield,
-    Activity,
-    CreditCard,
+    ChevronRight,
+    ArrowRight,
+    User,
+    Calendar,
     FileText,
-    Settings
+    Settings,
+    CreditCard,
+    History,
+    Info
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import RedGeometricBackground from '../components/RedGeometricBackground';
 
-const GlassPanel = ({ children, className = "" }) => (
-    <div className={`relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden group transition-all duration-500 hover:border-red-500/30 ${className}`}>
-        <div className="absolute inset-0 bg-red-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+const PrecisionPanel = ({ children, className = "" }) => (
+    <div className={`relative bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2rem] shadow-[0_25px_60px_rgba(0,0,0,0.5)] overflow-hidden group transition-all duration-700 ${className}`}>
+        <div className="absolute inset-0 bg-red-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
         <div className="relative z-10">{children}</div>
     </div>
+);
+
+const ServiceCard = ({ title, description, icon: Icon, onClick }) => (
+    <button
+        onClick={onClick}
+        className="w-full text-left p-8 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-red-600/50 hover:bg-white/[0.05] transition-all duration-500 group/card relative overflow-hidden"
+    >
+        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover/card:opacity-20 transition-opacity">
+            <Icon className="w-16 h-16 text-white" />
+        </div>
+        <div className="relative z-10">
+            <div className="w-12 h-12 bg-red-600/10 rounded-xl flex items-center justify-center mb-6 border border-red-600/20 group-hover/card:bg-red-600 group-hover/card:text-white transition-all duration-500">
+                <Icon className="w-6 h-6 text-red-500 group-hover/card:text-white" />
+            </div>
+            <h3 className="text-lg font-black uppercase italic tracking-wider text-white mb-2">{title}</h3>
+            <p className="text-gray-400 text-xs font-bold leading-relaxed">{description}</p>
+            <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-red-500 opacity-0 group-hover/card:opacity-100 translate-x-[-10px] group-hover/card:translate-x-0 transition-all duration-500">
+                Initialize Module <ArrowRight className="w-3 h-3" />
+            </div>
+        </div>
+    </button>
 );
 
 const PearsonDashboard = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
-    const handleSignOut = () => {
-        logout();
-        navigate('/login');
-    };
-
     return (
-        <div className="min-h-screen bg-[#050505] text-white font-['Inter'] relative overflow-hidden">
-            {/* Background Layer */}
+        <div className="min-h-screen bg-[#050505] text-white font-['Inter'] relative overflow-hidden pb-24">
+            {/* Background Stays the Same for Consistency */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <RedGeometricBackground
                     height={30}
@@ -51,217 +64,119 @@ const PearsonDashboard = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:48px_48px]"></div>
             </div>
 
-            {/* Main Container */}
-            <div className="relative z-10 max-w-[1440px] mx-auto min-h-screen flex flex-col">
+            <div className="relative z-10 max-w-[1240px] mx-auto px-8 pt-24">
 
-                {/* Top Navigation Bar */}
-                <header className="px-8 py-6 flex items-center justify-between">
-                    <Link to="/" className="flex items-center gap-2 group/logo">
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-red-600 blur-md opacity-20 group-hover/logo:opacity-50 transition-opacity animate-pulse"></div>
-                            <Shield className="h-8 w-8 text-red-600 relative z-10 fill-red-600/10" />
+                {/* Main Command Center Panel */}
+                <PrecisionPanel className="p-12 mb-12">
+                    <header className="mb-16">
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="flex items-center gap-3">
+                                <div className="w-2 h-2 bg-red-600 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.4)]"></div>
+                                <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em]">Operational_Intel_v9.0</span>
+                            </div>
+                            {/* Compact User Info */}
+                            <div className="flex items-center gap-4 bg-white/5 border border-white/10 px-6 py-3 rounded-full">
+                                <div className="text-right">
+                                    <p className="text-[10px] font-black text-white uppercase">{user?.firstName || 'Operator'} {user?.lastName || ''}</p>
+                                    <p className="text-[8px] text-gray-500 font-bold uppercase tracking-widest">ID: COMP001022973310</p>
+                                </div>
+                                <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center font-black text-xs border border-white/20">
+                                    {user?.firstName ? user.firstName[0] : 'U'}
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <span className="font-black text-2xl tracking-tighter text-white leading-none">CSCA</span>
-                            <span className="text-[8px] font-black text-red-600 uppercase tracking-[0.3em]">Operational_Registry</span>
-                        </div>
-                    </Link>
 
-                    <div className="flex items-center gap-6">
-                        <div className="flex flex-col items-end">
-                            <span className="text-xs font-black text-white">{user?.firstName || 'Operator'} {user?.lastName || ''}</span>
-                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">ID: COMP001022973310</span>
+                        <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter mb-8 uppercase italic leading-[0.9]">
+                            Command <span className="text-red-600">Dashboard</span>
+                        </h1>
+                        <p className="text-lg text-gray-300 font-medium max-w-2xl leading-relaxed italic opacity-80 border-l-2 border-red-600 pl-6">
+                            Welcome back, Operator. Your certification modules are primed and ready for deployment.
+                        </p>
+                    </header>
+
+                    {/* Core Action: Schedule Exam */}
+                    <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-red-600 to-red-900 p-12 mb-16 shadow-[0_0_60px_rgba(220,38,38,0.4)]">
+                        <div className="absolute top-0 right-0 opacity-10 translate-x-12 translate-y-[-20px]">
+                            <Shield className="w-96 h-96 text-white" />
                         </div>
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-red-600 to-red-400 flex items-center justify-center border border-white/20 shadow-lg shadow-red-900/20">
-                            <span className="text-xs text-white font-black">
-                                {user?.firstName ? user.firstName[0] : 'U'}
-                            </span>
+                        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-12">
+                            <div className="space-y-4">
+                                <div className="bg-black/20 w-fit px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.3em] backdrop-blur-md">
+                                    Mission_Critical
+                                </div>
+                                <h2 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter">Schedule New Exam</h2>
+                                <p className="text-white/80 text-sm font-medium max-w-md leading-relaxed">
+                                    Access high-fidelity cloud environments and validate your expertise in live simulated engagements.
+                                </p>
+                            </div>
+                            <button className="px-12 py-6 bg-black text-white font-black text-xs uppercase tracking-[0.3em] rounded-full hover:bg-white hover:text-black transition-all duration-500 shadow-2xl whitespace-nowrap group/btn">
+                                Initialize Deployment <ArrowRight className="w-4 h-4 inline ml-2 group-hover/btn:translate-x-2 transition-transform" />
+                            </button>
                         </div>
                     </div>
-                </header>
 
-                <div className="flex-1 flex gap-8 p-8 pt-4">
+                    {/* Grid of Intel Modules */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                        <ServiceCard
+                            title="Intel Profile"
+                            description="Review and update your operational identity and registry details."
+                            icon={User}
+                            onClick={() => navigate('/profile')}
+                        />
+                        <ServiceCard
+                            title="Deployment Queue"
+                            description="View your upcoming test center appointments and scheduled sessions."
+                            icon={Calendar}
+                            onClick={() => { }}
+                        />
+                        <ServiceCard
+                            title="Mission History"
+                            description="Analyze your past engagement results and technical performance reports."
+                            icon={History}
+                            onClick={() => { }}
+                        />
+                    </div>
 
-                    {/* Left Sidebar - High Tech Navigation */}
-                    <aside className="w-72 flex flex-col gap-6">
-                        <GlassPanel className="p-4">
-                            <div className="space-y-1">
-                                {[
-                                    { icon: LayoutDashboard, label: 'Control Center', active: true, path: '/dashboard' },
-                                    { icon: Activity, label: 'Active Missions', path: '/dashboard/exam' },
-                                    { icon: MessageSquare, label: 'Field Reports', path: '/feedback' },
-                                    { icon: Settings, label: 'Identity Settings', path: '/profile' },
-                                ].map((item, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => navigate(item.path)}
-                                        className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 ${item.active
-                                                ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.2)]'
-                                                : 'text-gray-400 hover:text-white hover:bg-white/5'
-                                            }`}
-                                    >
+                    {/* Operational Quick Links */}
+                    <div className="pt-12 border-t border-white/10">
+                        <h4 className="text-[11px] font-black text-gray-500 uppercase tracking-[0.4em] mb-8">Registry_Subroutines</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            {[
+                                { label: 'Score Reports', icon: FileText },
+                                { label: 'System Preferences', icon: Settings },
+                                { label: 'My Receipts', icon: CreditCard },
+                                { label: 'Contact Command', icon: Info }
+                            ].map((item, idx) => (
+                                <button key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all text-left group/sub">
+                                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 group-hover/sub:text-red-500 transition-colors">
                                         <item.icon className="w-4 h-4" />
+                                    </div>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover/sub:text-white transition-colors">
                                         {item.label}
-                                    </button>
-                                ))}
-
-                                <div className="pt-4 mt-4 border-t border-white/10">
-                                    <button
-                                        onClick={handleSignOut}
-                                        className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest text-red-500 hover:bg-red-500/10 transition-all duration-300"
-                                    >
-                                        <LogOut className="w-4 h-4" />
-                                        Terminate Session
-                                    </button>
-                                </div>
-                            </div>
-                        </GlassPanel>
-
-                        <GlassPanel className="p-6">
-                            <h4 className="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em] mb-4">Registry Language</h4>
-                            <div className="flex flex-col gap-3">
-                                <button className="flex items-center justify-between text-[11px] font-bold text-red-500">
-                                    <span>English (Global)</span>
-                                    <div className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.8)]"></div>
+                                    </span>
                                 </button>
-                                <button className="text-left text-[11px] font-bold text-gray-500 hover:text-gray-300 transition-colors uppercase">日本語 (Regional)</button>
-                            </div>
-                        </GlassPanel>
-                    </aside>
-
-                    {/* Main Workspace */}
-                    <main className="flex-1 flex flex-col gap-8">
-
-                        {/* Mission Critical: Schedule an Exam */}
-                        <GlassPanel className="p-10 border-red-600/20">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <div className="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></div>
-                                        <span className="text-[10px] font-black text-red-500 uppercase tracking-[0.4em]">Operational_Entry_Active</span>
-                                    </div>
-                                    <h2 className="text-4xl font-black italic tracking-tighter uppercase text-white">Initialize Certification</h2>
-                                    <p className="text-gray-400 text-sm font-medium max-w-xl">
-                                        Deploy your expertise in our high-fidelity cloud environments. Select your certification pathway to begin.
-                                    </p>
-                                </div>
-                                <button className="px-10 py-5 bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-[0_0_50px_rgba(220,38,38,0.3)] transform hover:scale-105 active:scale-95 whitespace-nowrap">
-                                    View Available Exams
-                                </button>
-                            </div>
-
-                            <div className="mt-10 pt-8 border-t border-white/5 flex items-center justify-between">
-                                <div className="flex items-center gap-3 cursor-pointer group/code">
-                                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover/code:border-red-500/50 transition-colors">
-                                        <CreditCard className="w-4 h-4 text-gray-400 group-hover/code:text-red-500" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Private Access Code</p>
-                                        <p className="text-[9px] text-gray-600 font-bold uppercase group-hover/code:text-gray-400 transition-colors">Apply Authorization Key</p>
-                                    </div>
-                                </div>
-                                <ChevronDown className="w-5 h-5 text-gray-600" />
-                            </div>
-                        </GlassPanel>
-
-                        {/* Upcoming Appointments */}
-                        <GlassPanel className="p-8">
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-600/20 flex items-center justify-center">
-                                    <Activity className="w-5 h-5 text-blue-500" />
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-black uppercase italic tracking-wider text-white">Scheduled Node appointments</h3>
-                                    <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">Operational Queue</p>
-                                </div>
-                            </div>
-                            <div className="p-6 border border-dashed border-white/10 rounded-xl text-center">
-                                <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">No active deployments detected.</p>
-                            </div>
-                        </GlassPanel>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {/* Secondary Actions */}
-                            <GlassPanel className="p-8 group/stat">
-                                <div className="flex items-center justify-between mb-6">
-                                    <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400">Total Score Reports</h4>
-                                    <FileText className="w-4 h-4 text-red-500" />
-                                </div>
-                                <div className="text-4xl font-black italic text-white mb-2">00</div>
-                                <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest group-hover/stat:text-red-500 transition-colors cursor-pointer">View Records <ChevronRight className="w-3 h-3 inline ml-1" /></p>
-                            </GlassPanel>
-
-                            <GlassPanel className="p-8 group/stat">
-                                <div className="flex items-center justify-between mb-6">
-                                    <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400">Achieved Ranks</h4>
-                                    <Shield className="w-4 h-4 text-green-500" />
-                                </div>
-                                <div className="text-4xl font-black italic text-white mb-2">00</div>
-                                <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest group-hover/stat:text-green-500 transition-colors cursor-pointer">Verification Portal <ChevronRight className="w-3 h-3 inline ml-1" /></p>
-                            </GlassPanel>
+                            ))}
                         </div>
-                    </main>
-
-                    {/* Right Intel Panel */}
-                    <aside className="w-80 flex flex-col gap-8">
-                        <GlassPanel className="p-8">
-                            <h3 className="text-[11px] font-black text-red-500 uppercase tracking-[0.4em] mb-6 border-b border-white/10 pb-4">Operator Intel</h3>
-                            <ul className="space-y-4">
-                                {[
-                                    { label: 'Additional Information', icon: ChevronRight },
-                                    { label: 'System Preferences', icon: Settings },
-                                    { label: 'Mission History', icon: Activity },
-                                    { label: 'Resource Receipts', icon: CreditCard }
-                                ].map((item, index) => (
-                                    <li key={index}>
-                                        <a href="#" className="flex items-center justify-between group/item p-2 rounded-lg hover:bg-white/5 transition-all">
-                                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover/item:text-white transition-colors">{item.label}</span>
-                                            <item.icon className="w-4 h-4 text-gray-600 group-hover/item:text-red-500 transition-colors" />
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </GlassPanel>
-
-                        {/* Marketplace Promo Card */}
-                        <div className="relative rounded-3xl overflow-hidden group/promo h-[300px]">
-                            <div className="absolute inset-0 bg-red-600 transition-transform duration-700 group-hover/promo:scale-110"></div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 opacity-60"></div>
-                            {/* Decorative Pattern */}
-                            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_2px_2px,white_1px,transparent_0)] bg-[size:16px_16px]"></div>
-
-                            <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-                                <div>
-                                    <div className="w-fit bg-black px-3 py-1 rounded-sm mb-4">
-                                        <span className="text-red-600 font-black text-xl italic tracking-tighter">CSCA</span>
-                                    </div>
-                                    <h4 className="text-3xl font-black uppercase italic tracking-tighter leading-none mb-2">Supply Depot</h4>
-                                    <p className="text-[10px] font-black text-white/60 uppercase tracking-widest leading-relaxed">
-                                        Equip yourself for upcoming engagements with official training modules and gear.
-                                    </p>
-                                </div>
-
-                                <button className="w-full py-4 bg-white text-black font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-black hover:text-white transition-all transform group-hover/promo:translate-y-[-4px]">
-                                    Access Marketplace
-                                </button>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-
-                {/* Global Footer */}
-                <footer className="px-8 py-4 border-t border-white/5 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-gray-500">
-                    <div className="flex gap-8">
-                        <a href="#" className="hover:text-red-500 transition-colors">Legal_Terms</a>
-                        <a href="#" className="hover:text-red-500 transition-colors">Privacy_Protocol</a>
-                        <a href="#" className="hover:text-red-500 transition-colors">Field_Support</a>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="opacity-50">Operational_Status:</span>
-                        <span className="text-green-500">Optimal</span>
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+                </PrecisionPanel>
+
+                {/* Global Registry Footer */}
+                <footer className="flex flex-col md:flex-row items-center justify-between gap-8 pt-8">
+                    <div className="flex gap-12">
+                        <a href="#" className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-600 hover:text-red-500 transition-colors">Legal_Protocols</a>
+                        <a href="#" className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-600 hover:text-red-500 transition-colors">Privacy_Shield</a>
+                        <a href="#" className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-600 hover:text-red-500 transition-colors">Field_Support</a>
+                    </div>
+                    <div className="flex items-center gap-4 bg-white/[0.03] border border-white/5 px-8 py-4 rounded-full">
+                        <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest italic font-normal">OPERATIONAL_NODE_CSCA</span>
+                        <div className="w-px h-4 bg-white/10"></div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.6)]"></div>
+                            <span className="text-[10px] font-black text-green-500 uppercase tracking-widest">STATUS: OPTIMAL</span>
+                        </div>
                     </div>
                 </footer>
+
             </div>
         </div>
     );
