@@ -78,7 +78,7 @@ const TestingPolicies = () => {
 
             <div className="flex-1 flex w-full relative z-10 pt-32 h-screen">
                 {/* Sidebar */}
-                <aside className={`transition-all duration-500 ease-in-out border-r border-white/5 bg-black/20 backdrop-blur-md flex flex-col ${isSidebarCollapsed ? 'w-20' : 'w-72'}`}>
+                <aside className={`transition-all duration-500 ease-in-out border-r border-white/5 bg-black/20 backdrop-blur-md flex flex-col ${isSidebarCollapsed ? 'w-20' : 'w-48 md:w-72'}`}>
                     <div className="p-6 flex-1 space-y-8">
                         <button
                             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
@@ -91,9 +91,9 @@ const TestingPolicies = () => {
                             <div className="w-16 h-16 rounded-full bg-red-600/20 border border-red-600/40 flex items-center justify-center mb-4">
                                 <span className="text-xl font-black italic">{user?.firstName?.[0] || 'P'}</span>
                             </div>
-                            <h3 className="text-[10px] font-black uppercase tracking-widest text-white mb-1">{user?.firstName} {user?.lastName}</h3>
-                            <p className="text-[8px] font-bold text-gray-500 uppercase tracking-widest mb-4">ID: COMP001022973310</p>
-                            <button className="text-[8px] font-black uppercase text-red-500 hover:text-white transition-colors">Edit Profile</button>
+                            <h3 className="text-sm md:text-base font-black uppercase tracking-widest text-white mb-1">{user?.firstName} {user?.lastName}</h3>
+                            <p className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">ID: COMP001022973310</p>
+                            <button className="text-xs md:text-sm font-black uppercase text-red-500 hover:text-white transition-colors">Edit Profile</button>
                         </div>
 
                         <nav className="space-y-2">
@@ -132,7 +132,7 @@ const TestingPolicies = () => {
                         <div className="flex items-center justify-between">
                             <button
                                 onClick={() => navigate(-1)}
-                                className="flex items-center gap-2 text-[10px] font-black transition-all text-gray-600 hover:text-white uppercase tracking-widest group"
+                                className="flex items-center gap-2 text-sm md:text-base font-black transition-all text-gray-600 hover:text-white uppercase tracking-widest group"
                             >
                                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                                 back to previous step
@@ -141,7 +141,7 @@ const TestingPolicies = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-black italic uppercase tracking-tighter">Agree to CSCA <span className="text-red-600">Testing policies</span></h2>
+                            <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter">Agree to CSCA <span className="text-red-600">Testing policies</span></h2>
                             <div className="h-1 w-20 bg-red-600 rounded-full"></div>
                         </div>
 
