@@ -367,6 +367,7 @@ const SelectExamOptions = () => {
                                 </button>
                                 <button
                                     disabled={!selectedOption}
+                                    onClick={() => navigate('/select-exam-language', { state: { examName, selectedOption } })}
                                     className={`px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedOption
                                         ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105'
                                         : 'bg-white/5 text-gray-800 cursor-not-allowed'
