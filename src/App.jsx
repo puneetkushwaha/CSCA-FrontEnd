@@ -62,6 +62,7 @@ import FindExam from './pages/FindExam';
 import SelectExamOptions from './pages/SelectExamOptions';
 import SelectExamLanguage from './pages/SelectExamLanguage';
 import ProvideAdditionalInfo from './pages/ProvideAdditionalInfo';
+import TestingPolicies from './pages/TestingPolicies';
 
 
 // Scroll to top on route change
@@ -176,6 +177,7 @@ function App() {
               <Route path="/select-exam-options" element={<SelectExamOptions />} />
               <Route path="/select-exam-language" element={<SelectExamLanguage />} />
               <Route path="/provide-additional-info" element={<ProvideAdditionalInfo />} />
+              <Route path="/testing-policies" element={<TestingPolicies />} />
             </Route>
 
           </Routes>

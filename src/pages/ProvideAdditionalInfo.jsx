@@ -35,6 +35,7 @@ const ProvideAdditionalInfo = () => {
     const examName = location.state?.examName || "CSCA Certification Exam";
 
     const [temporaryCountry, setTemporaryCountry] = useState(null);
+    const [hasAuthorization, setHasAuthorization] = useState(null);
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [isPageLoading, setIsPageLoading] = useState(true);
 
@@ -42,6 +43,13 @@ const ProvideAdditionalInfo = () => {
         const timer = setTimeout(() => setIsPageLoading(false), 800);
         return () => clearTimeout(timer);
     }, []);
+
+    const handleTemporaryCountryChange = (value) => {
+        setTemporaryCountry(value);
+        if (value === 'no') {
+            setHasAuthorization(null); // Reset authorization if No is selected
+        }
+    };
 
     const handleSignOut = () => {
         logout();
@@ -177,42 +185,95 @@ const ProvideAdditionalInfo = () => {
 
                                         <div className="grid grid-cols-1 gap-4 max-w-md ml-6">
                                             <button
-                                                onClick={() => setTemporaryCountry('yes')}
+                                                onClick={() => handleTemporaryCountryChange('yes')}
                                                 className={`flex items-center justify-between p-6 rounded-2xl border transition-all duration-300 ${temporaryCountry === 'yes'
-                                                        ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
-                                                        : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
+                                                    ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
+                                                    : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
                                                     }`}
                                             >
                                                 <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${temporaryCountry === 'yes' ? 'text-white' : 'text-gray-400'}`}>
                                                     Yes
                                                 </span>
                                                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${temporaryCountry === 'yes'
-                                                        ? 'border-white bg-white'
-                                                        : 'border-white/20'
+                                                    ? 'border-white bg-white'
+                                                    : 'border-white/20'
                                                     }`}>
                                                     {temporaryCountry === 'yes' && <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>}
                                                 </div>
                                             </button>
 
                                             <button
-                                                onClick={() => setTemporaryCountry('no')}
+                                                onClick={() => handleTemporaryCountryChange('no')}
                                                 className={`flex items-center justify-between p-6 rounded-2xl border transition-all duration-300 ${temporaryCountry === 'no'
-                                                        ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
-                                                        : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
+                                                    ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
+                                                    : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
                                                     }`}
                                             >
                                                 <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${temporaryCountry === 'no' ? 'text-white' : 'text-gray-400'}`}>
                                                     No
                                                 </span>
                                                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${temporaryCountry === 'no'
-                                                        ? 'border-white bg-white'
-                                                        : 'border-white/20'
+                                                    ? 'border-white bg-white'
+                                                    : 'border-white/20'
                                                     }`}>
                                                     {temporaryCountry === 'no' && <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>}
                                                 </div>
                                             </button>
                                         </div>
                                     </div>
+
+                                    {/* Conditional Authorization Question */}
+                                    {temporaryCountry === 'yes' && (
+                                        <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                                            <div className="p-4 bg-red-600/10 border border-red-600/20 rounded-xl">
+                                                <p className="text-[9px] text-red-400 font-bold uppercase tracking-widest">
+                                                    An answer is required.
+                                                </p>
+                                            </div>
+                                            <label className="text-sm font-black uppercase tracking-widest text-white flex items-start gap-2">
+                                                <span className="text-red-600">*</span>
+                                                <span>Have you received authorization from CSCA to test out of country?</span>
+                                            </label>
+
+                                            <div className="grid grid-cols-1 gap-4 max-w-md ml-6">
+                                                <button
+                                                    onClick={() => setHasAuthorization('yes')}
+                                                    className={`flex items-center justify-between p-6 rounded-2xl border transition-all duration-300 ${hasAuthorization === 'yes'
+                                                            ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
+                                                            : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
+                                                        }`}
+                                                >
+                                                    <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${hasAuthorization === 'yes' ? 'text-white' : 'text-gray-400'}`}>
+                                                        Yes
+                                                    </span>
+                                                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${hasAuthorization === 'yes'
+                                                            ? 'border-white bg-white'
+                                                            : 'border-white/20'
+                                                        }`}>
+                                                        {hasAuthorization === 'yes' && <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>}
+                                                    </div>
+                                                </button>
+
+                                                <button
+                                                    onClick={() => setHasAuthorization('no')}
+                                                    className={`flex items-center justify-between p-6 rounded-2xl border transition-all duration-300 ${hasAuthorization === 'no'
+                                                            ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
+                                                            : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
+                                                        }`}
+                                                >
+                                                    <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${hasAuthorization === 'no' ? 'text-white' : 'text-gray-400'}`}>
+                                                        No
+                                                    </span>
+                                                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${hasAuthorization === 'no'
+                                                            ? 'border-white bg-white'
+                                                            : 'border-white/20'
+                                                        }`}>
+                                                        {hasAuthorization === 'no' && <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>}
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
                                         <p className="text-[9px] text-gray-500 font-medium italic leading-relaxed">
@@ -230,9 +291,9 @@ const ProvideAdditionalInfo = () => {
                                     Previous
                                 </button>
                                 <button
-                                    disabled={!temporaryCountry}
-                                    onClick={() => navigate('/exam-schedule', { state: { examName, temporaryCountry } })}
-                                    className={`px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${temporaryCountry
+                                    disabled={!temporaryCountry || (temporaryCountry === 'yes' && !hasAuthorization)}
+                                    onClick={() => navigate('/testing-policies', { state: { examName, temporaryCountry, hasAuthorization } })}
+                                    className={`px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${(temporaryCountry && (temporaryCountry === 'no' || hasAuthorization))
                                             ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105'
                                             : 'bg-white/5 text-gray-800 cursor-not-allowed'
                                         }`}
