@@ -22,8 +22,8 @@ const GlobalPageLoader = () => (
             <Shield className="absolute inset-0 m-auto w-6 h-6 text-red-600" />
         </div>
         <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] font-black text-white uppercase tracking-[0.5em] animate-pulse">Loading Policies...</span>
-            <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">Retrieving CSCA testing protocols</span>
+            <span className="text-base font-black text-white uppercase tracking-[0.5em] animate-pulse">Loading Policies...</span>
+            <span className="text-sm font-bold text-gray-500 uppercase tracking-widest">Retrieving CSCA testing protocols</span>
         </div>
     </div>
 );
@@ -50,7 +50,8 @@ const TestingPolicies = () => {
     if (isPageLoading) return <GlobalPageLoader />;
 
     return (
-        <div className="min-h-screen bg-[#050505] text-white flex flex-col font-['Inter'] relative overflow-hidden">
+        <div className="min-h-screen bg-[#050505] text-white text-lg flex flex-col font-['Inter'] relative overflow-hidden testing-policies">
+            <style>{`.testing-policies * {font-size: 1.125rem !important;}`}</style>
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <RedGeometricBackground
                     height={30}
