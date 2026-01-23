@@ -137,10 +137,7 @@ const TestingPolicies = () => {
                                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                                 back to previous step
                             </button>
-                            <div className="px-4 py-2 bg-green-600/90 rounded text-[9px] font-bold text-white uppercase tracking-tighter">
-                                <div>40.6 Kbps ↑</div>
-                                <div>54.0 Kbps ↓</div>
-                            </div>
+
                         </div>
 
                         <div className="space-y-4">
