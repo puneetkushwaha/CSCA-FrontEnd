@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import {
-    Shield, ArrowLeft, ChevronLeft,
-    Menu, User, MessageSquare, LogOut, Info, Globe, Languages
+    Shield, ChevronLeft, Menu, User, MessageSquare, LogOut, Info
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RedGeometricBackground from '../components/RedGeometricBackground';
@@ -23,28 +22,21 @@ const GlobalPageLoader = () => (
             <Shield className="absolute inset-0 m-auto w-6 h-6 text-red-600" />
         </div>
         <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] font-black text-white uppercase tracking-[0.5em] animate-pulse">Syncing Language Protocols...</span>
-            <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">Adjusting registry nodes for preferred regional output</span>
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.5em] animate-pulse">Verifying Registry Data...</span>
+            <span className="text-[8px] font-bold text-gray-500 uppercase tracking-widest">Syncing candidate information protocols</span>
         </div>
     </div>
 );
 
-const SelectExamLanguage = () => {
+const ProvideAdditionalInfo = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const examName = location.state?.examName || "CSCA Certification Exam";
-    const selectedOption = location.state?.selectedOption;
 
-    const [selectedLanguage, setSelectedLanguage] = useState(null);
+    const [temporaryCountry, setTemporaryCountry] = useState(null);
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [isPageLoading, setIsPageLoading] = useState(true);
-
-    const languages = [
-        { id: 'en', name: 'English' },
-        { id: 'de', name: 'German' },
-        { id: 'jp', name: 'Japanese' }
-    ];
 
     useEffect(() => {
         const timer = setTimeout(() => setIsPageLoading(false), 800);
@@ -80,7 +72,7 @@ const SelectExamLanguage = () => {
                         <span className="font-black text-xl tracking-tighter text-white uppercase italic">CSCA</span>
                     </Link>
                     <div className="h-4 w-px bg-white/10"></div>
-                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em]">REGISTRATION_PORTAL / LANGUAGE_SYNCC</span>
+                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em]">REGISTRATION_PORTAL / INFO_VERIFY</span>
                 </div>
             </header>
 
@@ -152,7 +144,7 @@ const SelectExamLanguage = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-black italic uppercase tracking-tighter">Select exam <span className="text-red-600">language</span></h2>
+                            <h2 className="text-3xl font-black italic uppercase tracking-tighter">Provide additional <span className="text-red-600">information</span></h2>
                             <div className="h-1 w-20 bg-red-600 rounded-full"></div>
                         </div>
 
@@ -162,42 +154,71 @@ const SelectExamLanguage = () => {
                                     <Shield className="w-5 h-5 text-red-600" />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-1 italic">Registry_Active_Node:</p>
                                     <h4 className="text-lg font-black uppercase tracking-tight text-white">{examName}</h4>
                                 </div>
                             </div>
 
                             <div className="space-y-8">
-                                <div className="space-y-4">
-                                    <h5 className="text-sm font-black uppercase tracking-widest text-gray-300">What is your preferred language for the exam?</h5>
+                                <div className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
+                                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">
+                                        Required information is marked with an asterisk (*).
+                                    </p>
+                                    <p className="text-[10px] text-gray-500 font-medium uppercase tracking-widest leading-relaxed mt-2">
+                                        Enter information on this page in the Roman alphabet. (Alphanumeric)
+                                    </p>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-4 max-w-md">
-                                    {languages.map((lang) => (
-                                        <button
-                                            key={lang.id}
-                                            onClick={() => setSelectedLanguage(lang.id)}
-                                            className={`flex items-center justify-between p-6 rounded-2xl border transition-all duration-300 group ${selectedLanguage === lang.id
-                                                ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
-                                                : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
-                                                }`}
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className={`p-2 rounded-lg transition-colors ${selectedLanguage === lang.id ? 'bg-white/20' : 'bg-red-600/10'}`}>
-                                                    <Globe className={`w-4 h-4 ${selectedLanguage === lang.id ? 'text-white' : 'text-red-600'}`} />
-                                                </div>
-                                                <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${selectedLanguage === lang.id ? 'text-white' : 'text-gray-400'}`}>
-                                                    {lang.name}
+                                <div className="space-y-6">
+                                    <div className="space-y-4">
+                                        <label className="text-sm font-black uppercase tracking-widest text-white flex items-start gap-2">
+                                            <span className="text-red-600">*</span>
+                                            <span>Are you temporarily in another country and plan to take a CSCA exam outside the country of your current residence or citizenship?</span>
+                                        </label>
+
+                                        <div className="grid grid-cols-1 gap-4 max-w-md ml-6">
+                                            <button
+                                                onClick={() => setTemporaryCountry('yes')}
+                                                className={`flex items-center justify-between p-6 rounded-2xl border transition-all duration-300 ${temporaryCountry === 'yes'
+                                                        ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
+                                                        : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
+                                                    }`}
+                                            >
+                                                <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${temporaryCountry === 'yes' ? 'text-white' : 'text-gray-400'}`}>
+                                                    Yes
                                                 </span>
-                                            </div>
-                                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${selectedLanguage === lang.id
-                                                ? 'border-white bg-white'
-                                                : 'border-white/20'
-                                                }`}>
-                                                {selectedLanguage === lang.id && <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>}
-                                            </div>
-                                        </button>
-                                    ))}
+                                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${temporaryCountry === 'yes'
+                                                        ? 'border-white bg-white'
+                                                        : 'border-white/20'
+                                                    }`}>
+                                                    {temporaryCountry === 'yes' && <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>}
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                onClick={() => setTemporaryCountry('no')}
+                                                className={`flex items-center justify-between p-6 rounded-2xl border transition-all duration-300 ${temporaryCountry === 'no'
+                                                        ? 'bg-red-600 border-red-500 shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
+                                                        : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.08]'
+                                                    }`}
+                                            >
+                                                <span className={`text-[11px] font-black uppercase tracking-widest transition-colors ${temporaryCountry === 'no' ? 'text-white' : 'text-gray-400'}`}>
+                                                    No
+                                                </span>
+                                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${temporaryCountry === 'no'
+                                                        ? 'border-white bg-white'
+                                                        : 'border-white/20'
+                                                    }`}>
+                                                    {temporaryCountry === 'no' && <div className="w-2.5 h-2.5 rounded-full bg-red-600"></div>}
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
+                                        <p className="text-[9px] text-gray-500 font-medium italic leading-relaxed">
+                                            Please contact our customer service team for any information that cannot be updated online.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -209,14 +230,14 @@ const SelectExamLanguage = () => {
                                     Previous
                                 </button>
                                 <button
-                                    disabled={!selectedLanguage}
-                                    onClick={() => navigate('/provide-additional-info', { state: { examName, selectedLanguage, selectedOption } })}
-                                    className={`px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedLanguage
-                                        ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105'
-                                        : 'bg-white/5 text-gray-800 cursor-not-allowed'
+                                    disabled={!temporaryCountry}
+                                    onClick={() => navigate('/exam-schedule', { state: { examName, temporaryCountry } })}
+                                    className={`px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${temporaryCountry
+                                            ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105'
+                                            : 'bg-white/5 text-gray-800 cursor-not-allowed'
                                         }`}
                                 >
-                                    Next Registry Sync
+                                    Next Registry Step
                                 </button>
                             </div>
                         </PrecisionPanel>
@@ -240,4 +261,4 @@ const SelectExamLanguage = () => {
     );
 };
 
-export default SelectExamLanguage;
+export default ProvideAdditionalInfo;

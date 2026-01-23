@@ -61,6 +61,7 @@ import MyReceipts from './pages/MyReceipts';
 import FindExam from './pages/FindExam';
 import SelectExamOptions from './pages/SelectExamOptions';
 import SelectExamLanguage from './pages/SelectExamLanguage';
+import ProvideAdditionalInfo from './pages/ProvideAdditionalInfo';
 
 
 // Scroll to top on route change
@@ -174,6 +175,7 @@ function App() {
               <Route path="/find-exam" element={<FindExam />} />
               <Route path="/select-exam-options" element={<SelectExamOptions />} />
               <Route path="/select-exam-language" element={<SelectExamLanguage />} />
+              <Route path="/provide-additional-info" element={<ProvideAdditionalInfo />} />
             </Route>
 
           </Routes>
