@@ -66,6 +66,7 @@ import TestingPolicies from './pages/TestingPolicies';
 import SelectProctorLanguage from './pages/SelectProctorLanguage';
 import FindAppointment from './pages/FindAppointment';
 import FindTestCenter from './pages/FindTestCenter';
+import ExamSchedule from './pages/ExamSchedule';
 
 
 // Scroll to top on route change
@@ -183,6 +184,7 @@ function App() {
               <Route path="/find-test-center" element={<FindTestCenter />} />
               <Route path="/select-proctor-language" element={<SelectProctorLanguage />} />
               <Route path="/find-appointment" element={<FindAppointment />} />
+              <Route path="/exam-schedule" element={<ExamSchedule />} />
               <Route path="/testing-policies" element={<TestingPolicies />} />
             </Route>
 
