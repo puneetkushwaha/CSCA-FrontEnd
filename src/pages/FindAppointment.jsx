@@ -128,7 +128,7 @@ const FindAppointment = () => {
     };
 
     const handleBookAppointment = () => {
-        navigate('/find-test-center', {
+        navigate('/review-booking', {
             state: {
                 examName: displayExamName,
                 temporaryCountry,
