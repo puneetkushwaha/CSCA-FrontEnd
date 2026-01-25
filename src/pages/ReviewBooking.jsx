@@ -235,7 +235,7 @@ const ReviewBooking = () => {
                                 </div>
 
                                 <button
-                                    onClick={() => navigate('/proceed-to-checkout', { state: { ...location.state, totalDue } })}
+                                    onClick={() => navigate('/payment-billing', { state: { ...location.state, subtotal, taxAmount, totalDue } })}
                                     className="w-full py-4 mt-4 bg-red-600 hover:bg-red-700 text-white font-bold uppercase tracking-widest rounded-xl shadow-[0_5px_20px_rgba(220,38,38,0.4)] hover:scale-105 transition-all flex items-center justify-center gap-2"
                                 >
                                     Proceed to Checkout

@@ -67,6 +67,7 @@ import SelectProctorLanguage from './pages/SelectProctorLanguage';
 import FindAppointment from './pages/FindAppointment';
 import FindTestCenter from './pages/FindTestCenter';
 import ReviewBooking from './pages/ReviewBooking';
+import PaymentBilling from './pages/PaymentBilling';
 import ExamSchedule from './pages/ExamSchedule';
 
 
@@ -187,6 +188,7 @@ function App() {
               <Route path="/find-appointment" element={<FindAppointment />} />
               <Route path="/exam-schedule" element={<ExamSchedule />} />
               <Route path="/review-booking" element={<ReviewBooking />} />
+              <Route path="/payment-billing" element={<PaymentBilling />} />
               <Route path="/testing-policies" element={<TestingPolicies />} />
             </Route>
 
