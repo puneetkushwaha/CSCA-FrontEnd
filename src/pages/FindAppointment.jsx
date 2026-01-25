@@ -45,6 +45,7 @@ const FindAppointment = () => {
     const [isChangingTimeZone, setIsChangingTimeZone] = useState(false);
     const [isTimeZoneConfirmed, setIsTimeZoneConfirmed] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [isTimeFormat24, setIsTimeFormat24] = useState(true);
 
     useEffect(() => {
         // Detect Time Zone
@@ -72,15 +73,18 @@ const FindAppointment = () => {
     };
 
     const handleConfirmTimeZone = () => {
-        // Proceed to finding test center or selecting date (keeping flow flexible)
-        // Linking to FindTestCenter as consistent with previous flow, carrying over the confirmed timezone
+        setIsTimeZoneConfirmed(true);
+    };
+
+    const handleBookAppointment = () => {
         navigate('/find-test-center', {
             state: {
                 examName: displayExamName,
                 temporaryCountry,
                 hasAuthorization,
                 proctorLanguage,
-                confirmedTimeZone: detectedTimeZone
+                confirmedTimeZone: detectedTimeZone,
+                appointmentDate: selectedDate ? `2026-01-${selectedDate}` : null
             }
         });
     };
@@ -88,8 +92,8 @@ const FindAppointment = () => {
     if (isPageLoading) return <GlobalPageLoader />;
 
     return (
-        <div className="min-h-screen bg-[#050505] text-white text-lg flex flex-col font-['Inter'] relative overflow-hidden find-appointment">
-            <style>{`.find-appointment * {font-size: 1.125rem !important;}`}</style>
+        <div className="min-h-screen bg-[#050505] text-white font-sans relative overflow-hidden find-appointment">
+            <style>{`.find-appointment * { font-family: 'Inter', sans-serif; }`}</style>
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <RedGeometricBackground
                     height={30}
@@ -107,10 +111,10 @@ const FindAppointment = () => {
                 <div className="flex items-center gap-8 h-16 px-8 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] transition-all duration-500 w-fit">
                     <Link to="/pearson-dashboard" className="flex items-center gap-2 group/logo">
                         <Shield className="h-6 w-6 text-red-600 fill-red-600/10" />
-                        <span className="font-black text-xl tracking-tighter text-white uppercase italic">CSCA</span>
+                        <span className="font-bold text-xl tracking-tight text-white">CSCA</span>
                     </Link>
                     <div className="h-4 w-px bg-white/10"></div>
-                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em]">FIND_APPOINTMENT</span>
+                    <span className="text-xs font-bold text-gray-400 tracking-widest uppercase">Find Appointment</span>
                 </div>
             </header>
 
@@ -127,11 +131,11 @@ const FindAppointment = () => {
 
                         <div className={`flex flex-col items-center transition-all duration-500 ${isSidebarCollapsed ? 'opacity-0 scale-75 h-0 overflow-hidden' : 'opacity-100'}`}>
                             <div className="w-16 h-16 rounded-full bg-red-600/20 border border-red-600/40 flex items-center justify-center mb-4">
-                                <span className="text-xl font-black italic">{user?.firstName?.[0] || 'P'}</span>
+                                <span className="text-xl font-bold">{user?.firstName?.[0] || 'P'}</span>
                             </div>
-                            <h3 className="text-sm md:text-base font-black uppercase tracking-widest text-white mb-1">{user?.firstName} {user?.lastName}</h3>
-                            <p className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">ID: COMP001022973310</p>
-                            <button className="text-xs md:text-sm font-black uppercase text-red-500 hover:text-white transition-colors">Edit Profile</button>
+                            <h3 className="text-sm md:text-base font-bold text-white mb-1">{user?.firstName} {user?.lastName}</h3>
+                            <p className="text-xs font-medium text-gray-500 mb-4">ID: COMP001022973310</p>
+                            <button className="text-xs font-bold text-red-500 hover:text-white transition-colors">Edit Profile</button>
                         </div>
 
                         <nav className="space-y-2">
@@ -146,7 +150,7 @@ const FindAppointment = () => {
                                     className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-400 hover:text-white transition-all ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
                                 >
                                     <item.icon className="w-4 h-4 shrink-0" />
-                                    {!isSidebarCollapsed && <span className="text-[9px] font-black uppercase tracking-[0.2em]">{item.label}</span>}
+                                    {!isSidebarCollapsed && <span className="text-xs font-bold uppercase tracking-wider">{item.label}</span>}
                                 </button>
                             ))}
                         </nav>
@@ -158,7 +162,7 @@ const FindAppointment = () => {
                             className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl text-red-600 hover:bg-red-600/10 transition-all ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
                         >
                             <LogOut className="w-4 h-4 shrink-0" />
-                            {!isSidebarCollapsed && <span className="text-[9px] font-black uppercase tracking-[0.2em]">Sign out</span>}
+                            {!isSidebarCollapsed && <span className="text-xs font-bold uppercase tracking-wider">Sign out</span>}
                         </button>
                     </div>
                 </aside>
@@ -170,44 +174,44 @@ const FindAppointment = () => {
                         <div className="flex items-center justify-between">
                             <button
                                 onClick={() => navigate(-1)}
-                                className="flex items-center gap-2 text-sm md:text-base font-black transition-all text-gray-600 hover:text-white uppercase tracking-widest group"
+                                className="flex items-center gap-2 text-sm font-bold transition-all text-gray-500 hover:text-white group"
                             >
                                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                                back to previous step
+                                Back
                             </button>
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tighter">Find an <span className="text-red-600">appointment</span></h2>
+                            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Find an <span className="text-red-600">appointment</span></h2>
                             <div className="h-1 w-20 bg-red-600 rounded-full"></div>
                         </div>
 
                         {/* Exam Header Bar */}
                         <div className="p-4 rounded-xl border border-white/5 bg-white/5 backdrop-blur-sm flex items-center justify-between">
-                            <h3 className="text-lg font-black uppercase tracking-tight text-white">{displayExamName}</h3>
+                            <h3 className="text-base font-bold text-white">{displayExamName}</h3>
                         </div>
 
                         <PrecisionPanel className="p-8 border-white/5">
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 {/* Section 1: Time Zone */}
                                 <div className={`transition-all duration-500 ${isTimeZoneConfirmed ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                                    <div className="flex items-center gap-4 border-b border-white/5 pb-8 mb-8">
-                                        <div className="p-3 bg-red-600/10 rounded-xl">
+                                    <div className="flex items-center gap-4 border-b border-white/5 pb-6 mb-6">
+                                        <div className="p-2 bg-red-600/10 rounded-lg">
                                             <Globe className="w-5 h-5 text-red-600" />
                                         </div>
                                         <div>
-                                            <h4 className="text-lg font-black uppercase tracking-tight text-white">1. Confirm your preferred time zone</h4>
+                                            <h4 className="text-lg font-bold text-white">1. Confirm your preferred time zone</h4>
                                         </div>
                                     </div>
 
                                     <div className="space-y-4 pl-4 md:pl-16">
-                                        <h5 className="text-sm font-black uppercase tracking-widest text-gray-400">
+                                        <h5 className="text-sm font-bold text-gray-400">
                                             Is this your preferred time zone?
                                         </h5>
 
                                         {!isChangingTimeZone ? (
                                             <>
-                                                <div className="flex items-center gap-4 text-xl md:text-2xl font-black text-white">
+                                                <div className="flex items-center gap-4 text-xl font-bold text-white">
                                                     <span className="text-red-500 bg-red-500/10 px-2 py-1 rounded">{detectedTimeZone}</span>
                                                     <span className="text-gray-500 text-sm font-normal">({currentTime})</span>
                                                 </div>
@@ -218,13 +222,13 @@ const FindAppointment = () => {
                                                 <div className="flex flex-col md:flex-row gap-4 pt-4">
                                                     <button
                                                         onClick={() => setIsChangingTimeZone(true)}
-                                                        className="px-8 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all text-center"
+                                                        className="px-6 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-gray-400 hover:text-white hover:bg-white/10 transition-all text-center"
                                                     >
                                                         No, change time zone
                                                     </button>
                                                     <button
                                                         onClick={() => setIsTimeZoneConfirmed(true)}
-                                                        className="px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105 flex items-center justify-center gap-2"
+                                                        className="px-6 py-2 rounded-lg text-xs font-bold transition-all bg-red-600 text-white shadow-[0_0_20px_rgba(220,38,38,0.3)] hover:scale-105 flex items-center justify-center gap-2"
                                                     >
                                                         <Check className="w-4 h-4" />
                                                         Yes, that's right!
@@ -252,20 +256,17 @@ const FindAppointment = () => {
                                                 <div className="flex gap-4">
                                                     <button
                                                         onClick={() => setIsChangingTimeZone(false)}
-                                                        className="px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-red-600 text-white hover:bg-red-700 transition-all"
+                                                        className="px-6 py-2 rounded-lg text-xs font-bold bg-red-600 text-white hover:bg-red-700 transition-all"
                                                     >
                                                         Update
                                                     </button>
                                                     <button
                                                         onClick={() => setIsChangingTimeZone(false)}
-                                                        className="px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-all"
+                                                        className="px-6 py-2 rounded-lg text-xs font-bold bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-all"
                                                     >
                                                         Cancel
                                                     </button>
                                                 </div>
-                                                <p className="text-[10px] text-gray-500">
-                                                    (Asia/Kolkata GMT+05:30) IST
-                                                </p>
                                             </div>
                                         )}
                                     </div>
@@ -273,13 +274,13 @@ const FindAppointment = () => {
 
                                 {/* Section 2: Date Selection */}
                                 {isTimeZoneConfirmed && (
-                                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                        <div className="flex items-center gap-4 border-b border-white/5 pb-8 mb-8 mt-12">
-                                            <div className="p-3 bg-red-600/10 rounded-xl">
+                                    <div className={`transition-all duration-500 ${selectedDate ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+                                        <div className="flex items-center gap-4 border-b border-white/5 pb-6 mb-6">
+                                            <div className="p-2 bg-red-600/10 rounded-lg">
                                                 <Calendar className="w-5 h-5 text-red-600" />
                                             </div>
                                             <div>
-                                                <h4 className="text-lg font-black uppercase tracking-tight text-white">2. Select your date</h4>
+                                                <h4 className="text-lg font-bold text-white">2. Select your date</h4>
                                             </div>
                                         </div>
 
@@ -292,7 +293,7 @@ const FindAppointment = () => {
                                                     <button className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors">
                                                         <ChevronLeft className="w-4 h-4" />
                                                     </button>
-                                                    <span className="text-base font-black uppercase tracking-widest text-white">January 2026</span>
+                                                    <span className="text-base font-bold text-white">January 2026</span>
                                                     <button className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors">
                                                         <ChevronRight className="w-4 h-4" />
                                                     </button>
@@ -300,19 +301,17 @@ const FindAppointment = () => {
 
                                                 <div className="grid grid-cols-7 gap-2 mb-2 text-center">
                                                     {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
-                                                        <div key={day} className="text-[10px] font-bold text-gray-500 uppercase tracking-wider py-2">
+                                                        <div key={day} className="text-xs font-bold text-gray-500 uppercase tracking-wider py-2">
                                                             {day}
                                                         </div>
                                                     ))}
                                                 </div>
 
                                                 <div className="grid grid-cols-7 gap-2">
-                                                    {/* Empty start days (simulated for Jan 2026 starting Thursday) */}
                                                     {[...Array(4)].map((_, i) => (
                                                         <div key={`empty-${i}`} className="p-2"></div>
                                                     ))}
 
-                                                    {/* Days */}
                                                     {[...Array(31)].map((_, i) => {
                                                         const day = i + 1;
                                                         const isAvailable = [15, 16, 20, 21, 22, 27, 28, 29].includes(day);
@@ -337,9 +336,83 @@ const FindAppointment = () => {
                                                 </div>
                                             </div>
 
-                                            <button className="text-[10px] font-bold text-gray-400 underline hover:text-white transition-colors">
-                                                Why can't I find an available appointment?
-                                            </button>
+                                            {selectedDate && (
+                                                <button className="text-xs font-bold text-red-500 hover:text-white transition-colors flex items-center gap-2" onClick={() => setSelectedDate(null)}>
+                                                    <XCircle className="w-4 h-4" /> Change Date
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Section 3: Time Selection */}
+                                {selectedDate && (
+                                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                        <div className="flex items-center gap-4 border-b border-white/5 pb-6 mb-6">
+                                            <div className="p-2 bg-red-600/10 rounded-lg">
+                                                <Clock className="w-5 h-5 text-red-600" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-bold text-white">3. Select your appointment start time</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="pl-4 md:pl-16 space-y-8">
+                                            {/* 12/24 Hr Toggle */}
+                                            <div className="space-y-3">
+                                                <p className="text-sm font-bold text-white">How would you like times displayed?</p>
+                                                <div className="flex gap-4">
+                                                    <button
+                                                        onClick={() => setIsTimeFormat24(false)}
+                                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${!isTimeFormat24 ? 'bg-white text-black border-white' : 'bg-transparent text-gray-400 border-white/20'}`}
+                                                    >
+                                                        {!isTimeFormat24 && <Check className="w-4 h-4" />}
+                                                        <span className="text-sm font-bold">12 hr (e.g., 2:00 PM)</span>
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setIsTimeFormat24(true)}
+                                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${isTimeFormat24 ? 'bg-white text-black border-white' : 'bg-transparent text-gray-400 border-white/20'}`}
+                                                    >
+                                                        {isTimeFormat24 && <Check className="w-4 h-4" />}
+                                                        <span className="text-sm font-bold">24 hr (e.g., 14:00)</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {/* Recommended Time */}
+                                            <div className="space-y-3">
+                                                <p className="text-sm font-bold text-gray-300">Recommended time:</p>
+                                                <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col md:flex-row items-start gap-6">
+                                                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-blue-500 overflow-hidden relative shrink-0">
+                                                        <div className="absolute inset-0 bg-white/20"></div>
+                                                        {/* Simple visual for 'morning/day' */}
+                                                        <div className="absolute bottom-0 w-full h-1/2 bg-white/10"></div>
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <p className="text-xs text-gray-500 font-bold uppercase">Wednesday, January 28, 2026</p>
+                                                        <h3 className="text-2xl font-bold text-white">
+                                                            {isTimeFormat24 ? '06:15 - 08:30' : '06:15 AM - 08:30 AM'}
+                                                            <span className="text-lg text-gray-400 ml-2 font-normal">{detectedTimeZone}</span>
+                                                        </h3>
+                                                        <p className="text-xs text-gray-400">
+                                                            Your check-in time will be {isTimeFormat24 ? '05:45' : '05:45 AM'} {detectedTimeZone}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Actions */}
+                                            <div className="flex flex-col md:flex-row gap-4 pt-4">
+                                                <button className="px-6 py-3 bg-transparent border border-white/20 rounded-lg text-sm font-bold text-white hover:bg-white/5 transition-all">
+                                                    Explore more times
+                                                </button>
+                                                <button
+                                                    onClick={handleBookAppointment}
+                                                    className="px-8 py-3 bg-gradient-to-r from-teal-600 to-teal-500 rounded-lg text-sm font-bold text-white shadow-[0_5px_15px_rgba(20,184,166,0.3)] hover:shadow-[0_5px_20px_rgba(20,184,166,0.5)] hover:scale-105 transition-all"
+                                                >
+                                                    Book this appointment
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 )}
@@ -355,7 +428,7 @@ const FindAppointment = () => {
 
                                 {isTimeZoneConfirmed && selectedDate && (
                                     <button
-                                        onClick={handleNext}
+                                        onClick={handleBookAppointment}
                                         className="px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105 animate-in fade-in zoom-in duration-300"
                                     >
                                         Next
@@ -365,7 +438,7 @@ const FindAppointment = () => {
                         </PrecisionPanel>
 
                         {/* Footer Sub-links */}
-                        <footer className="pt-20 pb-10 flex flex-col md:flex-row items-center justify-between text-[8px] font-black uppercase tracking-[0.4em] text-gray-700 border-t border-white/5">
+                        <footer className="pt-20 pb-10 flex flex-col md:flex-row items-center justify-between text-[10px] uppercase font-bold text-gray-600 border-t border-white/5">
                             <div className="flex gap-8 mb-6 md:mb-0">
                                 <button className="hover:text-red-500 transition-colors">Terms</button>
                                 <button className="hover:text-red-500 transition-colors">Privacy</button>
@@ -373,7 +446,7 @@ const FindAppointment = () => {
                             </div>
                             <div className="flex items-center gap-8">
                                 <button className="hover:text-white transition-colors">Privacy settings</button>
-                                <p className="not-italic">© 1996-2026 CSCA Registry Node / Pearson Education Inc.</p>
+                                <p className="normal-case font-medium">© 1996-2026 CSCA Registry Node / Pearson Education Inc.</p>
                             </div>
                         </footer>
                     </div>
