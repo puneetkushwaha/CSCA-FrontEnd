@@ -46,6 +46,7 @@ const FindAppointment = () => {
     const [isTimeZoneConfirmed, setIsTimeZoneConfirmed] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [isTimeFormat24, setIsTimeFormat24] = useState(true);
+    const [showTimeModal, setShowTimeModal] = useState(false);
 
     useEffect(() => {
         // Detect Time Zone
@@ -88,6 +89,14 @@ const FindAppointment = () => {
             }
         });
     };
+
+    const timeGroups = [
+        { label: '00:00 - 05:00', available: 2, icon: 'moon', color: 'from-indigo-900 to-slate-900' },
+        { label: '05:15 - 09:00', available: 5, icon: 'sunrise', color: 'from-orange-400 to-yellow-300' },
+        { label: '09:15 - 13:00', available: 0, icon: 'sun', color: 'from-sky-400 to-blue-300' },
+        { label: '13:15 - 17:00', available: 0, icon: 'sunset', color: 'from-orange-500 to-pink-500' },
+        { label: '17:15 - 20:00', available: 0, icon: 'moon-cloud', color: 'from-indigo-600 to-purple-600' }
+    ];
 
     if (isPageLoading) return <GlobalPageLoader />;
 
@@ -403,7 +412,10 @@ const FindAppointment = () => {
 
                                             {/* Actions */}
                                             <div className="flex flex-col md:flex-row gap-4 pt-4">
-                                                <button className="px-6 py-3 bg-transparent border border-white/20 rounded-lg text-sm font-bold text-white hover:bg-white/5 transition-all">
+                                                <button
+                                                    onClick={() => setShowTimeModal(true)}
+                                                    className="px-6 py-3 bg-transparent border border-white/20 rounded-lg text-sm font-bold text-white hover:bg-white/5 transition-all"
+                                                >
                                                     Explore more times
                                                 </button>
                                                 <button
