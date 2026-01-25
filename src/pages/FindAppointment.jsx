@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import {
-    Shield, ChevronLeft, Menu, User, MessageSquare, LogOut, Calendar, Clock, Globe, Check
+    Shield, ChevronLeft, Menu, User, MessageSquare, LogOut, Calendar, Clock, Globe, Check, XCircle, ChevronRight
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RedGeometricBackground from '../components/RedGeometricBackground';
@@ -40,6 +40,11 @@ const FindAppointment = () => {
     const [isPageLoading, setIsPageLoading] = useState(true);
     const [detectedTimeZone, setDetectedTimeZone] = useState('');
     const [currentTime, setCurrentTime] = useState('');
+
+    // New States
+    const [isChangingTimeZone, setIsChangingTimeZone] = useState(false);
+    const [isTimeZoneConfirmed, setIsTimeZoneConfirmed] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
 
     useEffect(() => {
         // Detect Time Zone
@@ -183,54 +188,179 @@ const FindAppointment = () => {
                         </div>
 
                         <PrecisionPanel className="p-8 border-white/5">
-                            <div className="flex items-center gap-4 border-b border-white/5 pb-8 mb-8">
-                                <div className="p-3 bg-red-600/10 rounded-xl">
-                                    <Globe className="w-5 h-5 text-red-600" />
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-black uppercase tracking-tight text-white">1. Confirm your preferred time zone</h4>
-                                </div>
-                            </div>
-
-                            <div className="space-y-8 pl-4 md:pl-16">
-                                <div className="space-y-4">
-                                    <h5 className="text-sm font-black uppercase tracking-widest text-gray-400">
-                                        Is this your preferred time zone?
-                                    </h5>
-
-                                    <div className="flex items-center gap-4 text-xl md:text-2xl font-black text-white">
-                                        <span className="text-red-500 bg-red-500/10 px-2 py-1 rounded">{detectedTimeZone}</span>
-                                        <span className="text-gray-500 text-sm font-normal">({currentTime})</span>
+                            <div className="space-y-8">
+                                {/* Section 1: Time Zone */}
+                                <div className={`transition-all duration-500 ${isTimeZoneConfirmed ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+                                    <div className="flex items-center gap-4 border-b border-white/5 pb-8 mb-8">
+                                        <div className="p-3 bg-red-600/10 rounded-xl">
+                                            <Globe className="w-5 h-5 text-red-600" />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg font-black uppercase tracking-tight text-white">1. Confirm your preferred time zone</h4>
+                                        </div>
                                     </div>
-                                    <p className="text-xs text-gray-500 max-w-lg">
-                                        Your test appointment will be scheduled using this time zone.
-                                    </p>
+
+                                    <div className="space-y-4 pl-4 md:pl-16">
+                                        <h5 className="text-sm font-black uppercase tracking-widest text-gray-400">
+                                            Is this your preferred time zone?
+                                        </h5>
+
+                                        {!isChangingTimeZone ? (
+                                            <>
+                                                <div className="flex items-center gap-4 text-xl md:text-2xl font-black text-white">
+                                                    <span className="text-red-500 bg-red-500/10 px-2 py-1 rounded">{detectedTimeZone}</span>
+                                                    <span className="text-gray-500 text-sm font-normal">({currentTime})</span>
+                                                </div>
+                                                <p className="text-xs text-gray-500 max-w-lg">
+                                                    Your test appointment will be scheduled using this time zone.
+                                                </p>
+
+                                                <div className="flex flex-col md:flex-row gap-4 pt-4">
+                                                    <button
+                                                        onClick={() => setIsChangingTimeZone(true)}
+                                                        className="px-8 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all text-center"
+                                                    >
+                                                        No, change time zone
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setIsTimeZoneConfirmed(true)}
+                                                        className="px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105 flex items-center justify-center gap-2"
+                                                    >
+                                                        <Check className="w-4 h-4" />
+                                                        Yes, that's right!
+                                                    </button>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <div className="space-y-4 max-w-md animate-in fade-in slide-in-from-top-4 duration-300">
+                                                <div className="relative">
+                                                    <input
+                                                        type="text"
+                                                        value={detectedTimeZone}
+                                                        onChange={(e) => setDetectedTimeZone(e.target.value)}
+                                                        className="w-full bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-red-600 transition-colors"
+                                                        placeholder="Search time zones..."
+                                                        autoFocus
+                                                    />
+                                                    <button
+                                                        onClick={() => setDetectedTimeZone('')}
+                                                        className="absolute right-3 top-3 text-gray-500 hover:text-white"
+                                                    >
+                                                        <XCircle className="w-5 h-5" />
+                                                    </button>
+                                                </div>
+                                                <div className="flex gap-4">
+                                                    <button
+                                                        onClick={() => setIsChangingTimeZone(false)}
+                                                        className="px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-red-600 text-white hover:bg-red-700 transition-all"
+                                                    >
+                                                        Update
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setIsChangingTimeZone(false)}
+                                                        className="px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-all"
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                                <p className="text-[10px] text-gray-500">
+                                                    (Asia/Kolkata GMT+05:30) IST
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
-                                <div className="flex flex-col md:flex-row gap-4 pt-4">
-                                    <button
-                                        onClick={() => {/* Logic to change TZ later */ }}
-                                        className="px-8 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all text-center"
-                                    >
-                                        No, change time zone
-                                    </button>
-                                    <button
-                                        onClick={handleConfirmTimeZone}
-                                        className="px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105 flex items-center justify-center gap-2"
-                                    >
-                                        <Check className="w-4 h-4" />
-                                        Yes, that's right!
-                                    </button>
-                                </div>
+                                {/* Section 2: Date Selection */}
+                                {isTimeZoneConfirmed && (
+                                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                        <div className="flex items-center gap-4 border-b border-white/5 pb-8 mb-8 mt-12">
+                                            <div className="p-3 bg-red-600/10 rounded-xl">
+                                                <Calendar className="w-5 h-5 text-red-600" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-black uppercase tracking-tight text-white">2. Select your date</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="pl-4 md:pl-16 space-y-6">
+                                            <p className="text-sm text-gray-400">Select a date from the calendar. Only dates with appointment availability can be selected.</p>
+
+                                            {/* Custom Calendar Implementation */}
+                                            <div className="max-w-md bg-white/5 rounded-2xl border border-white/10 p-6">
+                                                <div className="flex items-center justify-between mb-6">
+                                                    <button className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors">
+                                                        <ChevronLeft className="w-4 h-4" />
+                                                    </button>
+                                                    <span className="text-base font-black uppercase tracking-widest text-white">January 2026</span>
+                                                    <button className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors">
+                                                        <ChevronRight className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+
+                                                <div className="grid grid-cols-7 gap-2 mb-2 text-center">
+                                                    {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+                                                        <div key={day} className="text-[10px] font-bold text-gray-500 uppercase tracking-wider py-2">
+                                                            {day}
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                                <div className="grid grid-cols-7 gap-2">
+                                                    {/* Empty start days (simulated for Jan 2026 starting Thursday) */}
+                                                    {[...Array(4)].map((_, i) => (
+                                                        <div key={`empty-${i}`} className="p-2"></div>
+                                                    ))}
+
+                                                    {/* Days */}
+                                                    {[...Array(31)].map((_, i) => {
+                                                        const day = i + 1;
+                                                        const isAvailable = [15, 16, 20, 21, 22, 27, 28, 29].includes(day);
+                                                        const isSelected = selectedDate === day;
+
+                                                        return (
+                                                            <button
+                                                                key={day}
+                                                                disabled={!isAvailable}
+                                                                onClick={() => setSelectedDate(day)}
+                                                                className={`
+                                                                    relative h-10 w-10 mx-auto flex items-center justify-center rounded-lg text-sm font-bold transition-all
+                                                                    ${isSelected ? 'bg-red-600 text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]' : ''}
+                                                                    ${!isSelected && isAvailable ? 'bg-white/5 text-white hover:bg-white/10 cursor-pointer' : ''}
+                                                                    ${!isSelected && !isAvailable ? 'text-gray-700 cursor-not-allowed' : ''}
+                                                                `}
+                                                            >
+                                                                {day}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+
+                                            <button className="text-[10px] font-bold text-gray-400 underline hover:text-white transition-colors">
+                                                Why can't I find an available appointment?
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
-                            <div className="mt-12 pt-8 border-t border-white/5 flex gap-4">
+                            <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between">
                                 <button
-                                    onClick={() => navigate(-1)}
+                                    onClick={() => isTimeZoneConfirmed ? setIsTimeZoneConfirmed(false) : navigate(-1)}
                                     className="px-10 py-4 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all"
                                 >
                                     Previous
                                 </button>
+
+                                {isTimeZoneConfirmed && selectedDate && (
+                                    <button
+                                        onClick={handleNext}
+                                        className="px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105 animate-in fade-in zoom-in duration-300"
+                                    >
+                                        Next
+                                    </button>
+                                )}
                             </div>
                         </PrecisionPanel>
 
