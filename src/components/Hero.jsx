@@ -72,7 +72,7 @@ const Hero = () => {
                         </h1>
 
                         <p className="text-sm md:text-base text-red-500 font-bold uppercase tracking-tight mb-6">
-                            Secure your skills with globally recognized cybersecurity credentials.
+                        Empowering professionals worldwide with globally recognized cybersecurity certifications aligned with real-world performance, modern enterprise environments, and global career growth.
                         </p>
 
                         {/* Middle Line */}
@@ -86,6 +86,8 @@ const Hero = () => {
                         <br />
                          
                     </div>
+                     
+                    
 
                     {/* Right Content - Stacking Certification Cards */}
                     <div className="relative h-[650px] flex items-start justify-center lg:justify-end overflow-visible pt-16 md:pt-24">
@@ -145,7 +147,7 @@ const Hero = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                
                                                 {/* Right: Content Area */}
                                                 <div className="flex-grow flex flex-col justify-center relative min-h-[100px]">
                                                     {/* Top Right Tag */}
@@ -175,6 +177,153 @@ const Hero = () => {
                             })}
                         </div>
                     </div>
+                    <section className="min-h-screen flex flex-col justify-center items-center px-6 text-center bg-black relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-red-950/10 to-black opacity-80"></div>
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-extrabold mb-12 text-red-500">
+            Take the Next Step with CSCA
+          </h2>
+          <div className="flex flex-wrap justify-center gap-6">
+            <button className="bg-red-600 hover:bg-red-700 px-8 py-4 text-lg rounded-xl font-semibold">
+              Explore Certifications
+            </button>
+            <button className="bg-white text-red-600 hover:bg-red-100 px-8 py-4 text-lg rounded-xl font-semibold">
+              Explore Careers
+            </button>
+            <button className="bg-red-800 hover:bg-red-900 px-8 py-4 text-lg rounded-xl font-semibold">
+              Partner With Us
+            </button>
+            <button className="bg-gray-900 border border-red-500 px-8 py-4 text-lg rounded-xl font-semibold">
+              Verify Certificate
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* === 2️⃣ Why Choose CSCA === */}
+      <section className="min-h-screen flex flex-col justify-center items-center px-8 bg-black/90 text-left backdrop-blur-xl">
+        <div className="max-w-5xl">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-red-400 mb-10">
+            Why Choose CSCA
+          </h2>
+          <div className="grid md:grid-cols-2 gap-10 text-gray-300">
+            <div>
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                🌍 Globally Aligned Standards
+              </h3>
+              <p>
+                Mapped with NIST, MITRE ATT&CK, ISO 27001, SOC2, and Zero Trust frameworks.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                🧠 Hands-On, Role-Based Certifications
+              </h3>
+              <p>
+                Every certification includes scenario-driven labs, simulations,
+                and practical assessments.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                🏅 Industry-Validated Credentials
+              </h3>
+              <p>
+                Recognized across SOC teams, cybersecurity enterprises, and
+                academic institutions.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                ⚙️ Performance-Based Certification Exams
+              </h3>
+              <p>
+                Exams are built on practical tasks, real logs, real incidents, and
+                real investigations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* === 3️⃣ Popular Certifications === */}
+      <section className="min-h-screen flex flex-col justify-center items-center px-8 bg-gradient-to-b from-black via-red-950/20 to-black text-center">
+        <div className="max-w-5xl">
+          <h2 className="text-4xl md:text-5xl font-bold text-red-400 mb-10">
+            Popular Certifications
+          </h2>
+          <ul className="text-gray-200 space-y-8 text-left">
+            <li>
+              <h3 className="text-2xl font-semibold text-white">
+                Certified Junior Detection Engineer (CJDE)
+              </h3>
+              <p className="text-gray-400">
+                Build foundational skills in detection engineering, alert creation,
+                event analysis, and malicious pattern identification.
+              </p>
+            </li>
+            <li>
+              <h3 className="text-2xl font-semibold text-white">
+                Certified SOC Analyst (CSA)
+              </h3>
+              <p className="text-gray-400">
+                Learn SOC operations, SIEM analysis, IR workflows, and threat
+                investigation techniques.
+              </p>
+            </li>
+            <li>
+              <h3 className="text-2xl font-semibold text-white">
+                Certified Threat Hunter (CTH)
+              </h3>
+              <p className="text-gray-400">
+                Master hypothesis-based hunting, ATT&CK mapping, log correlation,
+                and adversarial behavior analysis.
+              </p>
+            </li>
+            <li>
+              <h3 className="text-2xl font-semibold text-white">
+                Certified Cloud Security Professional (CCSP)
+              </h3>
+              <p className="text-gray-400">
+                Advanced cloud architecture security, identity governance, and cloud
+                threat detection.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* === 4️⃣ Global Standards === */}
+      <section className="min-h-screen flex flex-col justify-center items-center px-6 bg-black/90 text-center">
+        <div className="max-w-4xl">
+          <h2 className="text-4xl md:text-5xl font-bold text-red-400 mb-6">
+            Global Standards
+          </h2>
+          <p className="text-gray-300 mb-8 text-lg">
+            CSCA certifications follow international best practices:
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 text-gray-200">
+            <span className="bg-red-900/50 px-4 py-2 rounded-md text-lg">
+              MITRE
+            </span>
+            <span className="bg-red-900/50 px-4 py-2 rounded-md text-lg">
+              NIST
+            </span>
+            <span className="bg-red-900/50 px-4 py-2 rounded-md text-lg">
+              ISO 27001
+            </span>
+            <span className="bg-red-900/50 px-4 py-2 rounded-md text-lg">
+              SOC2
+            </span>
+            <span className="bg-red-900/50 px-4 py-2 rounded-md text-lg">
+              Zero Trust
+            </span>
+            <span className="bg-red-900/50 px-4 py-2 rounded-md text-lg">
+              Cloud Security Alliance
+            </span>
+          </div>
+        </div>
+      </section>
 
                 </div>
             </div>
