@@ -464,6 +464,65 @@ const FindAppointment = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Explore Times Modal */}
+            {showTimeModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowTimeModal(false)}></div>
+                    <div className="relative bg-[#111] border border-white/10 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                        {/* Modal Header */}
+                        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-white/5">
+                            <h3 className="text-xl font-bold text-white">Select your appointment start time</h3>
+                            <button
+                                onClick={() => setShowTimeModal(false)}
+                                className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+                            >
+                                <XCircle className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        {/* Modal Body */}
+                        <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                            <div className="space-y-2 mb-8">
+                                <div className="flex items-start gap-3 text-sm text-gray-300">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0"></div>
+                                    <p>Your appointment length is <span className="font-bold text-white">135 minutes</span>.</p>
+                                </div>
+                                <div className="flex items-start gap-3 text-sm text-gray-300">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0"></div>
+                                    <p>Your online testing check-in time will be 30 minutes prior to your selected appointment start time.</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                {timeGroups.map((group, idx) => (
+                                    <div key={idx} className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between group hover:border-white/20 transition-all cursor-pointer">
+                                        <div className="flex items-center gap-6">
+                                            <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${group.color} flex items-center justify-center shrink-0`}>
+                                                {/* Simple simulated icons based on group.icon string */}
+                                                {group.icon === 'moon' && <div className="w-4 h-4 rounded-full bg-white/80 shadow-[0_0_10px_white]"></div>}
+                                                {group.icon === 'sunrise' && <div className="w-6 h-3 rounded-t-full bg-white/80 mt-2"></div>}
+                                                {group.icon === 'sun' && <div className="w-5 h-5 rounded-full bg-yellow-100 shadow-[0_0_10px_yellow]"></div>}
+                                                {group.icon === 'sunset' && <div className="w-6 h-3 rounded-b-full bg-white/80 mb-2"></div>}
+                                                {group.icon === 'moon-cloud' && <div className="w-4 h-4 rounded-full bg-gray-300/80"></div>}
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-bold text-white">{group.label}</h4>
+                                                <p className={`text-sm ${group.available > 0 ? 'text-green-400' : 'text-gray-500'}`}>
+                                                    {group.available > 0 ? `${group.available} times available.` : 'No times available.'}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="text-gray-500 group-hover:text-white transition-colors">
+                                            <ChevronRight className="w-5 h-5 rotate-90" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
