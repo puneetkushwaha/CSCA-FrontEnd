@@ -63,6 +63,8 @@ import SelectExamOptions from './pages/SelectExamOptions';
 import SelectExamLanguage from './pages/SelectExamLanguage';
 import ProvideAdditionalInfo from './pages/ProvideAdditionalInfo';
 import TestingPolicies from './pages/TestingPolicies';
+import SelectProctorLanguage from './pages/SelectProctorLanguage';
+import FindAppointment from './pages/FindAppointment';
 import FindTestCenter from './pages/FindTestCenter';
 
 
@@ -179,6 +181,8 @@ function App() {
               <Route path="/select-exam-language" element={<SelectExamLanguage />} />
               <Route path="/provide-additional-info" element={<ProvideAdditionalInfo />} />
               <Route path="/find-test-center" element={<FindTestCenter />} />
+              <Route path="/select-proctor-language" element={<SelectProctorLanguage />} />
+              <Route path="/find-appointment" element={<FindAppointment />} />
               <Route path="/testing-policies" element={<TestingPolicies />} />
             </Route>
 

@@ -234,7 +234,7 @@ const TestingPolicies = () => {
                                     Previous
                                 </button>
                                 <button
-                                    onClick={() => navigate('/find-test-center', { state: { examName, temporaryCountry, hasAuthorization } })}
+                                    onClick={() => navigate('/select-proctor-language', { state: { examName, temporaryCountry, hasAuthorization } })}
                                     className="px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105"
                                 >
                                     I Agree - Continue
