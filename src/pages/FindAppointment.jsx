@@ -47,6 +47,50 @@ const FindAppointment = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [isTimeFormat24, setIsTimeFormat24] = useState(true);
     const [showTimeModal, setShowTimeModal] = useState(false);
+    const [expandedGroup, setExpandedGroup] = useState(1); // Default to the second group (Morning) as expanded for demo
+
+    const timeGroups = [
+        {
+            id: 0,
+            label: '00:00 - 05:00',
+            available: 2,
+            icon: 'moon',
+            color: 'from-indigo-900 to-slate-900',
+            slots: ['03:45', '04:15']
+        },
+        {
+            id: 1,
+            label: '05:15 - 09:00',
+            available: 5,
+            icon: 'sunrise',
+            color: 'from-orange-400 to-yellow-300',
+            slots: ['05:15', '05:30', '05:45', '06:00', '06:15']
+        },
+        {
+            id: 2,
+            label: '09:15 - 13:00',
+            available: 0,
+            icon: 'sun',
+            color: 'from-sky-400 to-blue-300',
+            slots: []
+        },
+        {
+            id: 3,
+            label: '13:15 - 17:00',
+            available: 0,
+            icon: 'sunset',
+            color: 'from-orange-500 to-pink-500',
+            slots: []
+        },
+        {
+            id: 4,
+            label: '17:15 - 20:00',
+            available: 0,
+            icon: 'moon-cloud',
+            color: 'from-indigo-600 to-purple-600',
+            slots: []
+        }
+    ];
 
     useEffect(() => {
         // Detect Time Zone
@@ -90,13 +134,13 @@ const FindAppointment = () => {
         });
     };
 
-    const timeGroups = [
-        { label: '00:00 - 05:00', available: 2, icon: 'moon', color: 'from-indigo-900 to-slate-900' },
-        { label: '05:15 - 09:00', available: 5, icon: 'sunrise', color: 'from-orange-400 to-yellow-300' },
-        { label: '09:15 - 13:00', available: 0, icon: 'sun', color: 'from-sky-400 to-blue-300' },
-        { label: '13:15 - 17:00', available: 0, icon: 'sunset', color: 'from-orange-500 to-pink-500' },
-        { label: '17:15 - 20:00', available: 0, icon: 'moon-cloud', color: 'from-indigo-600 to-purple-600' }
-    ];
+    const toggleGroup = (id) => {
+        if (expandedGroup === id) {
+            setExpandedGroup(null);
+        } else {
+            setExpandedGroup(id);
+        }
+    };
 
     if (isPageLoading) return <GlobalPageLoader />;
 
@@ -495,29 +539,57 @@ const FindAppointment = () => {
                             </div>
 
                             <div className="space-y-4">
-                                {timeGroups.map((group, idx) => (
-                                    <div key={idx} className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center justify-between group hover:border-white/20 transition-all cursor-pointer">
-                                        <div className="flex items-center gap-6">
-                                            <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${group.color} flex items-center justify-center shrink-0`}>
-                                                {/* Simple simulated icons based on group.icon string */}
-                                                {group.icon === 'moon' && <div className="w-4 h-4 rounded-full bg-white/80 shadow-[0_0_10px_white]"></div>}
-                                                {group.icon === 'sunrise' && <div className="w-6 h-3 rounded-t-full bg-white/80 mt-2"></div>}
-                                                {group.icon === 'sun' && <div className="w-5 h-5 rounded-full bg-yellow-100 shadow-[0_0_10px_yellow]"></div>}
-                                                {group.icon === 'sunset' && <div className="w-6 h-3 rounded-b-full bg-white/80 mb-2"></div>}
-                                                {group.icon === 'moon-cloud' && <div className="w-4 h-4 rounded-full bg-gray-300/80"></div>}
+                                {timeGroups.map((group, idx) => {
+                                    const isExpanded = expandedGroup === group.id;
+
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className={`bg-white/5 border rounded-xl overflow-hidden transition-all ${isExpanded ? 'border-red-600/30 ring-1 ring-red-600/20' : 'border-white/10 hover:border-white/20'}`}
+                                        >
+                                            <div
+                                                className="p-4 flex items-center justify-between cursor-pointer"
+                                                onClick={() => toggleGroup(group.id)}
+                                            >
+                                                <div className="flex items-center gap-6">
+                                                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${group.color} flex items-center justify-center shrink-0`}>
+                                                        {/* Simple simulated icons based on group.icon string */}
+                                                        {group.icon === 'moon' && <div className="w-4 h-4 rounded-full bg-white/80 shadow-[0_0_10px_white]"></div>}
+                                                        {group.icon === 'sunrise' && <div className="w-6 h-3 rounded-t-full bg-white/80 mt-2"></div>}
+                                                        {group.icon === 'sun' && <div className="w-5 h-5 rounded-full bg-yellow-100 shadow-[0_0_10px_yellow]"></div>}
+                                                        {group.icon === 'sunset' && <div className="w-6 h-3 rounded-b-full bg-white/80 mb-2"></div>}
+                                                        {group.icon === 'moon-cloud' && <div className="w-4 h-4 rounded-full bg-gray-300/80"></div>}
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-lg font-bold text-white">{group.label}</h4>
+                                                        <p className={`text-sm ${group.available > 0 ? 'text-green-400' : 'text-gray-500'}`}>
+                                                            {group.available > 0 ? `${group.available} times available.` : 'No times available.'}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className={`text-gray-500 transition-transform duration-300 ${isExpanded ? 'rotate-180 text-white' : ''}`}>
+                                                    <ChevronLeft className="w-5 h-5 -rotate-90" />
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 className="text-lg font-bold text-white">{group.label}</h4>
-                                                <p className={`text-sm ${group.available > 0 ? 'text-green-400' : 'text-gray-500'}`}>
-                                                    {group.available > 0 ? `${group.available} times available.` : 'No times available.'}
-                                                </p>
-                                            </div>
+
+                                            {/* Expandable Time Slots Grid */}
+                                            {isExpanded && group.available > 0 && (
+                                                <div className="px-4 pb-6 pl-[88px] animate-in slide-in-from-top-2 fade-in duration-300">
+                                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                                        {group.slots.map(slot => (
+                                                            <button
+                                                                key={slot}
+                                                                className="px-4 py-2 bg-[#007da5] hover:bg-[#006080] text-white text-sm font-bold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all text-center"
+                                                            >
+                                                                {slot}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
-                                        <div className="text-gray-500 group-hover:text-white transition-colors">
-                                            <ChevronRight className="w-5 h-5 rotate-90" />
-                                        </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
