@@ -48,6 +48,7 @@ const FindAppointment = () => {
     const [isTimeFormat24, setIsTimeFormat24] = useState(true);
     const [showTimeModal, setShowTimeModal] = useState(false);
     const [expandedGroup, setExpandedGroup] = useState(1); // Default to the second group (Morning) as expanded for demo
+    const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
 
     const timeGroups = [
         {
@@ -121,6 +122,11 @@ const FindAppointment = () => {
         setIsTimeZoneConfirmed(true);
     };
 
+    const handleTimeSlotClick = (time) => {
+        setSelectedTimeSlot(time);
+        setShowTimeModal(false);
+    };
+
     const handleBookAppointment = () => {
         navigate('/find-test-center', {
             state: {
@@ -129,7 +135,8 @@ const FindAppointment = () => {
                 hasAuthorization,
                 proctorLanguage,
                 confirmedTimeZone: detectedTimeZone,
-                appointmentDate: selectedDate ? `2026-01-${selectedDate}` : null
+                appointmentDate: selectedDate ? `2026-01-${selectedDate}` : null,
+                appointmentTime: selectedTimeSlot || '06:15' // Default fallback
             }
         });
     };
@@ -435,7 +442,7 @@ const FindAppointment = () => {
                                             {/* Recommended Time */}
                                             <div className="space-y-3">
                                                 <p className="text-sm font-bold text-gray-300">Recommended time:</p>
-                                                <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col md:flex-row items-start gap-6">
+                                                <div onClick={() => setShowTimeModal(true)} className="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col md:flex-row items-start gap-6 cursor-pointer hover:bg-white/10 transition-all">
                                                     <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-blue-500 overflow-hidden relative shrink-0">
                                                         <div className="absolute inset-0 bg-white/20"></div>
                                                         {/* Simple visual for 'morning/day' */}
@@ -443,12 +450,19 @@ const FindAppointment = () => {
                                                     </div>
                                                     <div className="space-y-2">
                                                         <p className="text-xs text-gray-500 font-bold uppercase">Wednesday, January 28, 2026</p>
-                                                        <h3 className="text-2xl font-bold text-white">
-                                                            {isTimeFormat24 ? '06:15 - 08:30' : '06:15 AM - 08:30 AM'}
-                                                            <span className="text-lg text-gray-400 ml-2 font-normal">{detectedTimeZone}</span>
-                                                        </h3>
+                                                        {selectedTimeSlot ? (
+                                                            <h3 className="text-2xl font-bold text-white">
+                                                                {selectedTimeSlot}
+                                                                <span className="text-lg text-gray-400 ml-2 font-normal">{detectedTimeZone}</span>
+                                                            </h3>
+                                                        ) : (
+                                                            <h3 className="text-2xl font-bold text-white">
+                                                                {isTimeFormat24 ? '06:15 - 08:30' : '06:15 AM - 08:30 AM'}
+                                                                <span className="text-lg text-gray-400 ml-2 font-normal">{detectedTimeZone}</span>
+                                                            </h3>
+                                                        )}
                                                         <p className="text-xs text-gray-400">
-                                                            Your check-in time will be {isTimeFormat24 ? '05:45' : '05:45 AM'} {detectedTimeZone}
+                                                            Your check-in time will be {selectedTimeSlot ? '30 minutes prior' : (isTimeFormat24 ? '05:45' : '05:45 AM')} {detectedTimeZone}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -579,6 +593,7 @@ const FindAppointment = () => {
                                                         {group.slots.map(slot => (
                                                             <button
                                                                 key={slot}
+                                                                onClick={() => handleTimeSlotClick(slot)}
                                                                 className="px-4 py-2 bg-[#007da5] hover:bg-[#006080] text-white text-sm font-bold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all text-center"
                                                             >
                                                                 {slot}
