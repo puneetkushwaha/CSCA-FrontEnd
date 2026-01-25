@@ -33,6 +33,8 @@ const TestingPolicies = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const examName = location.state?.examName || "CSCA Certification Exam";
+    const temporaryCountry = location.state?.temporaryCountry;
+    const hasAuthorization = location.state?.hasAuthorization;
 
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [isPageLoading, setIsPageLoading] = useState(true);
