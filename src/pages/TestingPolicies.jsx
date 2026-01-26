@@ -31,12 +31,16 @@ const TestingPolicies = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const examName = location.state?.examName || "CSCA Certification Exam";
+    const examName = location.state?.examName || "CSCA Security+ Certification Exam";
     const temporaryCountry = location.state?.temporaryCountry;
     const hasAuthorization = location.state?.hasAuthorization;
 
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [isPageLoading, setIsPageLoading] = useState(true);
+
+    // Policy Agreement States
+    const [agreedOnlinePolicy, setAgreedOnlinePolicy] = useState(false);
+    const [agreedCSCAPolicy, setAgreedCSCAPolicy] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => setIsPageLoading(false), 800);
@@ -135,11 +139,11 @@ const TestingPolicies = () => {
                                 className="flex items-center gap-2 text-sm font-bold transition-all text-gray-500 hover:text-white group"
                             >
                                 <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                                Back
+                                back to previous step
                             </button>
                         </div>
 
-                        <h2 className="text-3xl font-bold tracking-tight">Agree to <span className="text-red-600">Testing Policies</span></h2>
+                        <h2 className="text-3xl font-bold tracking-tight">Agree to <span className="text-red-600">Online Exam and CSCA Testing Policies</span></h2>
                         <div className="h-1 w-20 bg-red-600 rounded-full mb-4"></div>
 
                         {/* Exam Header Bar */}
@@ -148,75 +152,205 @@ const TestingPolicies = () => {
                         </div>
 
                         <PrecisionPanel className="p-8 border-white/5">
-                            <div className="space-y-8">
-                                <div className="p-4 rounded-xl bg-red-600/10 border border-red-600/20 flex flex-col md:flex-row gap-4 items-start">
-                                    <AlertCircle className="w-6 h-6 text-red-500 shrink-0 mt-1" />
-                                    <div className="space-y-2">
-                                        <h4 className="text-sm font-bold text-white">Important Policy Notice</h4>
-                                        <p className="text-xs text-gray-400 leading-relaxed">
-                                            By checking the box below, you agree to the policies listed. You must agree to these policies to proceed with your exam registration.
+                            <div className="space-y-12">
+
+                                {/* Section 1: Online Exam Policies */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 rounded-lg bg-red-600/10 border border-red-600/20">
+                                            <FileText className="w-5 h-5 text-red-500" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white">Online exam policies</h3>
+                                    </div>
+
+                                    <div className="bg-white/5 rounded-xl p-6 border border-white/5 text-gray-300 text-sm leading-relaxed space-y-4">
+                                        <p>
+                                            By checking the boxes below, you agree to each term as described. To take this exam in an online environment, please agree to the following terms and conditions.
+                                        </p>
+                                        <p>
+                                            By accessing this website you understand and agree to the terms set forth in this Candidate Agreement ("Agreement"). This Agreement is entered into by and between you as a test taker, Pearson VUE, a business of NCS Pearson, Inc., and your testing program owner ("Test Sponsor"). This Agreement represents your understanding and acceptance of Pearson VUE’s Privacy and Cookies Policy ("Privacy Policy"), Terms and Conditions, and use of cookies to support your testing experience. You also understand, acknowledge, and agree that the testing program sponsor has its own, possibly different, privacy policy.
+                                        </p>
+
+                                        <h4 className="font-bold text-white pt-2">OnVUE Data Processing</h4>
+                                        <p>
+                                            By providing your personal information, as described in our Privacy and Cookies Policy, you acknowledge and agree to the video and audio recording of your entire testing session and you agree to the processing of such personal information and test data by Pearson VUE and the transfer of such data to Pearson VUE’s hub server in the USA for processing and secure storage.
+                                        </p>
+                                        <p>
+                                            If you choose to take the test through our online-proctoring platform, your face, voice, desk, and workspace will be monitored and possibly recorded for exam integrity. Any inappropriate conduct, as determined by Pearson VUE or the proctor, will be reported to the Test Sponsor and possibly to legal authorities.
+                                        </p>
+
+                                        <h4 className="font-bold text-white pt-2">Third Party Prohibition</h4>
+                                        <p>If any third party is:</p>
+                                        <ul className="list-disc pl-5 space-y-1">
+                                            <li>detected in your physical testing space</li>
+                                            <li>overheard in any form, even indirectly</li>
+                                        </ul>
+                                        <p className="text-red-400 font-medium">Your exam will be terminated with no score and no refund.</p>
+
+                                        <h4 className="font-bold text-white pt-2">Limited License</h4>
+                                        <p>
+                                            You receive a limited license to use the OnVUE application only during your testing session. You may not record, copy, download, photograph, or reproduce the platform. You agree to use OnVUE lawfully and without interfering with others.
+                                        </p>
+
+                                        <h4 className="font-bold text-white pt-2">Facial Comparison Policy</h4>
+                                        <p>
+                                            Pearson VUE may use facial comparison technology to verify your identity during check-in and testing. If you do not agree to this, you must register by phone and cannot proceed with online registration.
+                                        </p>
+
+                                        <h4 className="font-bold text-white pt-2">Testing Space Verification Policy</h4>
+                                        <p>
+                                            You must take photos of your testing room and desk during check-in and submit them to the proctor for security verification. A mobile phone is recommended for this step.
                                         </p>
                                     </div>
+
+                                    <label className="flex items-start gap-4 p-4 rounded-xl border border-white/10 bg-white/5 cursor-pointer hover:bg-white/10 transition-all group">
+                                        <div className="relative flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                checked={agreedOnlinePolicy}
+                                                onChange={(e) => setAgreedOnlinePolicy(e.target.checked)}
+                                                className="peer sr-only"
+                                            />
+                                            <div className="w-6 h-6 rounded-md border-2 border-gray-500 peer-checked:border-red-600 peer-checked:bg-red-600 transition-all flex items-center justify-center">
+                                                <CheckCircle2 className="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" />
+                                            </div>
+                                        </div>
+                                        <div className="flex-1">
+                                            <span className="text-sm font-bold text-white group-hover:text-red-400 transition-colors">I agree to the Online Exam Policies</span>
+                                            <p className="text-xs text-gray-400 mt-1">I have read and accept the terms regarding data processing, monitoring, and third-party prohibitions.</p>
+                                        </div>
+                                    </label>
                                 </div>
 
+                                {/* Section 2: CSCA Testing Policies */}
                                 <div className="space-y-6">
-                                    {/* Policy Item 1 */}
-                                    <div className="space-y-2">
-                                        <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                                            <FileText className="w-4 h-4 text-red-500" />
-                                            CSCA Admission Policy
-                                        </h4>
-                                        <div className="pl-6 space-y-2 text-xs text-gray-400 leading-relaxed">
-                                            <p>We ask that you arrive at the test center 15 minutes before your scheduled appointment time. This will give you adequate time to complete the necessary sign-in procedures. If you arrive more than 15 minutes late for your appointment, you may be refused admission and the exam fees will be forfeited.</p>
-                                            <p>You will be required to present two forms of original (no photocopies), valid (unexpired) IDs; one form as a primary ID (government issued with name, photo and signature) and one form as a secondary ID (with name and signature or name and recent recognizable photo). The first and last name that you used to register must match exactly the first and last name on the ID that is presented on test day. All required IDs must be issued by the country in which you are testing. If you do not have the qualifying ID issued from the country you are testing in, an International Travel Passport from your country of citizenship is required. If you have any questions or concerns about the ID you are required to bring with you to the testing center for admittance for your exam please contact Pearson VUE customer Service at www.pearsonvue.com/contact.</p>
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 rounded-lg bg-red-600/10 border border-red-600/20">
+                                            <Shield className="w-5 h-5 text-red-500" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white">CSCA Testing Policies</h3>
+                                    </div>
+
+                                    <div className="bg-white/5 rounded-xl p-6 border border-white/5 text-gray-300 text-sm leading-relaxed space-y-4">
+                                        <h4 className="font-bold text-white">Admission Policy</h4>
+
+                                        <div className="pl-0 space-y-2">
+                                            <p className="font-bold text-gray-200">Before exam day</p>
+                                            <p>Test your system - Use the same device, room, and network planned for exam day.</p>
+                                            <p className="text-gray-400 text-xs">Recommended: Personal computer with webcam, No office networks or VPN, Stable high-speed internet.</p>
+                                        </div>
+
+                                        <div className="pl-0 space-y-2 pt-2">
+                                            <p className="font-bold text-gray-200">ID Requirements</p>
+                                            <p>One valid, unexpired, government-issued ID with name, signature, and photo matching the registration name.</p>
+                                            <p className="text-xs text-gray-400 font-bold">Acceptable IDs:</p>
+                                            <ul className="list-disc pl-5 text-xs text-gray-400">
+                                                <li>Passport</li>
+                                                <li>Driver’s license</li>
+                                                <li>National/local ID card</li>
+                                                <li>Residency/visa card</li>
+                                                <li>Non-US military ID</li>
+                                            </ul>
+                                            <p className="text-xs text-gray-400 font-bold">Unacceptable IDs:</p>
+                                            <ul className="list-disc pl-5 text-xs text-gray-400">
+                                                <li>Expired IDs</li>
+                                                <li>Renewal forms</li>
+                                                <li>Restricted IDs that cannot legally be photographed</li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="pl-0 space-y-2 pt-2">
+                                            <p className="font-bold text-gray-200">Prepare your testing space</p>
+                                            <ul className="list-disc pl-5 text-xs text-gray-400">
+                                                <li>Quiet, isolated, and well-lit</li>
+                                                <li>Avoid backlighting</li>
+                                                <li>Four pictures required during check-in</li>
+                                                <li>Only one monitor allowed</li>
+                                                <li>Desk must be completely clear</li>
+                                            </ul>
+                                            <p className="text-xs italic">For complete details, please review CSCA’s online-proctored exam policies.</p>
+                                        </div>
+
+                                        <div className="pl-0 space-y-2 pt-2">
+                                            <p className="font-bold text-gray-200">On exam day</p>
+                                            <ul className="list-disc pl-5 text-xs text-gray-400">
+                                                <li>Log into your CSCA Exam Portal 30 minutes early</li>
+                                                <li>Early login does not guarantee early start</li>
+                                                <li>Being more than 15 minutes late may result in loss of exam and fee</li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="pl-0 space-y-2 pt-2">
+                                            <p className="font-bold text-gray-200">Check-in steps</p>
+                                            <ul className="list-disc pl-5 text-xs text-gray-400">
+                                                <li>Click "Check in to start exam" on your exam email Or log into your CSCA Exam Portal</li>
+                                                <li>Navigate to Manage Exams → My Exams</li>
+                                                <li>Follow on-screen instructions for check-in</li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="pl-0 space-y-2 pt-2">
+                                            <p className="font-bold text-gray-200">Exam rules during testing</p>
+                                            <ul className="list-disc pl-5 text-xs text-gray-400">
+                                                <li>No unauthorized items (phones, watches, notes)</li>
+                                                <li>No other person may appear or be heard</li>
+                                                <li>No speaking aloud</li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="pt-2">
+                                            <p className="font-bold text-white">Reschedule Policy (Updated for CSCA Website)</p>
+                                            <p>To reschedule your online-proctored exam, log in to your CSCA Exam Portal account and use the reschedule option provided for your appointment before the scheduled start time. Failure to do so results in forfeiture of your exam fee.</p>
+                                        </div>
+
+                                        <div className="pt-2">
+                                            <p className="font-bold text-white">Cancellation Policy (Updated for CSCA Website)</p>
+                                            <p>To cancel your exam, log in to your CSCA Exam Portal account and cancel before the scheduled start time. Failure to cancel results in forfeiture of your exam fee.</p>
+                                        </div>
+
+                                        <div className="pt-2">
+                                            <p className="font-bold text-white">Additional Information</p>
+                                            <ul className="list-disc pl-5 text-xs text-gray-400 mt-1">
+                                                <li>CSCA does not allow breaks during online exams</li>
+                                                <li>Leaving the computer ends the session and forfeits the fee</li>
+                                                <li>Water in a glass is allowed</li>
+                                                <li>Eating, smoking, and chewing gum are not allowed</li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="pt-2">
+                                            <p className="font-bold text-white">Appointment Length</p>
+                                            <p>The total "Appointment Length" may include tutorials, agreements, and end-of-exam surveys. Visit <a href="https://csca.org/certifications" className="text-red-500 underline">https://csca.org/certifications</a> to view exam duration.</p>
+                                        </div>
+
+                                        <div className="pt-2">
+                                            <p className="font-bold text-white">CSCA Candidate Agreement</p>
+                                            <p>For CSCA exams, you must read and accept the Candidate Agreement within the allotted time or your exam will be forfeited. Read here: <a href="https://csca.org/test-policies/candidate-agreement" className="text-red-500 underline">https://csca.org/test-policies/candidate-agreement</a></p>
+                                        </div>
+
+                                        <div className="pt-2">
+                                            <p className="font-bold text-white">Sharing Your Certification Status</p>
+                                            <p>If a third party (employer, institute, military, etc.) paid for your CSCA exam or CE program, CSCA may share your certification status and CE progress with them upon request.</p>
                                         </div>
                                     </div>
 
-                                    {/* Policy Item 2 */}
-                                    <div className="space-y-2">
-                                        <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                                            <FileText className="w-4 h-4 text-red-500" />
-                                            Reschedule Policy
-                                        </h4>
-                                        <div className="pl-6 text-xs text-gray-400 leading-relaxed">
-                                            <p>Candidates must reschedule exam appointments at least one full business day (24 hours) before the appointment via the candidate website or the call center. Rescheduling an exam less than 24 hours prior to your appointment or failure to appear for your appointment will result in the forfeiture of your exam fee.</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Policy Item 3 */}
-                                    <div className="space-y-2">
-                                        <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                                            <FileText className="w-4 h-4 text-red-500" />
-                                            Cancellation Policy
-                                        </h4>
-                                        <div className="pl-6 text-xs text-gray-400 leading-relaxed">
-                                            <p>Candidates must cancel exam appointments at least one full business day (24 hours) before the appointment via the candidate website or the call center. Cancelling an exam less than 24 hours prior to your appointment or failure to appear for your appointment will result in the forfeiture of your exam fee.</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Additional Information */}
-                                    <div className="space-y-4">
-                                        <h4 className="text-sm font-bold text-red-500 flex items-center gap-2">
-                                            <FileText className="w-4 h-4" />
-                                            Additional Information
-                                        </h4>
-                                        <div className="pl-6 space-y-4 text-xs text-gray-400 leading-relaxed">
-                                            <div>
-                                                <p className="font-bold text-white mb-2">Appointment Length</p>
-                                                <p>PLEASE NOTE: The total "Appointment Length" does not reflect the actual amount of time allotted for the exam ("Length of Test"). Your "Appointment Length" may include time for non-scored sections such as tutorials, the Candidate Agreement and post exam surveys. Visit <a href="https://www.comptia.org/en-us/certifications/" className="text-red-500 hover:text-white underline transition-colors">https://www.comptia.org/en-us/certifications/</a> for the exact "Length of Test" allotted for your exam.</p>
+                                    <label className="flex items-start gap-4 p-4 rounded-xl border border-white/10 bg-white/5 cursor-pointer hover:bg-white/10 transition-all group">
+                                        <div className="relative flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                checked={agreedCSCAPolicy}
+                                                onChange={(e) => setAgreedCSCAPolicy(e.target.checked)}
+                                                className="peer sr-only"
+                                            />
+                                            <div className="w-6 h-6 rounded-md border-2 border-gray-500 peer-checked:border-red-600 peer-checked:bg-red-600 transition-all flex items-center justify-center">
+                                                <CheckCircle2 className="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity" />
                                             </div>
-
-                                            <div>
-                                                <p className="font-bold text-white mb-2">CSCA Candidate Agreement</p>
-                                                <p>For CSCA exams there is a Candidate Agreement that must be read and agreed to in the allotted time period or you will forfeit your exam fee. We strongly suggest you log into their website at <a href="https://www.comptia.org/en-us/resources/test-policies/comptia-candidate-agreement/" className="text-red-500 hover:text-white underline transition-colors">https://www.comptia.org/en-us/resources/test-policies/comptia-candidate-agreement/</a> and read this agreement prior to taking your exam.</p>
-                                            </div>
-
-                                            <div>
-                                                <p className="font-bold text-white mb-2">Sharing Your Certification Status</p>
-                                                <p>If a 3rd party (employer, academic institution, military etc.) has paid for you to take a CSCA exam or to participate in the CSCA Continuing Education (CE) program, upon request CSCA will share your certification status and/or progress in completing your CE requirements with the 3rd party.</p>
-                                            </div>
                                         </div>
-                                    </div>
+                                        <div className="flex-1">
+                                            <span className="text-sm font-bold text-white group-hover:text-red-400 transition-colors">I agree to the CSCA Testing Policies</span>
+                                            <p className="text-xs text-gray-400 mt-1">I have read and accept all admission, rescheduling, cancellation, and exam day rules.</p>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
 
@@ -228,8 +362,9 @@ const TestingPolicies = () => {
                                     Previous
                                 </button>
                                 <button
+                                    disabled={!agreedOnlinePolicy || !agreedCSCAPolicy}
                                     onClick={() => navigate('/select-proctor-language', { state: { examName, temporaryCountry, hasAuthorization } })}
-                                    className="px-10 py-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:scale-105"
+                                    className={`px-10 py-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_30px_rgba(220,38,38,0.4)] ${(!agreedOnlinePolicy || !agreedCSCAPolicy) ? 'bg-gray-800 text-gray-500 cursor-not-allowed opacity-50 shadow-none' : 'bg-red-600 text-white hover:scale-105'}`}
                                 >
                                     I Agree - Continue
                                 </button>
