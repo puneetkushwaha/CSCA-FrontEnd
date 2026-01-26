@@ -149,27 +149,27 @@ const Hero = () => {
                                                 </div>
                                                 
                                                 {/* Right: Content Area */}
-                                                <div className="flex-grow flex flex-col justify-center relative min-h-[100px]">
-                                                    {/* Top Right Tag */}
-                                                    <div className="absolute top-0 right-0">
-                                                        <span className="px-1.5 py-0.5 rounded bg-white/10 border border-white/10 text-white text-[7px] md:text-[9px] font-black uppercase tracking-widest">
-                                                            {cert.level}
-                                                        </span>
-                                                    </div>
+                                                <div className="flex-grow flex flex-col justify-center min-h-[100px]">
+  {/* Title Row */}
+  <div className="flex items-start justify-between mb-2">
+    <h3 className="text-base md:text-lg font-black text-white uppercase tracking-tight leading-tight">
+      {cert.title}
+    </h3>
+    <span className="px-1.5 py-0.5 rounded bg-white/10 border border-white/10 text-white text-[7px] md:text-[9px] font-black uppercase tracking-widest ml-3 shrink-0">
+      {cert.level}
+    </span>
+  </div>
 
-                                                    <h3 className="text-base md:text-lg font-black text-white uppercase tracking-tight mb-2 pr-12 leading-tight">
-                                                        {cert.title}
-                                                    </h3>
+  {position === 0 && (
+    <>
+      <p className="text-[10px] md:text-xs text-white/50 leading-relaxed max-w-sm font-medium">
+        {cert.description}
+      </p>
+      <div className="mt-4 w-full h-px bg-gradient-to-r from-white/10 via-white/5 to-transparent"></div>
+    </>
+  )}
+</div>
 
-                                                    {position === 0 && (
-                                                        <>
-                                                            <p className="text-[10px] md:text-xs text-white/50 leading-relaxed max-w-sm font-medium">
-                                                                {cert.description}
-                                                            </p>
-                                                            <div className="mt-4 w-full h-px bg-gradient-to-r from-white/10 via-white/5 to-transparent"></div>
-                                                        </>
-                                                    )}
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

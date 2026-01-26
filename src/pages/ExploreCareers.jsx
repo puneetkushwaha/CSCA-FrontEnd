@@ -46,7 +46,7 @@ const ExploreCareers = () => {
                 AI Security Engineer | Security Architect | CISO Track
               </p>
               <Link
-                to="#tech-careers"
+                to="/explore-tech-careers"
                 className="inline-flex items-center text-sm font-bold text-white uppercase tracking-wider group-hover:text-red-500 transition-colors"
               >
                 Learn more
@@ -70,7 +70,7 @@ const ExploreCareers = () => {
                 cybersecurity adoption.
               </p>
               <Link
-                to="#industries"
+                to="/explore-industries"
                 className="inline-flex items-center text-sm font-bold text-white uppercase tracking-wider group-hover:text-blue-500 transition-colors"
               >
                 Learn more
@@ -94,7 +94,7 @@ const ExploreCareers = () => {
                 curated roadmap of in-demand cybersecurity jobs.
               </p>
               <Link
-                to="#career-details"
+                to="/careers-plus"
                 className="inline-flex items-center text-sm font-bold text-white uppercase tracking-wider group-hover:text-amber-500 transition-colors"
               >
                 Learn more

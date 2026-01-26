@@ -108,15 +108,7 @@ const Navbar = () => {
     );
 
     const navLinks = [
-        {
-            name: 'Explore Careers',
-            path: '/explore-careers',
-            dropdown: [
-                { name: 'Explore Industries', path: '/explore-industries' },
-                { name: 'Explore Tech Careers', path: '/explore-tech-careers' },
-                { name: 'Careers+', path: '/careers-plus' }
-            ]
-        },
+        { name: 'Explore Careers', path: '/explore-careers',},
         { name: 'Certifications', path: '/certifications' },
         { name: 'Enterprise', path: '/enterprise' },
         { name: 'Partner', path: '/partners-ecosystem' },
